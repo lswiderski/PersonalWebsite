@@ -2,3 +2,39 @@ body {
   font: 100% Helvetica, sans-serif;
   color: #333;
 }
+
+@media screen and (max-width: 543px) {
+  .navbar-top-logo {
+    float: none;
+  }
+  .navbar-top-logo .brand-text {
+    display: none;
+  }
+  .navbar-nav {
+    text-align: center;
+  }
+  .brand-logo {
+    padding-top: 10px;
+    display: inline-block;
+  }
+  .nav .navbar-nav {
+    text-align: left;
+  }
+  .navbar-button {
+    float: left;
+  }
+}
+
+.nav-icon {
+  margin-right: 5px;
+}
+
+.brand-logo {
+  zoom: 50%;
+}
+
+@media screen and (min-width: 543px) {
+  .nav .navbar-nav {
+    float: right;
+  }
+}
