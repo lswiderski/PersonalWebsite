@@ -23,6 +23,9 @@ body {
   .navbar-button {
     float: left;
   }
+  .navbar-toggler.hidden-sm-up.navbar-button {
+    color: white;
+  }
 }
 
 .nav-icon {
