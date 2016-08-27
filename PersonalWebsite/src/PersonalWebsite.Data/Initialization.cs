@@ -34,7 +34,7 @@ namespace PersonalWebsite.Data
                 Console.WriteLine(e.Message);
             }
             services.AddDbContext<DataContext>(options => options.UseSqlServer(@connection, b =>b.MigrationsAssembly("PersonalWebsite.Data")));
-
+            services.AddScoped<IDataContext>(provider => provider.GetService<DataContext>());
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using PersonalWebsite.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace PersonalWebsite.Services
         public void ConfigureServices(IServiceCollection services)
         {
             var dataInit = new Data.Initialization(services);
+
+            services.AddTransient<ISettingModel,SettingModel>();
         }
     }
 }

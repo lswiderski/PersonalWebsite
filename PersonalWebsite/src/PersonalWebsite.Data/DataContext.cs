@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PersonalWebsite.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PersonalWebsite.Data.Entities
+namespace PersonalWebsite.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : DbContext, IDataContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

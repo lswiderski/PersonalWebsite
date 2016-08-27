@@ -1,0 +1,22 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<PersonalWebsite.Services.Models.SettingViewModel> 
+
+<br />
+<br />
+<br />
+<table>
+    <tr>
+        <td>Setting Name</td>
+        <td>Value</td>
+    </tr>
+
+    @foreach (var setting in Model)
+    {
+        <tr>
+            <td>@setting.Name</td>
+            <td>@setting.Value</td>
+        </tr>
+    }
+</table>
