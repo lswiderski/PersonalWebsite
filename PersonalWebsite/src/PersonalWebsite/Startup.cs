@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
+using Microsoft.EntityFrameworkCore;
 namespace PersonalWebsite
 {
     public class Startup
@@ -35,6 +35,8 @@ namespace PersonalWebsite
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
+
+            var appServicesInit = new Services.Initialization(services);
 
             services.AddMvc();
         }
