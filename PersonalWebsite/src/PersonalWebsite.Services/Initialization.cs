@@ -14,9 +14,7 @@ namespace PersonalWebsite.Services
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            var dataInit = new Data.Initialization();
-
-            dataInit.ConfigureServices(services);
+            var dataInit = new Data.Initialization(services);
         }
     }
 }
