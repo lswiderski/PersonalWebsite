@@ -72,7 +72,7 @@ namespace PersonalWebsite.Data
 
             }
 
-            AssignRoles(serviceProvider, user.Email, roles);
+            //AssignRoles(serviceProvider, user.Email, roles);
 
             context.SaveChangesAsync();
         }

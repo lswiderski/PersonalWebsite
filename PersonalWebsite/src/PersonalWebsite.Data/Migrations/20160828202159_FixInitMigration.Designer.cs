@@ -8,8 +8,8 @@ using PersonalWebsite.Data;
 namespace PersonalWebsite.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20160828091909_AspUserIdentity")]
-    partial class AspUserIdentity
+    [Migration("20160828202159_FixInitMigration")]
+    partial class FixInitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -124,7 +124,115 @@ namespace PersonalWebsite.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("PersonalWebsite.Data.ApplicationUser", b =>
+            modelBuilder.Entity("PersonalWebsite.Data.Entities.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Tittle");
+
+                    b.Property<int>("Uses");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("PersonalWebsite.Data.Entities.Post", b =>
+                {
+                    b.Property<int>("PostId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<Guid>("Guid");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<bool>("IsPublished");
+
+                    b.Property<bool>("IsTrashed");
+
+                    b.Property<DateTime>("ModifiedOn");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("PostId");
+
+                    b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("PersonalWebsite.Data.Entities.PostCategory", b =>
+                {
+                    b.Property<int>("PostId");
+
+                    b.Property<int>("CategoryId");
+
+                    b.HasKey("PostId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostCategory");
+                });
+
+            modelBuilder.Entity("PersonalWebsite.Data.Entities.PostTag", b =>
+                {
+                    b.Property<int>("PostId");
+
+                    b.Property<int>("TagId");
+
+                    b.HasKey("PostId", "TagId");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("PostTag");
+                });
+
+            modelBuilder.Entity("PersonalWebsite.Data.Entities.Setting", b =>
+                {
+                    b.Property<int>("SettingId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.Property<byte>("Type");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("SettingId");
+
+                    b.ToTable("Settings");
+                });
+
+            modelBuilder.Entity("PersonalWebsite.Data.Entities.Tag", b =>
+                {
+                    b.Property<int>("TagId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("Uses");
+
+                    b.HasKey("TagId");
+
+                    b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("PersonalWebsite.IdentityModel.ApplicationUser", b =>
                 {
                     b.Property<string>("Id");
 
@@ -173,22 +281,6 @@ namespace PersonalWebsite.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("PersonalWebsite.Data.Entities.Setting", b =>
-                {
-                    b.Property<int>("SettingId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.Property<byte>("Type");
-
-                    b.Property<string>("Value");
-
-                    b.HasKey("SettingId");
-
-                    b.ToTable("Settings");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
@@ -199,7 +291,7 @@ namespace PersonalWebsite.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("PersonalWebsite.Data.ApplicationUser")
+                    b.HasOne("PersonalWebsite.IdentityModel.ApplicationUser")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -207,7 +299,7 @@ namespace PersonalWebsite.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("PersonalWebsite.Data.ApplicationUser")
+                    b.HasOne("PersonalWebsite.IdentityModel.ApplicationUser")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -220,9 +312,35 @@ namespace PersonalWebsite.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("PersonalWebsite.Data.ApplicationUser")
+                    b.HasOne("PersonalWebsite.IdentityModel.ApplicationUser")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PersonalWebsite.Data.Entities.PostCategory", b =>
+                {
+                    b.HasOne("PersonalWebsite.Data.Entities.Category", "Category")
+                        .WithMany("PostCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PersonalWebsite.Data.Entities.Post", "Post")
+                        .WithMany("PostCategories")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PersonalWebsite.Data.Entities.PostTag", b =>
+                {
+                    b.HasOne("PersonalWebsite.Data.Entities.Post", "Post")
+                        .WithMany("PostTags")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PersonalWebsite.Data.Entities.Tag", "Tag")
+                        .WithMany("PostTags")
+                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
         }
