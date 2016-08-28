@@ -8,31 +8,23 @@
                 &#9776;
             </button>
 
-            <a asp-controller="Home" asp-action="Index" class="navbar-brand navbar-top-logo">
-                <span class="brand-logo">
-                <span class="fa-stack fa-lg">
-    <i class="fa fa-laptop fa-stack-2x nav-icon"></i>
-    <i class="fa fa-compass fa-stack-1x nav-icon"></i>
-</span>
-                </span>
-                <span class="brand-text">PersonalWebsite</span>
-            </a>
+            @Html.Partial("Logo")
             <div class="collapse navbar-toggleable-xs" id="CollapsingNavbar">
                 <ul class="nav navbar-nav">
                     <li class="nav-item active">
                         <a asp-controller="Home" asp-action="About" class="nav-link"><i class="fa fa-compass nav-icon" aria-hidden="true"></i>Adventures</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                         <a asp-controller="Home" asp-action="Contact" class="nav-link"><i class="fa fa-laptop nav-icon" aria-hidden="true"></i>Projects</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                         <a asp-controller="Home" asp-action="Contact" class="nav-link"><i class="fa fa-comment nav-icon" aria-hidden="true"></i>Blog</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                         <a asp-controller="Home" asp-action="Contact" class="nav-link"><i class="fa fa-user nav-icon" aria-hidden="true"></i>About</a>
                     </li>
                     </ul>
-                @await Html.PartialAsync("_LoginPartial")
+                
             </div>
            
         </div>

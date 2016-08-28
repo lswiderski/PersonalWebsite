@@ -21,13 +21,10 @@
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
 <body>
-    @Html.Partial("Menu-navbar");
+    @Html.Partial("Menu-navbar")
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2016 - PersonalWebsite</p>
-        </footer>
+        @Html.Partial("Footer")
     </div>
 
     <environment names="Development">

@@ -14,17 +14,16 @@ namespace PersonalWebsite.Areas.Admin.Controllers
     [Authorize(Roles = "Administrator")]
     public class HomeController : Controller
     {
-        ISettingModel settingModel;
-        public HomeController(ISettingModel settingModel)
+
+        public HomeController()
         {
-            this.settingModel = settingModel;
+            
         }
 
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var viewModel = settingModel.GetSettings();
-            return View(viewModel);
+            return View();
         }
     }
 }
