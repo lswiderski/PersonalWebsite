@@ -18,22 +18,9 @@ namespace PersonalWebsite.Data
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            string connection = "";
-            try
-            {
-                string connectionStringPath = "ConnectionString.txt";
+            string connection = @"Server=DESKTOP-14EBE41\SQLEXPRESS;Database=PersonalWebsite;Trusted_Connection=True;";
 
-                using (StreamReader sr = File.OpenText(connectionStringPath))
-                {
-                    connection = sr.ReadToEnd();
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
-            }
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(@connection, b =>b.MigrationsAssembly("PersonalWebsite.Data")));
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(connection, b =>b.MigrationsAssembly("PersonalWebsite.Data")));
             services.AddScoped<IDataContext>(provider => provider.GetService<DataContext>());
         }
     }

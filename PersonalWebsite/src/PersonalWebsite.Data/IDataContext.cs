@@ -10,7 +10,7 @@ namespace PersonalWebsite.Data
 {
     public interface IDataContext
     {
-        DbSet<Setting> Settings { get; set; }
+         DbSet<Setting> Settings { get; set; }
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
