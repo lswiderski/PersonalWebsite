@@ -16,7 +16,7 @@ namespace PersonalWebsite.Data
 
         }
 
-        public DbSet<Setting> Settings { get; set; }
+        public virtual DbSet<Setting> Settings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

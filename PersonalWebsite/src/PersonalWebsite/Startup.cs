@@ -7,10 +7,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using PersonalWebsite.IdentityModel;
+
 namespace PersonalWebsite
 {
     public class Startup
     {
+        private Services.Initialization appServicesInit;
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -39,13 +44,10 @@ namespace PersonalWebsite
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            var appServicesInit = new Services.Initialization(services);
-
-            
-
+            appServicesInit = new Services.Initialization(services);
             services.AddMvc();
 
-           
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,13 +68,12 @@ namespace PersonalWebsite
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
             app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
 
             app.UseIdentity();
-
+            appServicesInit.Configure(app.ApplicationServices);
             app.UseMvc(routes =>
             {
                 routes.MapRoute(name: "areaRoute",

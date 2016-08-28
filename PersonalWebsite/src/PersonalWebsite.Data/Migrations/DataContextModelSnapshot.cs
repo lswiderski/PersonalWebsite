@@ -123,7 +123,7 @@ namespace PersonalWebsite.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("PersonalWebsite.Data.ApplicationUser", b =>
+            modelBuilder.Entity("PersonalWebsite.IdentityModel.ApplicationUser", b =>
                 {
                     b.Property<string>("Id");
 

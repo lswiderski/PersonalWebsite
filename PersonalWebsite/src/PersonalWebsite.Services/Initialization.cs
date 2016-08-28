@@ -7,18 +7,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PersonalWebsite.IdentityModel;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
 
 namespace PersonalWebsite.Services
 {
     public class Initialization
     {
+
+        private Data.Initialization dataInit;
         public Initialization(IServiceCollection services)
         {
             this.ConfigureServices(services);
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            var dataInit = new Data.Initialization(services);
+            dataInit = new Data.Initialization(services);
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<DataContext>()
@@ -30,6 +34,11 @@ namespace PersonalWebsite.Services
 
             services.AddTransient<ISettingModel,SettingModel>();
 
+        }
+
+        public void Configure(IServiceProvider serviceProvider)
+        {
+            dataInit.Configure(serviceProvider);
         }
     }
 }
