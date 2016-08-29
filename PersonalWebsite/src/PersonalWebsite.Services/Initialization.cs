@@ -33,6 +33,9 @@ namespace PersonalWebsite.Services
             services.AddTransient<ISmsSender, AuthMessageSender>();
 
             services.AddTransient<ISettingModel,SettingModel>();
+            services.AddTransient<IPostModel, PostModel>();
+            services.AddTransient<ITagModel, TagModel>();
+            services.AddTransient<ICategoryModel, CategoryModel>();
 
         }
 
