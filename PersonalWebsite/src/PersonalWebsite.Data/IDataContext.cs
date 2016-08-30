@@ -12,10 +12,10 @@ namespace PersonalWebsite.Data
     {
         DbSet<Setting> Settings { get; set; }
         DbSet<Post> Posts { get; set; }
-
         DbSet<Category> Categories { get; set; }
-
         DbSet<Tag> Tags { get; set; }
+        DbSet<PostTag> PostTags { get; set; }
+        DbSet<PostCategory> PostCategories { get; set; }
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

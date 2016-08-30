@@ -14,7 +14,7 @@ namespace PersonalWebsite.Data.Entities
 
         public DateTime CreatedOn { get; set; }
 
-        public DateTime ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
 
         public string Title { get; set; }
 
