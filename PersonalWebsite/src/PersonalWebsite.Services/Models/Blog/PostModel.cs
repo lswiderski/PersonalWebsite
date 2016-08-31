@@ -8,8 +8,8 @@ namespace PersonalWebsite.Services.Models
 {
     public class PostModel : IPostModel
     {
-        private readonly IDataContext db;
-        public PostModel(IDataContext db)
+        private readonly DataContext db;
+        public PostModel(DataContext db)
         {
             this.db = db;
         }

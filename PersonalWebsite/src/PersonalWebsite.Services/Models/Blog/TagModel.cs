@@ -10,9 +10,9 @@ namespace PersonalWebsite.Services.Models
     public class TagModel : ITagModel
     {
 
-        private readonly IDataContext db;
+        private readonly DataContext db;
 
-        public TagModel(IDataContext db)
+        public TagModel(DataContext db)
         {
             this.db = db;
         }
@@ -86,14 +86,14 @@ namespace PersonalWebsite.Services.Models
         public List<TagViewModel> GetTagsUsedByPost(int id)
         {
             //TODO I'm not sure if I need use condition here, check it later
-            var categories = db.Posts.SingleOrDefault(x => x.PostId == id)?.PostTags.Select(y => new TagViewModel
+            var tags = db.Posts.SingleOrDefault(x => x.PostId == id)?.PostTags.Select(y => new TagViewModel
             {
                 Name = y.Tag.Name,
                 TagId = y.Tag.TagId,
                 Uses = y.Tag.Uses
             }).ToList();
 
-            return categories;
+            return tags;
         }
 
         public void DeleteTag(int id)

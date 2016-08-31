@@ -1,4 +1,5 @@
-﻿using PersonalWebsite.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PersonalWebsite.Data;
 using PersonalWebsite.Data.Entities;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,9 @@ namespace PersonalWebsite.Services.Models
 {
     public class SettingModel : ISettingModel
     {
-        private readonly IDataContext db;
+        private readonly DataContext db;
 
-        public SettingModel(IDataContext db)
+        public SettingModel(DataContext db)
         {
             this.db = db;
         }
@@ -53,17 +54,6 @@ namespace PersonalWebsite.Services.Models
 
         public List<SettingViewModel> GetSettings()
         {
-            var tags = db.Tags.ToList();
-            var posts = db.Posts.ToList();
-            var posts1 = posts[0].PostTags;
-            var postTags = db.Posts.Where(x => x.PostId == 5).Select(y => y.PostTags).ToList();
-
-            var t = (from post in db.Posts
-                     join pt in db.PostTags on post.PostId equals pt.PostId
-                     join tag in db.Tags on pt.TagId equals tag.TagId
-                     where post.PostId == 5
-                     select tag).ToList();
-
             var settings = db.Settings.Select(x => new SettingViewModel
             {
                 SettingId = x.SettingId,

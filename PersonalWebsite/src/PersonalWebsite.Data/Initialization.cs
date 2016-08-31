@@ -25,7 +25,6 @@ namespace PersonalWebsite.Data
             string connection = @"Server=DESKTOP-14EBE41\SQLEXPRESS;Database=PersonalWebsite;Trusted_Connection=True;";
 
             services.AddDbContext<DataContext>(options => options.UseSqlServer(connection, b =>b.MigrationsAssembly("PersonalWebsite.Data")));
-            services.AddScoped<IDataContext>(provider => provider.GetService<DataContext>());
            
         }
         public void Configure(IServiceProvider serviceProvider)

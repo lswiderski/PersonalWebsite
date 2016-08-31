@@ -8,9 +8,9 @@ namespace PersonalWebsite.Services.Models
 {
     public class CategoryModel : ICategoryModel
     {
-        private readonly IDataContext db;
+        private readonly DataContext db;
 
-        public CategoryModel(IDataContext db)
+        public CategoryModel(DataContext db)
         {
             this.db = db;
         }
