@@ -1,0 +1,21 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="tag-list">
+                @await Component.InvokeAsync("AdminAddEditTag")
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="tag-add-edit-box">
+                @await Component.InvokeAsync("AdminTagList")
+            </div>
+        </div> 
+    </div>
+</div>
