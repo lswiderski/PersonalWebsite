@@ -173,15 +173,6 @@ body {
     </style>
 </head>
 <body>
-    
-    @Html.Partial("Menu-Admin")
-    <div class="container body-content">
-       <div>
-           @RenderBody()
-       </div>
-        @Html.Partial("Footer")
-    </div>
-
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -202,6 +193,15 @@ body {
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
+    @Html.Partial("Menu-Admin")
+    <div class="container body-content">
+       <div>
+           @RenderBody()
+       </div>
+        @Html.Partial("Footer")
+    </div>
+
+    
 
     @RenderSection("scripts", required: false)
 </body>

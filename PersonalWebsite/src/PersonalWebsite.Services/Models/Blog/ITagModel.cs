@@ -16,5 +16,7 @@ namespace PersonalWebsite.Services.Models
         int GetUsesOfTag(int id);
         void CalculateUses(int id);
         List<TagViewModel> GetTagsUsedByPost(int id);
+
+        EditTagViewModel GetTagForEdit(int id);
     }
 }

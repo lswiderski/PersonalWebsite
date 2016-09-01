@@ -8,14 +8,139 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <div class="tag-list">
-                @await Component.InvokeAsync("AdminAddEditTag")
+            <div id="tag-list">
+               @await Component.InvokeAsync("AdminTagList")
             </div>
         </div>
         <div class="col-md-6">
-            <div class="tag-add-edit-box">
-                @await Component.InvokeAsync("AdminTagList")
+            <div id ="tag-add-edit-box">
+                @await Component.InvokeAsync("AdminAddEditTag")
+                
             </div>
         </div> 
     </div>
 </div>
+
+<script>
+    var AdminTag;
+
+    $(document).ready(function () {
+        AdminTag = new AdminTagScope();
+        AdminTag.Init();
+    });
+    function AdminTagScope() {
+        var self = this;
+        this.Init = function () {
+        };
+        this.EditTag = function (actionUrl, id) {
+            $.ajax({
+                type: "POST",
+                url: actionUrl,
+                traditional: true,
+                data: {
+                    Id: id
+                },
+                dataType: "html",
+                success: function (response) {
+                    $('#tag-add-edit-box').html(response);
+                    self.GetList();
+                },
+                error: function (e) {
+                    alert('something goes wrong');
+                }
+            });
+        };
+
+        this.SaveTag = function (actionUrl) {
+            $.ajax({
+                type: "POST",
+                url: actionUrl,
+                traditional: true,
+                data: {
+                    TagId: $('#TagId').val(),
+                    Name: $('#Name').val()
+                },
+                dataType: "html",
+                success: function (response) {
+                    $('#tag-add-edit-box').html(response);
+                    self.GetList();
+                },
+                error: function (e) {
+                    alert('something goes wrong');
+                }
+            });
+        };
+        this.Cancel = function (actionUrl) {
+            $.ajax({
+                type: "POST",
+                url: actionUrl,
+                traditional: true,
+                data: {},
+                dataType: "html",
+                success: function (response) {
+                    $('#tag-add-edit-box').html(response);
+                    self.GetList();
+                },
+                error: function (e) {
+                    alert('something goes wrong');
+                }
+            });
+        };
+
+        this.GetList = function () {
+            var actionUrl = $('#tag-list').data('request-url');
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetAll", "Tags", new { Area = "Admin" })',
+                traditional: true,
+                data: {},
+                dataType: "html",
+                success: function (response) {
+                    $('#tag-list').html(response);
+                },
+                error: function (e) {
+                    alert('something goes wrong');
+                }
+            });
+        };
+
+        this.AddTag = function (actionUrl) {
+            $.ajax({
+                type: "POST",
+                url: actionUrl,
+                traditional: true,
+                data: {
+                    Name: $('#Name').val()
+                },
+                dataType: "html",
+                success: function (response) {
+                    $('#tag-add-edit-box').html(response);
+                    self.GetList();
+                },
+                error: function (e) {
+                    alert('something goes wrong');
+                }
+            });
+        };
+
+        this.Delete = function (actionUrl) {
+            $.ajax({
+                type: "POST",
+                url: actionUrl,
+                traditional: true,
+                data: {
+                    Id: $('#TagId').val(),
+                },
+                dataType: "html",
+                success: function (response) {
+                    $('#tag-add-edit-box').html(response);
+                    self.GetList();
+                },
+                error: function (e) {
+                    alert('something goes wrong');
+                }
+            });
+        };
+
+    }
+</script>

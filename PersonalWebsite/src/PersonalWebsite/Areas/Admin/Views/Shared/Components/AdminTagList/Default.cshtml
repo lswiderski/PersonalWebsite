@@ -9,9 +9,7 @@
                 Tag
             </th>
             <th>
-                Uses
-            </th>
-            <th>
+                Uses (redirect to page with all post uses this tag)
             </th>
         </tr>
     </thead>
@@ -19,10 +17,8 @@
         @foreach (var tag in Model)
         {
             <tr>
-                <td><a href="@tag.TagId"> @tag.Name</a> fill form with data to edit</td>
-                <td><a href="@tag.TagId"> @tag.Uses</a> redirect to page with all post uses this tag</td>
-                <td><a href="@tag.TagId">X</a> delete</td>
-
+                <td><a class="tag-edit-button" href="#" onclick="AdminTag.EditTag('@Url.Action("GetEditTagComponent", "Tags", new { Area = "Admin" })',@tag.TagId);">@tag.Name</a></td>
+                <td><a href="@tag.TagId"> @tag.Uses</a> </td>
             </tr>
         }
     </tbody>

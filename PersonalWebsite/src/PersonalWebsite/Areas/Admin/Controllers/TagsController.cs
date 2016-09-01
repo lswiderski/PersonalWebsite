@@ -33,19 +33,25 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         {
             if(!ModelState.IsValid)
             {
-                return PartialView(model);
+                return ViewComponent("AdminAddEditTag");
             }
 
             tagModel.AddTag(model);
 
-            return PartialView();
+            return ViewComponent("AdminAddEditTag");
         }
-        
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            tagModel.DeleteTag(id);
+            return ViewComponent("AdminAddEditTag");
+        }
+
+        [HttpPost]
         public IActionResult GetAll()
         {
-            var viewModel = tagModel.GetTags();
-
-            return PartialView(viewModel);
+            return ViewComponent("AdminTagList");
 
         }
 
@@ -61,15 +67,27 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return PartialView(model);
+                return ViewComponent("AdminAddEditTag", new { tag = model });
             }
 
             tagModel.EditTag(model);
 
-            return PartialView();
+            return ViewComponent("AdminAddEditTag");
+        }
+
+        [HttpPost]
+        public IActionResult GetEditTagComponent(int id)
+        {
+            var viewModel = tagModel.GetTagForEdit(id);
+            return ViewComponent("AdminAddEditTag", new { tag = viewModel });
+        }
+
+        [HttpPost]
+        public IActionResult GetAddForm()
+        {
+            return ViewComponent("AdminAddEditTag");
         }
 
 
-        
     }
 }

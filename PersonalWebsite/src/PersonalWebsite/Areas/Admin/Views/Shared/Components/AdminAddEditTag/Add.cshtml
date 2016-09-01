@@ -6,5 +6,4 @@
 
 @Html.EditorFor(x => x.Name)
 
-<button>Add</button>
-<button>Cancel</button>
+<button onclick="AdminTag.AddTag('@Url.Action("Add", "Tags", new { Area = "Admin" })')">Add</button>
