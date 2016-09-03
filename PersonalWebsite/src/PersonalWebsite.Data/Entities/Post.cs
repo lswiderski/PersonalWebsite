@@ -18,6 +18,8 @@ namespace PersonalWebsite.Data.Entities
 
         public string Title { get; set; }
 
+        public string Excerpt { get; set; }
+
         public string Name { get; set; }
 
         public string Content { get; set; }
