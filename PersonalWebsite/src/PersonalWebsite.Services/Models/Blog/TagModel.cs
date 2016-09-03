@@ -111,12 +111,10 @@ namespace PersonalWebsite.Services.Models
         public void DeleteTag(int id)
         {
             var tag = db.Tags.SingleOrDefault(x => x.TagId == id);
-            var postTags = db.PostTags.Where(x => x.TagId == id);
 
             if (tag != null)
             {
                 db.Tags.Remove(tag);
-                db.PostTags.RemoveRange(postTags);
                 db.SaveChanges();
             }
         }

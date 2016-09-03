@@ -9,7 +9,10 @@
                 Tag
             </th>
             <th>
-                Uses (redirect to page with all post uses this tag)
+                Uses
+            </th>
+            <th>
+                Delete
             </th>
         </tr>
     </thead>
@@ -19,6 +22,7 @@
             <tr>
                 <td><a class="tag-edit-button" href="#" onclick="AdminTag.EditTag('@Url.Action("GetEditTagComponent", "Tags", new { Area = "Admin" })',@tag.TagId);">@tag.Name</a></td>
                 <td><a href="@tag.TagId"> @tag.Uses</a> </td>
+                <td><a href="#" onclick="AdminTag.Delete('@Url.Action("Delete", "Tags", new { Area = "Admin" })',@tag.TagId);"> X</a></td>
             </tr>
         }
     </tbody>

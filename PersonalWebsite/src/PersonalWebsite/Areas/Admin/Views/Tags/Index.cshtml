@@ -43,7 +43,7 @@
                 dataType: "html",
                 success: function (response) {
                     $('#tag-add-edit-box').html(response);
-                    self.GetList();
+                    self.RefreshList();
                 },
                 error: function (e) {
                     alert('something goes wrong');
@@ -63,7 +63,7 @@
                 dataType: "html",
                 success: function (response) {
                     $('#tag-add-edit-box').html(response);
-                    self.GetList();
+                    self.RefreshList();
                 },
                 error: function (e) {
                     alert('something goes wrong');
@@ -79,7 +79,7 @@
                 dataType: "html",
                 success: function (response) {
                     $('#tag-add-edit-box').html(response);
-                    self.GetList();
+                    self.RefreshList();
                 },
                 error: function (e) {
                     alert('something goes wrong');
@@ -87,7 +87,7 @@
             });
         };
 
-        this.GetList = function () {
+        this.RefreshList = function () {
             var actionUrl = $('#tag-list').data('request-url');
             $.ajax({
                 type: "POST",
@@ -115,7 +115,7 @@
                 dataType: "html",
                 success: function (response) {
                     $('#tag-add-edit-box').html(response);
-                    self.GetList();
+                    self.RefreshList();
                 },
                 error: function (e) {
                     alert('something goes wrong');
@@ -123,20 +123,21 @@
             });
         };
 
-        this.Delete = function (actionUrl) {
+        this.Delete = function (actionUrl, id) {
             $.ajax({
                 type: "POST",
                 url: actionUrl,
                 traditional: true,
                 data: {
-                    Id: $('#TagId').val(),
+                    Id: id,
                 },
                 dataType: "html",
                 success: function (response) {
                     $('#tag-add-edit-box').html(response);
-                    self.GetList();
+                    self.RefreshList();
                 },
                 error: function (e) {
+                    debugger;
                     alert('something goes wrong');
                 }
             });
