@@ -30,7 +30,12 @@
     });
     function AdminTagScope() {
         var self = this;
+        var addEditBox, listBox, refreshUrl;
+
         this.Init = function () {
+            addEditBox = $('#tag-add-edit-box');
+            listBox = $('#tag-list');
+            refreshUrl = '@Url.Action("GetAll", "Tags", new { Area = "Admin" })';
         };
         this.EditTag = function (actionUrl, id) {
             $.ajax({
@@ -42,7 +47,7 @@
                 },
                 dataType: "html",
                 success: function (response) {
-                    $('#tag-add-edit-box').html(response);
+                    addEditBox.html(response);
                     self.RefreshList();
                 },
                 error: function (e) {
@@ -51,18 +56,18 @@
             });
         };
 
-        this.SaveTag = function (actionUrl) {
+        this.SaveTag = function (actionUrl, id, name) {
             $.ajax({
                 type: "POST",
                 url: actionUrl,
                 traditional: true,
                 data: {
-                    TagId: $('#TagId').val(),
-                    Name: $('#Name').val()
+                    TagId: id,
+                    Name: name
                 },
                 dataType: "html",
                 success: function (response) {
-                    $('#tag-add-edit-box').html(response);
+                    addEditBox.html(response);
                     self.RefreshList();
                 },
                 error: function (e) {
@@ -78,7 +83,7 @@
                 data: {},
                 dataType: "html",
                 success: function (response) {
-                    $('#tag-add-edit-box').html(response);
+                    addEditBox.html(response);
                     self.RefreshList();
                 },
                 error: function (e) {
@@ -91,12 +96,12 @@
             var actionUrl = $('#tag-list').data('request-url');
             $.ajax({
                 type: "POST",
-                url: '@Url.Action("GetAll", "Tags", new { Area = "Admin" })',
+                url: refreshUrl,
                 traditional: true,
                 data: {},
                 dataType: "html",
                 success: function (response) {
-                    $('#tag-list').html(response);
+                    listBox.html(response);
                 },
                 error: function (e) {
                     alert('something goes wrong');
@@ -104,17 +109,17 @@
             });
         };
 
-        this.AddTag = function (actionUrl) {
+        this.AddTag = function (actionUrl, name) {
             $.ajax({
                 type: "POST",
                 url: actionUrl,
                 traditional: true,
                 data: {
-                    Name: $('#Name').val()
+                    Name: name
                 },
                 dataType: "html",
                 success: function (response) {
-                    $('#tag-add-edit-box').html(response);
+                    addEditBox.html(response);
                     self.RefreshList();
                 },
                 error: function (e) {
@@ -133,7 +138,7 @@
                 },
                 dataType: "html",
                 success: function (response) {
-                    $('#tag-add-edit-box').html(response);
+                    addEditBox.html(response);
                     self.RefreshList();
                 },
                 error: function (e) {

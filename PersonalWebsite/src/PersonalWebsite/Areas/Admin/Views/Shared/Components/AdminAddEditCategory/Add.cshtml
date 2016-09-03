@@ -3,10 +3,10 @@
 @{
 }
 <p>Add New Category</p>
-@Html.DisplayFor(x =>x.Name)
+@Html.LabelFor(x =>x.Name)
 @Html.EditorFor(x => x.Name)
 
-@Html.DisplayFor(x => x.Tittle)
+@Html.LabelFor(x => x.Tittle)
 @Html.EditorFor(x => x.Tittle)
 
-<button onclick="AdminCategory.AddCategory('@Url.Action("Add", "Category", new { Area = "Admin" })')">Add</button>
+<button onclick="AdminCategory.AddCategory('@Url.Action("Add", "Category", new { Area = "Admin" })', $('#Name').val(), $('#Tittle').val())">Add</button>

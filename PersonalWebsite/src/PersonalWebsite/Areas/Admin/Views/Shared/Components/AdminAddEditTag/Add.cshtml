@@ -4,7 +4,7 @@
 }
 <p>Add New Tag</p>
 
-@Html.DisplayFor(x => x.Name)
+@Html.LabelFor(x => x.Name)
 @Html.EditorFor(x => x.Name)
 
-<button onclick="AdminTag.AddTag('@Url.Action("Add", "Tags", new { Area = "Admin" })')">Add</button>
+<button onclick="AdminTag.AddTag('@Url.Action("Add", "Tags", new { Area = "Admin" })', $('#Name').val())">Add</button>

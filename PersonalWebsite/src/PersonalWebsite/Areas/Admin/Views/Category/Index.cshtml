@@ -27,7 +27,12 @@
     });
     function AdminCategoryScope() {
         var self = this;
+        var addEditBox, listBox, refreshUrl;
+
         this.Init = function () {
+            addEditBox = $('#category-add-edit-box');
+            listBox = $('#category-list');
+            refreshUrl = '@Url.Action("GetAll", "Category", new { Area = "Admin" })';
         };
         this.EditCategory = function (actionUrl, id) {
             $.ajax({
@@ -39,7 +44,7 @@
                 },
                 dataType: "html",
                 success: function (response) {
-                    $('#category-add-edit-box').html(response);
+                    addEditBox.html(response);
                     self.RefreshList();
                 },
                 error: function (e) {
@@ -48,19 +53,19 @@
             });
         };
 
-        this.SaveCategory = function (actionUrl) {
+        this.SaveCategory = function (actionUrl, id, name, tittle) {
             $.ajax({
                 type: "POST",
                 url: actionUrl,
                 traditional: true,
                 data: {
-                    CategoryId: $('#CategoryId').val(),
-                    Name: $('#Name').val(),
-                    Tittle: $('#Tittle').val()
+                    CategoryId: id,
+                    Name: name,
+                    Tittle: tittle
                 },
                 dataType: "html",
                 success: function (response) {
-                    $('#category-add-edit-box').html(response);
+                    addEditBox.html(response);
                     self.RefreshList();
                 },
                 error: function (e) {
@@ -76,7 +81,7 @@
                 data: {},
                 dataType: "html",
                 success: function (response) {
-                    $('#category-add-edit-box').html(response);
+                    addEditBox.html(response);
                     self.RefreshList();
                 },
                 error: function (e) {
@@ -89,12 +94,12 @@
             var actionUrl = $('#category-list').data('request-url');
             $.ajax({
                 type: "POST",
-                url: '@Url.Action("GetAll", "Category", new { Area = "Admin" })',
+                url: refreshUrl,
                 traditional: true,
                 data: {},
                 dataType: "html",
                 success: function (response) {
-                    $('#category-list').html(response);
+                    listBox.html(response);
                 },
                 error: function (e) {
                     alert('something goes wrong');
@@ -102,18 +107,18 @@
             });
         };
 
-        this.AddCategory = function (actionUrl) {
+        this.AddCategory = function (actionUrl, name, tittle) {
             $.ajax({
                 type: "POST",
                 url: actionUrl,
                 traditional: true,
                 data: {
-                    Name: $('#Name').val(),
-                    Tittle: $('#Tittle').val()
+                    Name: name,
+                    Tittle: tittle
                 },
                 dataType: "html",
                 success: function (response) {
-                    $('#category-add-edit-box').html(response);
+                    addEditBox.html(response);
                     self.RefreshList();
                 },
                 error: function (e) {
@@ -132,7 +137,7 @@
                 },
                 dataType: "html",
                 success: function (response) {
-                    $('#category-add-edit-box').html(response);
+                    addEditBox.html(response);
                     self.RefreshList();
                 },
                 error: function (e) {

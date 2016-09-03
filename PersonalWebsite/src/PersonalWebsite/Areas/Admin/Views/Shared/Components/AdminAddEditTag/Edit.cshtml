@@ -4,10 +4,10 @@
 }
 <p>Strange component item</p>
 @Html.HiddenFor(x=>x.TagId)
-@Html.DisplayFor(x => x.Name)
+@Html.LabelFor(x => x.Name)
 @Html.EditorFor(x => x.Name)
 
-<button onclick="AdminTag.SaveTag('@Url.Action("Edit", "Tags", new { Area = "Admin" })')">Save</button>
+<button onclick="AdminTag.SaveTag('@Url.Action("Edit", "Tags", new { Area = "Admin" })', @Model.TagId, $('#Name').val())">Save</button>
 <button onclick="AdminTag.Delete('@Url.Action("Delete", "Tags", new { Area = "Admin" })',@Model.TagId)">Delete</button>
 <button onclick="AdminTag.Cancel('@Url.Action("GetAddForm", "Tags", new { Area = "Admin" })')">Cancel</button>
 
