@@ -1,0 +1,32 @@
+﻿@using PersonalWebsite.Services.Models
+@model PostViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="post">
+    <h1>@Model.Title</h1>
+    <span>
+        Categories:
+        @foreach (var category in @Model.Categories)
+            {
+            <a href="@category.Name">@category.Tittle</a>
+        }
+    </span>
+    <h6>@Model.CreatedOn</h6>
+
+    <div class="post-content">@Model.Content</div>
+
+    <div>
+        <span>
+            Tags:
+            @foreach (var tag in @Model.Tags)
+            {
+                <a href="@tag.Name">@tag.Name </a>
+            }
+        </span>
+    </div>
+
+    <div class="post-comments"></div>
+</div>

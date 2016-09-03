@@ -74,8 +74,12 @@ namespace PersonalWebsite
 
             app.UseIdentity();
             appServicesInit.Configure(app.ApplicationServices);
+
             app.UseMvc(routes =>
             {
+                routes.MapRoute(name: "blog",
+                    template: "{controller}/{id?}",
+                    defaults: new { action = "Index" });
                 routes.MapRoute(name: "areaRoute",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute(

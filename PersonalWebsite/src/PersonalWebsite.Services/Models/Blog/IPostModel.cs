@@ -7,5 +7,12 @@ namespace PersonalWebsite.Services.Models
 {
     public interface IPostModel
     {
+        List<SimplifiedPostViewModel> GetPublishedSimplifiedPosts();
+        void AddPost(AddPostViewModel model);
+        PostViewModel GetPublishedPost(int id);
+        PostViewModel GetPublishedPost(string name);
+        EditPostViewModel GetPostForEdit(int id);
+        void UpdatePost(EditPostViewModel model);
+        void DeletePost(int id);
     }
 }
