@@ -16,5 +16,7 @@ namespace PersonalWebsite.Services.Models
         int GetUsesOfCategory(int id);
         void CalculateUses(int id);
         List<CategoryViewModel> GetCategoriesUsedByPost(int id);
+
+        EditCategoryViewModel GetCategoryForEdit(int id);
     }
 }

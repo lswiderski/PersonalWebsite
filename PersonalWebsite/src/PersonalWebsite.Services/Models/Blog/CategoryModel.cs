@@ -109,5 +109,20 @@ namespace PersonalWebsite.Services.Models
                 db.SaveChanges();
             }
         }
+
+        public EditCategoryViewModel GetCategoryForEdit(int id)
+        {
+            var category = GetCategory(id);
+            if (category != null)
+            {
+                return new EditCategoryViewModel
+                {
+                    Name = category.Name,
+                    Tittle = category.Tittle,
+                    CategoryId = category.CategoryId
+                };
+            }
+            return new EditCategoryViewModel();
+        }
     }
 }

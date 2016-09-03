@@ -1,0 +1,12 @@
+﻿@using PersonalWebsite.Services.Models
+@model AddCategoryViewModel
+@{
+}
+<p>Add New Category</p>
+@Html.DisplayFor(x =>x.Name)
+@Html.EditorFor(x => x.Name)
+
+@Html.DisplayFor(x => x.Tittle)
+@Html.EditorFor(x => x.Tittle)
+
+<button onclick="AdminCategory.AddCategory('@Url.Action("Add", "Category", new { Area = "Admin" })')">Add</button>

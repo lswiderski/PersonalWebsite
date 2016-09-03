@@ -1,0 +1,17 @@
+﻿@using PersonalWebsite.Services.Models
+@model EditCategoryViewModel
+@{
+}
+<p>Strange component item</p>
+@Html.HiddenFor(x => x.CategoryId)
+
+@Html.DisplayFor(x => x.Name)
+@Html.EditorFor(x => x.Name)
+
+@Html.DisplayFor(x => x.Tittle)
+@Html.EditorFor(x => x.Tittle)
+
+<button onclick="AdminCategory.SaveCategory('@Url.Action("Edit", "Category", new { Area = "Admin" })')">Save</button>
+<button onclick="AdminCategory.Delete('@Url.Action("Delete", "Category", new { Area = "Admin" })',@Model.CategoryId)">Delete</button>
+<button onclick="AdminCategory.Cancel('@Url.Action("GetAddForm", "Category", new { Area = "Admin" })')">Cancel</button>
+

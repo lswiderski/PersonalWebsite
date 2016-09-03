@@ -4,6 +4,7 @@
 }
 <p>Strange component item</p>
 @Html.HiddenFor(x=>x.TagId)
+@Html.DisplayFor(x => x.Name)
 @Html.EditorFor(x => x.Name)
 
 <button onclick="AdminTag.SaveTag('@Url.Action("Edit", "Tags", new { Area = "Admin" })')">Save</button>

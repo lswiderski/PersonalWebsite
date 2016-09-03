@@ -2,8 +2,9 @@
 @model AddTagViewModel
 @{
 }
-<p>Strange component item</p>
+<p>Add New Tag</p>
 
+@Html.DisplayFor(x => x.Name)
 @Html.EditorFor(x => x.Name)
 
 <button onclick="AdminTag.AddTag('@Url.Action("Add", "Tags", new { Area = "Admin" })')">Add</button>
