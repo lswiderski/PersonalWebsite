@@ -14,5 +14,6 @@ namespace PersonalWebsite.Services.Models
         EditPostViewModel GetPostForEdit(int id);
         void UpdatePost(EditPostViewModel model);
         void DeletePost(int id);
+        List<SimplifiedPostViewModel> GetSimplifiedPosts();
     }
 }

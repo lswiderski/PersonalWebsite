@@ -1,0 +1,40 @@
+﻿@using PersonalWebsite.Services.Models
+@model List<SimplifiedPostViewModel>
+
+@{
+    Layout = "_AdminLayout";
+}
+<a asp-area="Admin" asp-controller="Post" asp-action="Add" class="nav-link">Add new</a>
+<div id="Post-List">
+    <table>
+        <thead>
+            <tr>
+                <th>Tittle</th>
+                <th>Categories</th>
+                <th>Tags</th>
+
+            </tr>
+        </thead>
+        <tbody>
+@foreach (var post in Model)
+{
+    <tr>
+        <td><a asp-area="Admin" asp-controller="Post" asp-action="Edit" asp-route-id="@post.PostId">@post.Title</a></td>
+        <td>
+            @foreach (var category in post.Categories)
+                {
+            <a href="@category.Name">@category.Tittle, </a>
+                }
+    </td>
+        <td>
+            @foreach (var tag in post.Tags)
+                {
+                <a href="@tag.Name">@tag.Name, </a>
+                }
+        </td>
+    </tr>
+}
+            
+        </tbody>
+    </table>
+</div>

@@ -44,12 +44,38 @@ namespace PersonalWebsite.Services.Models
             return posts;
         }
 
+        public List<SimplifiedPostViewModel> GetSimplifiedPosts()
+        {
+            var posts = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
+                         where post.IsDeleted == false
+                         select new SimplifiedPostViewModel
+                         {
+                             Name = post.Name,
+                             Title = post.Title,
+                             Excerpt = post.Excerpt,
+                             PostId = post.PostId,
+                             Categories = post.PostCategories.Select(y => new CategoryViewModel
+                             {
+                                 CategoryId = y.CategoryId,
+                                 Name = y.Category.Name,
+                                 Tittle = y.Category.Tittle
+                             }).ToList(),
+                             Tags = post.PostTags.Select(y => new TagViewModel
+                             {
+                                 TagId = y.TagId,
+                                 Name = y.Tag.Name
+                             }).ToList()
+                         }).ToList();
+            return posts;
+        }
+
         public void AddPost(AddPostViewModel model)
         {
             var post = new Post
             {
                 Content = model.Content,
                 CreatedOn = DateTime.Now,
+                Title = model.Title,
                 Excerpt = model.Excerpt,
                 Guid = Guid.NewGuid(),
                 IsPublished = model.IsPublished,
@@ -57,24 +83,32 @@ namespace PersonalWebsite.Services.Models
             };
 
             db.Posts.Add(post);
-            foreach (var category in model.Categories)
+            if(model.Categories != null)
             {
-                var postCategory = new PostCategory
+                foreach (var category in model.Categories)
                 {
-                    CategoryId = category,
-                    PostId = post.PostId
-                };
-                db.PostCategories.Add(postCategory);
+                    var postCategory = new PostCategory
+                    {
+                        CategoryId = category,
+                        PostId = post.PostId
+                    };
+                    db.PostCategories.Add(postCategory);
+                }
             }
-            foreach (var tag in model.Tags)
+           
+            if(model.Tags != null)
             {
-                var postTag = new PostTag
+                foreach (var tag in model.Tags)
                 {
-                    TagId = tag,
-                    PostId = post.PostId
-                };
-                db.PostTags.Add(postTag);
+                    var postTag = new PostTag
+                    {
+                        TagId = tag,
+                        PostId = post.PostId
+                    };
+                    db.PostTags.Add(postTag);
+                }
             }
+            
 
             db.SaveChanges();
         }
@@ -192,16 +226,24 @@ namespace PersonalWebsite.Services.Models
             post.IsPublished = model.IsPublished;
             post.IsTrashed = model.IsTrashed;
             post.ModifiedOn = DateTime.Now;
-            post.PostTags = model.Tags.Select(y => new PostTag
+            if(model.Tags != null)
             {
-                PostId = post.PostId,
-                TagId = y.TagId
-            }).ToList();
-            post.PostCategories = model.Categories.Select(y => new PostCategory
+                post.PostTags = model.Tags.Select(y => new PostTag
+                {
+                    PostId = post.PostId,
+                    TagId = y.TagId
+                }).ToList();
+            }
+            
+            if(model.Categories != null)
             {
-                PostId = post.PostId,
-                CategoryId = y.CategoryId
-            }).ToList();
+                post.PostCategories = model.Categories.Select(y => new PostCategory
+                {
+                    PostId = post.PostId,
+                    CategoryId = y.CategoryId
+                }).ToList();
+            }
+          
 
             db.SaveChanges();
         }

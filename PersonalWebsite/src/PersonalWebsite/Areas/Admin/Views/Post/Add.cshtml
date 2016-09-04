@@ -1,0 +1,26 @@
+﻿@using PersonalWebsite.Services.Models
+@model AddPostViewModel
+@{
+    Layout = "_AdminLayout";
+}
+<form asp-controller="Post" asp-action="Add" method="post" role="form">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <label asp-for="Title"></label>
+    <input asp-for="Title" />
+
+    <label asp-for="Name"></label>
+    <input asp-for="Name" />
+
+    <label asp-for="Excerpt"></label>
+    <input asp-for="Excerpt" />
+
+    <label asp-for="Content"></label>
+    <input asp-for="Content" />
+
+    <label asp-for="IsPublished"></label>
+    <input asp-for="IsPublished" />
+
+    <input type="submit" value="Add post" class="btn btn-default" />
+    <input type="button" value="Cancel" class="btn btn-default" />
+</form>

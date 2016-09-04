@@ -32,7 +32,7 @@
         this.Init = function () {
             addEditBox = $('#category-add-edit-box');
             listBox = $('#category-list');
-            refreshUrl = '@Url.Action("GetAll", "Category", new { Area = "Admin" })';
+            refreshUrl = '@Url.Action("GetAll", "Category", new { area = "Admin" })';
         };
         this.EditCategory = function (actionUrl, id) {
             $.ajax({
