@@ -79,7 +79,7 @@ namespace PersonalWebsite
             {
                 routes.MapRoute(
                    name: "adminArea",
-                   template: "{area:exists}/{controller}/{id?}",
+                   template: "{area:exists}/{controller}/{action}/{id?}",
                    defaults: new { action = "Index" });
                 routes.MapRoute(
                    name: "blog",
