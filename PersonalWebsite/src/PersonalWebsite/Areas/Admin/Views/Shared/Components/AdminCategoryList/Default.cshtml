@@ -2,11 +2,14 @@
 @model List<CategoryViewModel>
 @{
 }
-<table>
+<table  class="table table-striped">
     <thead>
         <tr>
             <th>
-                Category
+                #
+            </th>
+            <th>
+                Name
             </th>
             <th>
                 Title
@@ -20,14 +23,17 @@
         </tr>
     </thead>
     <tbody>
+        @{ int id = 1;}
         @foreach (var category in Model)
         {
             <tr>
+                <th scope="row">@id</th>
                 <td><a class="category-edit-button" href="#" onclick="AdminCategory.EditCategory('@Url.Action("GetEditCategoryComponent", "Category", new { Area = "Admin" })',@category.CategoryId)">@category.Name</a></td>
                 <td>@category.Tittle</td>
-                <td><a href="@category.CategoryId"> @category.Uses</a> </td>
-                <td><a href="#" onclick="AdminCategory.Delete('@Url.Action("Delete", "Category", new { Area = "Admin" })',@category.CategoryId)"> X</a></td>
+                <td><a asp-controller="Category" asp-action="Index" asp-area="" asp-route-id="@category.Name"> @category.Uses</a> </td>
+                <td><a href="#" onclick="AdminCategory.Delete('@Url.Action("Delete", "Category", new { Area = "Admin" })',@category.CategoryId)" class="btn btn-outline-secondary btn-sm" role="button">X</a></td>
             </tr>
+            id++;
         }
     </tbody>
 </table>

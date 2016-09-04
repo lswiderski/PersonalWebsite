@@ -1,12 +1,21 @@
 ﻿@using PersonalWebsite.Services.Models
 @model AddCategoryViewModel
-@{
-}
-<p>Add New Category</p>
-@Html.LabelFor(x =>x.Name)
-@Html.EditorFor(x => x.Name)
 
-@Html.LabelFor(x => x.Tittle)
-@Html.EditorFor(x => x.Tittle)
 
-<button onclick="AdminCategory.AddCategory('@Url.Action("Add", "Category", new { Area = "Admin" })', $('#Name').val(), $('#Tittle').val())">Add</button>
+<h4>Add New Category</h4>
+
+<form class="form">
+    <div class="form-group">
+        <label asp-for="Name" class="sr-only"></label>
+        <div class="input-group">
+            <input asp-for="Name" type="text" class="form-control" placeholder="Name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Tittle" class="sr-only"></label>
+        <div class="input-group">
+            <input asp-for="Tittle" type="text" class="form-control" placeholder="Tittle">
+        </div>
+    </div>
+    <button type="button" onclick="AdminCategory.AddCategory('@Url.Action("Add", "Category", new { Area = "Admin" })', $('#Name').val(), $('#Tittle').val())" class="btn btn-primary">Add</button>
+</form>

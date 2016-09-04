@@ -2,9 +2,12 @@
 @model List<TagViewModel>
 @{
 }
-<table>
+<table class="table table-striped">
     <thead>
         <tr>
+            <th>
+                #
+            </th>
             <th>
                 Tag
             </th>
@@ -17,13 +20,16 @@
         </tr>
     </thead>
     <tbody>
+        @{ int id = 1;}
         @foreach (var tag in Model)
         {
             <tr>
-                <td><a class="tag-edit-button" href="#" onclick="AdminTag.EditTag('@Url.Action("GetEditTagComponent", "Tags", new { Area = "Admin" })',@tag.TagId);">@tag.Name</a></td>
-                <td><a href="@tag.TagId"> @tag.Uses</a> </td>
-                <td><a href="#" onclick="AdminTag.Delete('@Url.Action("Delete", "Tags", new { Area = "Admin" })',@tag.TagId);"> X</a></td>
+                <th scope="row">@id</th>
+                <td><a class="tag-edit-button" href="#" onclick="AdminTag.EditTag('@Url.Action("GetEditTagComponent", "Tags", new { Area = "Admin" })',@tag.TagId)">@tag.Name</a></td>
+                <td><a asp-controller="Tag" asp-action="Index" asp-area="" asp-route-id="@tag.Name">@tag.Uses</a> </td>
+                <td><a href="#" onclick="AdminTag.Delete('@Url.Action("Delete", "Tags", new { Area = "Admin" })',@tag.TagId);" class="btn btn-outline-secondary btn-sm" role="button">X</a></td>
             </tr>
+            id++;
         }
     </tbody>
 </table>

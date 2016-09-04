@@ -35,7 +35,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
             }
 
             tagModel.AddTag(model);
-
+            ModelState.Clear();
             return ViewComponent("AdminAddEditTag");
         }
 
@@ -69,7 +69,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
             }
 
             tagModel.EditTag(model);
-
+            ModelState.Clear();
             return ViewComponent("AdminAddEditTag");
         }
 

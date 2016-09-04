@@ -2,9 +2,15 @@
 @model AddTagViewModel
 @{
 }
-<p>Add New Tag</p>
+<h4>Add New Tag</h4>
 
-@Html.LabelFor(x => x.Name)
-@Html.EditorFor(x => x.Name)
-
-<button onclick="AdminTag.AddTag('@Url.Action("Add", "Tags", new { Area = "Admin" })', $('#Name').val())">Add</button>
+<form class="form">
+    <div class="form-group">
+        <label asp-for="Name" class="sr-only" ></label>
+        <div class="input-group">
+            <div class="input-group-addon">#</div>
+            <input asp-for="Name" type="text" class="form-control"  placeholder="Tag">
+        </div>
+    </div>
+    <button type="button" onclick="AdminTag.AddTag('@Url.Action("Add", "Tags", new { Area = "Admin" })', $('#Name').val())" class="btn btn-primary">Add</button>
+</form>

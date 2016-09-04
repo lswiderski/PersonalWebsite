@@ -1,25 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
     Layout = "_AdminLayout";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <div id="tag-list">
+        <div class="col-md-4">
+            <div id="tag-list" class="card card-block">
                @await Component.InvokeAsync("AdminTagList")
             </div>
         </div>
-        <div class="col-md-6">
-            <div id ="tag-add-edit-box">
+        <div class="col-md-4">
+            <div id ="tag-add-edit-box" class="card card-block">
                 @await Component.InvokeAsync("AdminAddEditTag")
                 
             </div>
         </div> 
-    </div>
-</div>
 
 <script>
     var AdminTag;
@@ -28,6 +21,7 @@
         AdminTag = new AdminTagScope();
         AdminTag.Init();
     });
+
     function AdminTagScope() {
         var self = this;
         var addEditBox, listBox, refreshUrl;
@@ -35,13 +29,12 @@
         this.Init = function () {
             addEditBox = $('#tag-add-edit-box');
             listBox = $('#tag-list');
-            refreshUrl = '@Url.Action("GetAll", "Tags", new { Area = "Admin" })';
+            refreshUrl ='@Url.Action("GetAll", "Tags", new { Area = "Admin" })';
         };
         this.EditTag = function (actionUrl, id) {
             $.ajax({
                 type: "POST",
                 url: actionUrl,
-                traditional: true,
                 data: {
                     Id: id
                 },
@@ -71,6 +64,7 @@
                     self.RefreshList();
                 },
                 error: function (e) {
+                    debugger;
                     alert('something goes wrong');
                 }
             });
@@ -104,6 +98,7 @@
                     listBox.html(response);
                 },
                 error: function (e) {
+                    debugger;
                     alert('something goes wrong');
                 }
             });
@@ -149,4 +144,6 @@
         };
 
     }
+
 </script>
+    

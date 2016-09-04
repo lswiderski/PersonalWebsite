@@ -2,150 +2,147 @@
     Layout = "_AdminLayout";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <div id="category-list">
+<div class="col-md-4">
+    <div id="category-list" class="card card-block">
                 @await Component.InvokeAsync("AdminCategoryList")
             </div>
         </div>
-        <div class="col-md-6">
-            <div id="category-add-edit-box">
-                @await Component.InvokeAsync("AdminAddEditCategory")
+                <div class="col-md-4">
+                    <div id="category-add-edit-box" class="card card-block">
+                        @await Component.InvokeAsync("AdminAddEditCategory")
 
-            </div>
-        </div>
-    </div>
-</div>
+                    </div>
+                </div>
 
-<script>
-    var AdminCategory;
 
-    $(document).ready(function () {
-        AdminCategory = new AdminCategoryScope();
-        AdminCategory.Init();
-    });
-    function AdminCategoryScope() {
-        var self = this;
-        var addEditBox, listBox, refreshUrl;
+                <script>
+                    var AdminCategory;
 
-        this.Init = function () {
-            addEditBox = $('#category-add-edit-box');
-            listBox = $('#category-list');
-            refreshUrl = '@Url.Action("GetAll", "Category", new { area = "Admin" })';
-        };
-        this.EditCategory = function (actionUrl, id) {
-            $.ajax({
-                type: "POST",
-                url: actionUrl,
-                traditional: true,
-                data: {
-                    Id: id
-                },
-                dataType: "html",
-                success: function (response) {
-                    addEditBox.html(response);
-                    self.RefreshList();
-                },
-                error: function (e) {
-                    alert('something goes wrong');
-                }
-            });
-        };
+                    $(document).ready(function () {
+                        AdminCategory = new AdminCategoryScope();
+                        AdminCategory.Init();
+                    });
+                    function AdminCategoryScope() {
+                        var self = this;
+                        var addEditBox, listBox, refreshUrl;
 
-        this.SaveCategory = function (actionUrl, id, name, tittle) {
-            $.ajax({
-                type: "POST",
-                url: actionUrl,
-                traditional: true,
-                data: {
-                    CategoryId: id,
-                    Name: name,
-                    Tittle: tittle
-                },
-                dataType: "html",
-                success: function (response) {
-                    addEditBox.html(response);
-                    self.RefreshList();
-                },
-                error: function (e) {
-                    alert('something goes wrong');
-                }
-            });
-        };
-        this.Cancel = function (actionUrl) {
-            $.ajax({
-                type: "POST",
-                url: actionUrl,
-                traditional: true,
-                data: {},
-                dataType: "html",
-                success: function (response) {
-                    addEditBox.html(response);
-                    self.RefreshList();
-                },
-                error: function (e) {
-                    alert('something goes wrong');
-                }
-            });
-        };
+                        this.Init = function () {
+                            addEditBox = $('#category-add-edit-box');
+                            listBox = $('#category-list');
+                            refreshUrl = '@Url.Action("GetAll", "Category", new { area = "Admin" })';
+                        };
+                        this.EditCategory = function (actionUrl, id) {
+                            $.ajax({
+                                type: "POST",
+                                url: actionUrl,
+                                traditional: true,
+                                data: {
+                                    Id: id
+                                },
+                                dataType: "html",
+                                success: function (response) {
+                                    addEditBox.html(response);
+                                    self.RefreshList();
+                                },
+                                error: function (e) {
+                                    alert('something goes wrong');
+                                }
+                            });
+                        };
 
-        this.RefreshList = function () {
-            var actionUrl = $('#category-list').data('request-url');
-            $.ajax({
-                type: "POST",
-                url: refreshUrl,
-                traditional: true,
-                data: {},
-                dataType: "html",
-                success: function (response) {
-                    listBox.html(response);
-                },
-                error: function (e) {
-                    alert('something goes wrong');
-                }
-            });
-        };
+                        this.SaveCategory = function (actionUrl, id, name, tittle) {
+                            $.ajax({
+                                type: "POST",
+                                url: actionUrl,
+                                traditional: true,
+                                data: {
+                                    CategoryId: id,
+                                    Name: name,
+                                    Tittle: tittle
+                                },
+                                dataType: "html",
+                                success: function (response) {
+                                    addEditBox.html(response);
+                                    self.RefreshList();
+                                },
+                                error: function (e) {
+                                    alert('something goes wrong');
+                                }
+                            });
+                        };
+                        this.Cancel = function (actionUrl) {
+                            $.ajax({
+                                type: "POST",
+                                url: actionUrl,
+                                traditional: true,
+                                data: {},
+                                dataType: "html",
+                                success: function (response) {
+                                    addEditBox.html(response);
+                                    self.RefreshList();
+                                },
+                                error: function (e) {
+                                    alert('something goes wrong');
+                                }
+                            });
+                        };
 
-        this.AddCategory = function (actionUrl, name, tittle) {
-            $.ajax({
-                type: "POST",
-                url: actionUrl,
-                traditional: true,
-                data: {
-                    Name: name,
-                    Tittle: tittle
-                },
-                dataType: "html",
-                success: function (response) {
-                    addEditBox.html(response);
-                    self.RefreshList();
-                },
-                error: function (e) {
-                    alert('something goes wrong');
-                }
-            });
-        };
+                        this.RefreshList = function () {
+                            var actionUrl = $('#category-list').data('request-url');
+                            $.ajax({
+                                type: "POST",
+                                url: refreshUrl,
+                                traditional: true,
+                                data: {},
+                                dataType: "html",
+                                success: function (response) {
+                                    listBox.html(response);
+                                },
+                                error: function (e) {
+                                    alert('something goes wrong');
+                                }
+                            });
+                        };
 
-        this.Delete = function (actionUrl, id) {
-            $.ajax({
-                type: "POST",
-                url: actionUrl,
-                traditional: true,
-                data: {
-                    Id: id,
-                },
-                dataType: "html",
-                success: function (response) {
-                    addEditBox.html(response);
-                    self.RefreshList();
-                },
-                error: function (e) {
-                    debugger;
-                    alert('something goes wrong');
-                }
-            });
-        };
+                        this.AddCategory = function (actionUrl, name, tittle) {
+                            $.ajax({
+                                type: "POST",
+                                url: actionUrl,
+                                traditional: true,
+                                data: {
+                                    Name: name,
+                                    Tittle: tittle
+                                },
+                                dataType: "html",
+                                success: function (response) {
+                                    addEditBox.html(response);
+                                    self.RefreshList();
+                                },
+                                error: function (e) {
+                                    alert('something goes wrong');
+                                }
+                            });
+                        };
 
-    }
-</script>
+                        this.Delete = function (actionUrl, id) {
+                            $.ajax({
+                                type: "POST",
+                                url: actionUrl,
+                                traditional: true,
+                                data: {
+                                    Id: id,
+                                },
+                                dataType: "html",
+                                success: function (response) {
+                                    addEditBox.html(response);
+                                    self.RefreshList();
+                                },
+                                error: function (e) {
+                                    debugger;
+                                    alert('something goes wrong');
+                                }
+                            });
+                        };
+
+                    }
+                </script>

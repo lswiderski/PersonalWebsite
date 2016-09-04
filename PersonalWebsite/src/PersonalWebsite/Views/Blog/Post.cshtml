@@ -4,29 +4,30 @@
 @{
     Layout = "_Layout";
 }
-
-<div class="post">
-    <h1>@Model.Title</h1>
-    <span>
-        Categories:
-        @foreach (var category in @Model.Categories)
-            {
-            <a href="@category.Name">@category.Tittle</a>
-        }
-    </span>
-    <h6>@Model.CreatedOn</h6>
-
-    <div class="post-content">@Model.Content</div>
-
-    <div>
+<div class="container">
+    <div class="post">
+        <h1>@Model.Title</h1>
         <span>
-            Tags:
-            @foreach (var tag in @Model.Tags)
+            Categories:
+            @foreach (var category in @Model.Categories)
             {
-                <a href="@tag.Name">@tag.Name </a>
+                <a href="@category.Name">@category.Tittle</a>
             }
         </span>
-    </div>
+        <h6>@Model.CreatedOn</h6>
 
-    <div class="post-comments"></div>
+        <div class="post-content">@Model.Content</div>
+
+        <div>
+            <span>
+                Tags:
+                @foreach (var tag in @Model.Tags)
+            {
+                    <a href="@tag.Name">@tag.Name </a>
+                }
+            </span>
+        </div>
+
+        <div class="post-comments"></div>
+    </div>
 </div>

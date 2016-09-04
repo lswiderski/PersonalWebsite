@@ -22,11 +22,12 @@
 </head>
 <body>
     @Html.Partial("Menu-navbar")
-    <div class="container body-content">
-        @RenderBody()
-        @Html.Partial("Footer")
-    </div>
-
+    
+        <div class="container body-content">
+            <div class="row">
+                <div> @RenderBody()</div>
+            </div>
+    @Html.Partial("Footer")
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>

@@ -2,12 +2,22 @@
 @model EditTagViewModel
 @{
 }
-<p>Strange component item</p>
+<h4>Edit</h4>
 @Html.HiddenFor(x=>x.TagId)
-@Html.LabelFor(x => x.Name)
-@Html.EditorFor(x => x.Name)
 
-<button onclick="AdminTag.SaveTag('@Url.Action("Edit", "Tags", new { Area = "Admin" })', @Model.TagId, $('#Name').val())">Save</button>
-<button onclick="AdminTag.Delete('@Url.Action("Delete", "Tags", new { Area = "Admin" })',@Model.TagId)">Delete</button>
-<button onclick="AdminTag.Cancel('@Url.Action("GetAddForm", "Tags", new { Area = "Admin" })')">Cancel</button>
+
+<form class="form">
+    <div class="form-group">
+        <label asp-for="Name" class="sr-only"></label>
+        <div class="input-group">
+            <div class="input-group-addon">#</div>
+            <input asp-for="Name" type="text" class="form-control" placeholder="Tag">
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary" onclick="AdminTag.SaveTag('@Url.Action("Edit", "Tags", new { Area = "Admin" })', @Model.TagId, $('#Name').val())">Save</button>
+    <button type="button" class="btn btn-warning" onclick="AdminTag.Cancel('@Url.Action("GetAddForm", "Tags", new { Area = "Admin" })')">Cancel</button>
+    <button type="button" class="btn btn-danger" onclick="AdminTag.Delete('@Url.Action("Delete", "Tags", new { Area = "Admin" })',@Model.TagId)">Delete</button>
+
+</form>
+
 
