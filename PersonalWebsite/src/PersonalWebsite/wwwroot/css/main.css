@@ -237,7 +237,7 @@ footer {
   }
   .sidebar {
     position: fixed;
-    top: 51px;
+    top: 75px;
     bottom: 0;
     left: 0;
     z-index: 1000;
