@@ -4,30 +4,61 @@
 @{
     Layout = "_Layout";
 }
-<div class="container-fluid">
-    <div id="Post-List">
+<div class="full-width-img"></div>
+<div class="container">
+    <div class="row">
+        <div class="card card-block blog-nav">
+            #Adventures
+        </div>
+        <div id="Post-List" class="col-sm-8 blog-list">
 
-        @foreach (var post in Model)
-        {
-            <div class="post-item-box">
-                <span><h2><a href='@Url.Action("Index","Blog", new {id = @post.Name })'>@post.Title</a></h2></span>
-                <span>
-                    Categories:
-                    @foreach (var category in post.Categories)
-                    {
-                        <a href="@category.Name">@category.Tittle </a>
-                    }
-                </span>
+            @foreach (var post in Model)
+            {
+                <div class="post-item-box card">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-block">
+                        <span><h4 class="card-title post-item-box-tittle"><a href='@Url.Action("Index","Blog", new {id = @post.Name })'>@post.Title</a></h4></span>
+                        <h6 class="card-subtitle text-muted">
+                            dsadas
+                            @foreach (var category in post.Categories)
+                            {
+                                <a asp-controller="Category" asp-route-id="@category.Name">@category.Tittle </a>
+                            }
+                            </h6>
 
-                <p>@post.Excerpt</p>
-                <span>
-                    Tags:
-                    @foreach (var tag in post.Tags)
-                {
-                        <a href="@tag.Name">@tag.Name </a>
-                    }
-                </span>
+                            <p class="card-text">@post.Excerpt</p>
+                        <div class="text-xs-right">
+                            <div class="show-more card-link">
+                                <a href='@Url.Action("Index","Blog", new {id = @post.Name })'>Show more...</a>
+                            </div>
+                        </div>
+                                @foreach (var tag in post.Tags)
+                                {
+                                    <span class="tag tag-default blog-post-tag">
+                                        <a asp-controller="Tag" asp-route-id="@tag.Name">#@tag.Name </a>
+                                    </span>
+                                }
+                            
+</div>
+                </div>
+            }
+        </div>
+        <div class="col-sm-4 blog-sidebar">
+            <div class="row">
+                <div class="card card-block">
+                    <h3>Categories</h3>
+                </div>
             </div>
-        }
+            <div class="row">
+                <div class="card card-block">
+                    <h3>Tags</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card card-block">
+                    <h3>custom-widget</h3>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

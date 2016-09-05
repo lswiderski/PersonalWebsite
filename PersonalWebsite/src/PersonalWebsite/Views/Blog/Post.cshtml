@@ -4,30 +4,32 @@
 @{
     Layout = "_Layout";
 }
+<div class="full-width-img"></div>
 <div class="container">
-    <div class="post">
-        <h1>@Model.Title</h1>
-        <span>
-            Categories:
+    <div class="post card card-block">
+        <h1 class="text-xs-center card-title">@Model.Title</h1>
+        <h6 class="card-subtitle text-muted text-xs-center ">
             @foreach (var category in @Model.Categories)
             {
-                <a href="@category.Name">@category.Tittle</a>
+                <a asp-controller="Category" asp-route-id="@category.Name">@category.Tittle </a>
             }
-        </span>
-        <h6>@Model.CreatedOn</h6>
+            </h6n>
+            <h6 class="text-xs-right">@Model.CreatedOn</h6>
 
-        <div class="post-content">@Model.Content</div>
+            <div class="post-content">@Model.Content</div>
 
-        <div>
-            <span>
-                Tags:
+            <div>
                 @foreach (var tag in @Model.Tags)
             {
-                    <a href="@tag.Name">@tag.Name </a>
+                    <span class="tag tag-default blog-post-tag">
+                        <a asp-controller="Tag" asp-route-id="@tag.Name">#@tag.Name </a>
+                    </span>
                 }
-            </span>
-        </div>
+            </div>
 
-        <div class="post-comments"></div>
-    </div>
+            <div class="post-comments">
+                <h4>Comments:</h4>
+                DISQUS
+            </div>
+</div>
 </div>

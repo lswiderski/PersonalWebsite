@@ -4,12 +4,25 @@
 @{
     Layout = "_AdminLayout";
 }
-<div class="container">
-    <a asp-area="Admin" asp-controller="Post" asp-action="Add" class="nav-link">Add new</a>
-    <div id="Post-List">
-        <table>
-            <thead>
+<div class="row">
+    <a asp-area="Admin" asp-controller="Post" asp-action="Add" class="btn button btn-secondary">Add new</a>
+</div>
+<div class="row card" id="Post-List">
+        <table class="table table-hover">
+            <thead class="thead-inverse">
                 <tr>
+                    <th>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-warning dropdown-toggle" type="button" id="dropdownPostsMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownPostsMenuButton">
+                                <a class="dropdown-item" href="#">Publish</a>
+                                <a class="dropdown-item" href="#">Unpublish</a>
+                                <a class="dropdown-item" href="#">Move to trash</a>
+                            </div>
+                        </div>
+                    </th>
                     <th>Tittle</th>
                     <th>Categories</th>
                     <th>Tags</th>
@@ -20,6 +33,7 @@
                 @foreach (var post in Model)
                 {
                     <tr>
+                        <td><input type="checkbox" name="action" value="" /></td>
                         <td><a asp-area="Admin" asp-controller="Post" asp-action="Edit" asp-route-id="@post.PostId">@post.Title</a></td>
                         <td>
                             @foreach (var category in post.Categories)
@@ -38,5 +52,4 @@
 
             </tbody>
         </table>
-    </div>
 </div>
