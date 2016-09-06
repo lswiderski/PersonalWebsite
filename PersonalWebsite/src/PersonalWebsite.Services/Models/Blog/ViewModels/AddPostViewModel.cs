@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PersonalWebsite.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,10 @@ namespace PersonalWebsite.Services.Models
 {
     public class AddPostViewModel
     {
+        public AddPostViewModel()
+        {
+            this.Categories = new List<CheckBoxListItem>();
+        }
         public string Title { get; set; }
 
         public string Name { get; set; }
@@ -17,7 +22,7 @@ namespace PersonalWebsite.Services.Models
 
         public bool IsPublished { get; set; }
 
-        public List<int> Categories { get; set; }
+        public List<CheckBoxListItem> Categories { get; set; }
 
         public List<int> Tags { get; set; }
     }

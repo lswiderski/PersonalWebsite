@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PersonalWebsite.Common;
 using PersonalWebsite.Data;
 using PersonalWebsite.Data.Entities;
 using System;
@@ -12,10 +13,12 @@ namespace PersonalWebsite.Services.Models
     public class PostModel : IPostModel
     {
         private readonly DataContext db;
+        private readonly ICategoryModel categoryModel;
 
-        public PostModel(DataContext db)
+        public PostModel(DataContext db, ICategoryModel categoryModel)
         {
             this.db = db;
+            this.categoryModel = categoryModel;
         }
 
         public List<SimplifiedPostViewModel> GetPublishedSimplifiedPosts()
@@ -84,9 +87,10 @@ namespace PersonalWebsite.Services.Models
             };
 
             db.Posts.Add(post);
-            if(model.Categories != null)
+            if (model.Categories != null)
             {
-                foreach (var category in model.Categories)
+                var selectedCategories = model.Categories.Where(x => x.IsChecked).Select(x => x.ID).ToList();
+                foreach (var category in selectedCategories)
                 {
                     var postCategory = new PostCategory
                     {
@@ -96,8 +100,8 @@ namespace PersonalWebsite.Services.Models
                     db.PostCategories.Add(postCategory);
                 }
             }
-           
-            if(model.Tags != null)
+
+            if (model.Tags != null)
             {
                 foreach (var tag in model.Tags)
                 {
@@ -109,7 +113,6 @@ namespace PersonalWebsite.Services.Models
                     db.PostTags.Add(postTag);
                 }
             }
-            
 
             db.SaveChanges();
         }
@@ -158,7 +161,7 @@ namespace PersonalWebsite.Services.Models
                               Title = post.Title,
                               Excerpt = post.Excerpt,
                               PostId = post.PostId,
-                              Content = new  HtmlString(post.Content),
+                              Content = new HtmlString(post.Content),
                               CreatedOn = post.CreatedOn,
                               Categories = post.PostCategories.Select(y => new CategoryViewModel
                               {
@@ -176,12 +179,35 @@ namespace PersonalWebsite.Services.Models
             return postVM;
         }
 
+        private List<CheckBoxListItem> GetCategoriesCheckBoxListForPost(IEnumerable<int> categoryIds)
+        {
+            var categories = categoryModel.GetCategories().Select(x => new CheckBoxListItem
+            {
+                Display = x.Tittle,
+                ID = x.CategoryId,
+                IsChecked = false
+            }).ToList();
+
+            foreach (var category in categories)
+            {
+                foreach (var item in categoryIds)
+                {
+                    if (category.ID == item)
+                    {
+                        category.IsChecked = true;
+                    }
+                }
+            }
+
+            return categories;
+        }
+
         public EditPostViewModel GetPostForEdit(int id)
         {
             var postVM = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
                           where post.PostId == id
                           && post.IsDeleted == false
-                          select new EditPostViewModel
+                          select new
                           {
                               Name = post.Name,
                               Title = post.Title,
@@ -190,35 +216,38 @@ namespace PersonalWebsite.Services.Models
                               Content = post.Content,
                               IsPublished = post.IsPublished,
                               IsTrashed = post.IsTrashed,
-                              Categories = post.PostCategories.Select(y => new CategoryViewModel
-                              {
-                                  CategoryId = y.CategoryId,
-                                  Name = y.Category.Name,
-                                  Tittle = y.Category.Tittle
-                              }).ToList(),
+                              Categories = post.PostCategories.Select(y => y.CategoryId).ToList(),
                               Tags = post.PostTags.Select(y => new TagViewModel
                               {
                                   TagId = y.TagId,
                                   Name = y.Tag.Name
                               }).ToList(),
-                               AllCategories = db.Categories.Select(y => new SelectListItem
-                               {
-                                    Value = y.CategoryId.ToString(),
-                                     Text = y.Tittle
-                               }).ToList(),
-                               AllTags = db.Tags.Select (y => new SelectListItem
-                               {
-                                    Text = y.Name,
-                                    Value = y.TagId.ToString()
-                               })
+                              AllTags = db.Tags.Select(y => new SelectListItem
+                              {
+                                  Text = y.Name,
+                                  Value = y.TagId.ToString()
+                              })
                           }).FirstOrDefault();
 
-            return postVM;
+            EditPostViewModel viewModel = new EditPostViewModel
+            {
+                Name = postVM.Name,
+                Title = postVM.Title,
+                Excerpt = postVM.Excerpt,
+                PostId = postVM.PostId,
+                Content = postVM.Content,
+                IsPublished = postVM.IsPublished,
+                IsTrashed = postVM.IsTrashed,
+                Categories = this.GetCategoriesCheckBoxListForPost(postVM.Categories),
+                Tags = postVM.Tags
+            };
+
+            return viewModel;
         }
 
         public void UpdatePost(EditPostViewModel model)
         {
-            var post = db.Posts.Where(x => x.PostId == model.PostId).FirstOrDefault();
+            var post = db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags).Where(x => x.PostId == model.PostId).FirstOrDefault();
 
             post.Name = model.Name;
             post.Title = model.Title;
@@ -227,7 +256,7 @@ namespace PersonalWebsite.Services.Models
             post.IsPublished = model.IsPublished;
             post.IsTrashed = model.IsTrashed;
             post.ModifiedOn = DateTime.Now;
-            if(model.Tags != null)
+            if (model.Tags != null)
             {
                 post.PostTags = model.Tags.Select(y => new PostTag
                 {
@@ -235,16 +264,43 @@ namespace PersonalWebsite.Services.Models
                     TagId = y.TagId
                 }).ToList();
             }
-            
-            if(model.Categories != null)
+
+            if (model.Categories != null)
             {
-                post.PostCategories = model.Categories.Select(y => new PostCategory
+                foreach (var category in model.Categories)
                 {
-                    PostId = post.PostId,
-                    CategoryId = y.CategoryId
-                }).ToList();
+                    if (category.IsChecked)
+                    {
+                        if(post.PostCategories == null)
+                        {
+                            post.PostCategories = new List<PostCategory>(); 
+                        }
+                        if (!post.PostCategories.Any(x => x.CategoryId == category.ID))
+                        {
+                            var postCategory = new PostCategory
+                            {
+                                CategoryId = category.ID,
+                                PostId = post.PostId
+                            };
+                            db.PostCategories.Add(postCategory);
+                        }
+                    }
+                    else
+                    {
+                        var categoryToDelete = post.PostCategories.Where(x => x.CategoryId == category.ID).FirstOrDefault();
+                        if(categoryToDelete != null)
+                        {
+                            db.PostCategories.Remove(categoryToDelete);
+                        }
+                        
+                    }
+                }
+
+                var selectedCategories = model.Categories.Where(x => x.IsChecked).Select(x => x.ID).ToList();
+                foreach (var category in selectedCategories)
+                {
+                }
             }
-          
 
             db.SaveChanges();
         }

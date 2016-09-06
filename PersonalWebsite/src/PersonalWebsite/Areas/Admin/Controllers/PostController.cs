@@ -13,10 +13,12 @@ namespace PersonalWebsite.Areas.Admin.Controllers
     public class PostController : Controller
     {
         private readonly IPostModel postModel;
+        private readonly ICategoryModel categoryModel;
 
-        public PostController(IPostModel postModel)
+        public PostController(IPostModel postModel, ICategoryModel categoryModel)
         {
             this.postModel = postModel;
+            this.categoryModel = categoryModel;
         }
         // GET: /<controller>/
         public IActionResult Index()
@@ -27,8 +29,11 @@ namespace PersonalWebsite.Areas.Admin.Controllers
 
         public IActionResult Add()
         {
-            
-            return View();
+            AddPostViewModel viewModel = new AddPostViewModel();
+
+            viewModel.Categories = categoryModel.GetEmptyCategoriesCheckBoxList();
+
+            return View(viewModel);
         }
 
         [HttpPost]

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PersonalWebsite.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace PersonalWebsite.Services.Models
         int GetUsesOfCategory(int id);
         void CalculateUses(int id);
         List<CategoryViewModel> GetCategoriesUsedByPost(int id);
-
         EditCategoryViewModel GetCategoryForEdit(int id);
+        List<CheckBoxListItem> GetEmptyCategoriesCheckBoxList();
     }
 }

@@ -1,8 +1,8 @@
-﻿using PersonalWebsite.Data;
+﻿using PersonalWebsite.Common;
+using PersonalWebsite.Data;
 using PersonalWebsite.Data.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace PersonalWebsite.Services.Models
 {
@@ -40,6 +40,20 @@ namespace PersonalWebsite.Services.Models
             return category;
         }
 
+        public List<CheckBoxListItem> GetEmptyCategoriesCheckBoxList()
+        {
+            var categories = GetCategories();
+
+            var viewModel = categories.Select(x => new CheckBoxListItem
+            {
+                Display = x.Tittle,
+                ID = x.CategoryId,
+                IsChecked = false
+            }).ToList();
+
+            return viewModel;
+        }
+
         public List<CategoryViewModel> GetCategories()
         {
             var categories = (from cat in db.Categories
@@ -58,23 +72,25 @@ namespace PersonalWebsite.Services.Models
         {
             var category = db.Categories.SingleOrDefault(x => x.CategoryId == model.CategoryId);
 
-            if(category != null)
+            if (category != null)
             {
                 category.Name = model.Name;
                 category.Tittle = model.Tittle;
                 db.SaveChanges();
             }
         }
+
         public int GetUsesOfCategory(int id)
         {
             var uses = db.Categories.Where(x => x.CategoryId == id).Select(x => x.Uses).FirstOrDefault();
 
             return uses;
         }
+
         public void CalculateUses(int id)
         {
             var category = db.Categories.SingleOrDefault(x => x.CategoryId == id);
-            if(category == null)
+            if (category == null)
             {
                 return;
             }
@@ -82,7 +98,6 @@ namespace PersonalWebsite.Services.Models
 
             category.Uses = uses;
             db.SaveChanges();
-
         }
 
         public List<CategoryViewModel> GetCategoriesUsedByPost(int id)
@@ -90,10 +105,10 @@ namespace PersonalWebsite.Services.Models
             //TODO I'm not sure if I need use condition here, check it later
             var categories = db.Posts.SingleOrDefault(x => x.PostId == id)?.PostCategories.Select(y => new CategoryViewModel
             {
-                 Name = y.Category.Name,
-                 CategoryId = y.Category.CategoryId,
-                 Tittle = y.Category.Tittle,
-                 Uses = y.Category.Uses
+                Name = y.Category.Name,
+                CategoryId = y.Category.CategoryId,
+                Tittle = y.Category.Tittle,
+                Uses = y.Category.Uses
             }).ToList();
 
             return categories;
