@@ -3,24 +3,53 @@
 @{
     Layout = "_AdminLayout";
 }
+<script src="~/lib/ckeditor/ckeditor.js"></script>
 <form asp-controller="Post" asp-action="Add" method="post" role="form">
-    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="card card-block">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Title"></label>
+                    <input  asp-for="Title" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Excerpt"></label>
+                    <input asp-for="Excerpt" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Content"></label>
+                    <textarea asp-for="Content" class="ckeditor"></textarea>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 post-edit-sidebar">
+            <div class="card card-block">
+                <input type="submit" value="Add post" class="btn btn-default" />
+                <input type="button" value="Cancel" class="btn btn-default" />
 
-    <label asp-for="Title"></label>
-    <input asp-for="Title" />
+                <div class="form-group">
+                    <label asp-for="IsPublished"></label>
+                    <input asp-for="IsPublished" class="form-control" />
+                </div>
+            </div>
+            <div class="card card-block">
+                Categories
+            </div>
+            <div class="card card-block">
+                Tags
+            </div>
+        </div>
+    </div>
 
-    <label asp-for="Name"></label>
-    <input asp-for="Name" />
+    
 
-    <label asp-for="Excerpt"></label>
-    <input asp-for="Excerpt" />
+    
 
-    <label asp-for="Content"></label>
-    <input asp-for="Content" />
-
-    <label asp-for="IsPublished"></label>
-    <input asp-for="IsPublished" />
-
-    <input type="submit" value="Add post" class="btn btn-default" />
-    <input type="button" value="Cancel" class="btn btn-default" />
+    
 </form>

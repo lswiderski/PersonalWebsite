@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Html;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,10 +17,10 @@ namespace PersonalWebsite.Services.Models
 
         public string Excerpt { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+        [DisplayFormat(DataFormatString = "{MM-dd-yy}")]
         public DateTime CreatedOn { get; set; }
 
-        public string Content { get; set; }
+        public HtmlString Content { get; set; }
 
         public List<CategoryViewModel> Categories { get; set; }
 

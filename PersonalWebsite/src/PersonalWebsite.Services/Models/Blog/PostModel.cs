@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PersonalWebsite.Data;
 using PersonalWebsite.Data.Entities;
@@ -126,7 +127,7 @@ namespace PersonalWebsite.Services.Models
                               Title = post.Title,
                               Excerpt = post.Excerpt,
                               PostId = post.PostId,
-                              Content = post.Content,
+                              Content = new HtmlString(post.Content),
                               CreatedOn = post.CreatedOn,
                               Categories = post.PostCategories.Select(y => new CategoryViewModel
                               {
@@ -157,7 +158,7 @@ namespace PersonalWebsite.Services.Models
                               Title = post.Title,
                               Excerpt = post.Excerpt,
                               PostId = post.PostId,
-                              Content = post.Content,
+                              Content = new  HtmlString(post.Content),
                               CreatedOn = post.CreatedOn,
                               Categories = post.PostCategories.Select(y => new CategoryViewModel
                               {

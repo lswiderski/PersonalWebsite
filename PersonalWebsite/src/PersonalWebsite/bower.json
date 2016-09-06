@@ -6,7 +6,8 @@
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.6",
     "bootstrap": "4.0.0-alpha.3",
-    "font-awesome": "4.6.3"
+    "font-awesome": "4.6.3",
+    "ckeditor": "4.5.10"
 
   }
 }
