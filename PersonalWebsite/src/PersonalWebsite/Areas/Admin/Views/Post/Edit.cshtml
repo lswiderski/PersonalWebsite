@@ -1,4 +1,5 @@
 ﻿@using PersonalWebsite.Services.Models
+@using PersonalWebsite.Common.Enums
 @model EditPostViewModel
 @{
     Layout = "_AdminLayout";
@@ -26,7 +27,6 @@
                 <div class="form-group">
                     <label asp-for="Content"></label>
                     <textarea asp-for="Content" class="ckeditor"></textarea>
-
                 </div>
             </div>
         </div>
@@ -36,12 +36,12 @@
                 <input type="button" value="Cancel" class="btn btn-default" />
 
                 <div class="form-group">
-                    <label asp-for="IsPublished"></label>
-                    <input asp-for="IsPublished" class="form-control" />
+                    <label asp-for="Status"></label>
+                    @Html.DropDownListFor(x => x.Status, Html.GetEnumSelectList(typeof(PostStatusType)), new { @class = "form-control" })
                 </div>
             </div>
             <div class="card card-block">
-                Categories
+                Category: <br/>
                 @Html.EditorFor(x => x.Categories)
             </div>
             <div class="card card-block">
@@ -49,10 +49,4 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
 </form>

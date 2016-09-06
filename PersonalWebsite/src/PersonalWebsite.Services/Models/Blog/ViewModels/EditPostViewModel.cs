@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using PersonalWebsite.Common;
+using PersonalWebsite.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,7 @@ namespace PersonalWebsite.Services.Models
 
         public string Content { get; set; }
 
-        public bool IsPublished { get; set; }
-
-        public bool IsTrashed { get; set; }
+        public PostStatusType Status { get; set; }
 
         public List<CheckBoxListItem> Categories { get; set; }
 

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PersonalWebsite.Common;
+using PersonalWebsite.Common.Enums;
 using PersonalWebsite.Data;
 using PersonalWebsite.Data.Entities;
 using System;
@@ -24,9 +25,7 @@ namespace PersonalWebsite.Services.Models
         public List<SimplifiedPostViewModel> GetPublishedSimplifiedPosts()
         {
             var posts = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
-                         where post.IsPublished == true
-                         && post.IsDeleted == false
-                         && post.IsTrashed == false
+                         where post.Status == PostStatusType.PUBLISHED
                          select new SimplifiedPostViewModel
                          {
                              Name = post.Name,
@@ -51,7 +50,7 @@ namespace PersonalWebsite.Services.Models
         public List<SimplifiedPostViewModel> GetSimplifiedPosts()
         {
             var posts = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
-                         where post.IsDeleted == false
+                         where post.Status != PostStatusType.DELETED
                          select new SimplifiedPostViewModel
                          {
                              Name = post.Name,
@@ -82,7 +81,7 @@ namespace PersonalWebsite.Services.Models
                 Title = model.Title,
                 Excerpt = model.Excerpt,
                 Guid = Guid.NewGuid(),
-                IsPublished = model.IsPublished,
+                Status = model.Status,
                 Name = model.Name
             };
 
@@ -121,9 +120,7 @@ namespace PersonalWebsite.Services.Models
         {
             var postVM = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
                           where post.PostId == id
-                          && post.IsPublished == true
-                          && post.IsDeleted == false
-                          && post.IsTrashed == false
+                          && post.Status == PostStatusType.PUBLISHED
                           select new PostViewModel
                           {
                               Name = post.Name,
@@ -152,9 +149,7 @@ namespace PersonalWebsite.Services.Models
         {
             var postVM = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
                           where post.Name == name
-                          && post.IsPublished == true
-                          && post.IsDeleted == false
-                          && post.IsTrashed == false
+                          && post.Status == PostStatusType.PUBLISHED
                           select new PostViewModel
                           {
                               Name = post.Name,
@@ -206,7 +201,7 @@ namespace PersonalWebsite.Services.Models
         {
             var postVM = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
                           where post.PostId == id
-                          && post.IsDeleted == false
+                          && post.Status != PostStatusType.DELETED
                           select new
                           {
                               Name = post.Name,
@@ -214,8 +209,7 @@ namespace PersonalWebsite.Services.Models
                               Excerpt = post.Excerpt,
                               PostId = post.PostId,
                               Content = post.Content,
-                              IsPublished = post.IsPublished,
-                              IsTrashed = post.IsTrashed,
+                              Status = post.Status,
                               Categories = post.PostCategories.Select(y => y.CategoryId).ToList(),
                               Tags = post.PostTags.Select(y => new TagViewModel
                               {
@@ -236,8 +230,7 @@ namespace PersonalWebsite.Services.Models
                 Excerpt = postVM.Excerpt,
                 PostId = postVM.PostId,
                 Content = postVM.Content,
-                IsPublished = postVM.IsPublished,
-                IsTrashed = postVM.IsTrashed,
+                Status = postVM.Status,
                 Categories = this.GetCategoriesCheckBoxListForPost(postVM.Categories),
                 Tags = postVM.Tags
             };
@@ -253,8 +246,7 @@ namespace PersonalWebsite.Services.Models
             post.Title = model.Title;
             post.Content = model.Content;
             post.Excerpt = model.Excerpt;
-            post.IsPublished = model.IsPublished;
-            post.IsTrashed = model.IsTrashed;
+            post.Status = model.Status;
             post.ModifiedOn = DateTime.Now;
             if (model.Tags != null)
             {
@@ -309,7 +301,7 @@ namespace PersonalWebsite.Services.Models
         {
             var post = db.Posts.Where(x => x.PostId == id).FirstOrDefault();
 
-            post.IsDeleted = true;
+            post.Status = PostStatusType.PUBLISHED;
 
             db.SaveChanges();
         }
