@@ -5,7 +5,7 @@
     Layout = "_AdminLayout";
 }
 <script src="~/lib/ckeditor/ckeditor.js"></script>
-<form asp-controller="Post" asp-action="Edit" method="post" role="form">
+<form asp-controller="Post" asp-action="Edit" method="post" role="form" id="post-form">
     @Html.HiddenFor(x => x.PostId)
 
     <div class="row">
@@ -32,7 +32,7 @@
         </div>
         <div class="col-md-2 post-edit-sidebar">
             <div class="card card-block">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="button" value="Add post" class="btn btn-default" id="submit-button" />
                 <input type="button" value="Cancel" class="btn btn-default" />
 
                 <div class="form-group">
@@ -41,17 +41,31 @@
                 </div>
             </div>
             <div class="card card-block">
-                Category: <br/>
+                Category: <br />
                 @Html.EditorFor(x => x.Categories)
             </div>
-            <div class="card card-block">
+            <div class="card card-block" id="Tags">
                 Tags:
                 <br />
-                @foreach (var tag in Model.Tags)
-                {
-                    <span class="tag tag-primary"><a href="#" class="tag-remove-button" id="tag-@tag"><i class="fa fa-times" aria-hidden="true"></i></a> @tag</span>
-                }
+                <input type="text" id="tag-input" class="form-control" />
+                <br />
+                <div id="tag-list">
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <span class="tag tag-primary" data-tagname="@tag"><a href="#" class="tag-remove-button" id="tag-@tag" onclick="PostTag.RemoveTag('tag-@tag')"><i class="fa fa-times" aria-hidden="true"></i></a> @tag</span>
+                    }
+                </div>
             </div>
         </div>
     </div>
 </form>
+
+<script src="~/js/postManagementTags.js" asp-append-version="true"></script>
+<script>
+    var PostTag;
+
+    $(document).ready(function () {
+        PostTag = new PostTagScope();
+        PostTag.Init();
+    });
+</script>
