@@ -100,7 +100,7 @@ namespace PersonalWebsite.Services.Models
                 }
             }
 
-            if (model.Tags != null)
+           /* if (model.Tags != null)
             {
                 foreach (var tag in model.Tags)
                 {
@@ -111,7 +111,7 @@ namespace PersonalWebsite.Services.Models
                     };
                     db.PostTags.Add(postTag);
                 }
-            }
+            }*/
 
             db.SaveChanges();
         }
@@ -211,11 +211,7 @@ namespace PersonalWebsite.Services.Models
                               Content = post.Content,
                               Status = post.Status,
                               Categories = post.PostCategories.Select(y => y.CategoryId).ToList(),
-                              Tags = post.PostTags.Select(y => new TagViewModel
-                              {
-                                  TagId = y.TagId,
-                                  Name = y.Tag.Name
-                              }).ToList(),
+                              Tags = post.PostTags.Select(y => y.Tag.Name).ToList(),
                               AllTags = db.Tags.Select(y => new SelectListItem
                               {
                                   Text = y.Name,
@@ -248,14 +244,14 @@ namespace PersonalWebsite.Services.Models
             post.Excerpt = model.Excerpt;
             post.Status = model.Status;
             post.ModifiedOn = DateTime.Now;
-            if (model.Tags != null)
+            /*if (model.Tags != null)
             {
                 post.PostTags = model.Tags.Select(y => new PostTag
                 {
                     PostId = post.PostId,
                     TagId = y.TagId
                 }).ToList();
-            }
+            }*/
 
             if (model.Categories != null)
             {

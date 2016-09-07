@@ -13,6 +13,7 @@ namespace PersonalWebsite.Services.Models
         public EditPostViewModel()
         {
             this.Categories = new List<CheckBoxListItem>();
+            this.Tags = new List<string>();
         }
         public int PostId { get; set; }
 
@@ -28,9 +29,7 @@ namespace PersonalWebsite.Services.Models
 
         public List<CheckBoxListItem> Categories { get; set; }
 
-        public List<TagViewModel> Tags { get; set; }
+        public List<string> Tags { get; set; }
 
-
-        public IEnumerable<SelectListItem> AllTags { get; set; }
     }
 }

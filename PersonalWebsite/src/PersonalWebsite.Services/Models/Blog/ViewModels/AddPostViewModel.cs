@@ -12,6 +12,7 @@ namespace PersonalWebsite.Services.Models
         public AddPostViewModel()
         {
             this.Categories = new List<CheckBoxListItem>();
+            this.Tags = new List<string>();
         }
         public string Title { get; set; }
 
@@ -25,6 +26,6 @@ namespace PersonalWebsite.Services.Models
 
         public List<CheckBoxListItem> Categories { get; set; }
 
-        public List<int> Tags { get; set; }
+        public List<string> Tags { get; set; }
     }
 }

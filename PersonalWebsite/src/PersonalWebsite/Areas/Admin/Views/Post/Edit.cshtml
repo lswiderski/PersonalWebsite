@@ -45,7 +45,12 @@
                 @Html.EditorFor(x => x.Categories)
             </div>
             <div class="card card-block">
-                Tags
+                Tags:
+                <br />
+                @foreach (var tag in Model.Tags)
+                {
+                    <span class="tag tag-primary"><a href="#" class="tag-remove-button" id="tag-@tag"><i class="fa fa-times" aria-hidden="true"></i></a> @tag</span>
+                }
             </div>
         </div>
     </div>

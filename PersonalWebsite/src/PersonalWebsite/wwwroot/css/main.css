@@ -90,6 +90,14 @@ footer {
   color: #fff;
 }
 
+.tag-remove-button {
+  color: #fff;
+}
+
+.tag-remove-button:hover {
+  color: #000;
+}
+
 @media screen and (max-width: 768px) {
   .nav-side-menu {
     min-height: 50px;
