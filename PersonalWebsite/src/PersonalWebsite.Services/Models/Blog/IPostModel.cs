@@ -15,5 +15,8 @@ namespace PersonalWebsite.Services.Models
         void UpdatePost(EditPostViewModel model);
         void DeletePost(int id);
         List<SimplifiedPostViewModel> GetSimplifiedPosts();
+        List<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByTag(string tagName);
+        List<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByCategory(string categoryName);
+        List<SimplifiedPostViewModel> Search(string query);
     }
 }

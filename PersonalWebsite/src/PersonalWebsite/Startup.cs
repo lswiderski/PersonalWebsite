@@ -78,14 +78,13 @@ namespace PersonalWebsite
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                   name: "blog",
+                   template: "{action}/{id?}",
+                   defaults: new { controller = "Home" });
+            routes.MapRoute(
                    name: "adminArea",
                    template: "{area:exists}/{controller}/{action}/{id?}",
                    defaults: new { action = "Index" });
-                routes.MapRoute(
-                   name: "blog",
-                   template: "{controller=Blog}/{id?}",
-                   defaults: new { action = "Index" });
-                
                 routes.MapRoute(
                     name: "areaRoute",
                     template: "{area:exists}/{controller}/{action}/{id?}");

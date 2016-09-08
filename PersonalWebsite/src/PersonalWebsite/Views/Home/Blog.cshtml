@@ -17,29 +17,29 @@
                 <div class="post-item-box card">
                     <img class="card-img-top" src="..." alt="Card image cap">
                     <div class="card-block">
-                        <span><h4 class="card-title post-item-box-tittle"><a href='@Url.Action("Index","Blog", new {id = @post.Name })'>@post.Title</a></h4></span>
+                        <span><h4 class="card-title post-item-box-tittle"><a href='@Url.Action("Blog","Home", new {id = @post.Name })'>@post.Title</a></h4></span>
                         <h6 class="card-subtitle text-muted">
                             dsadas
                             @foreach (var category in post.Categories)
                             {
-                                <a asp-controller="Category" asp-route-id="@category.Name">@category.Tittle </a>
+                                <a asp-controller="Home" asp-action="Category" asp-route-id="@category.Name">@category.Tittle </a>
                             }
-                            </h6>
+                        </h6>
 
-                            <p class="card-text">@post.Excerpt</p>
+                        <p class="card-text">@post.Excerpt</p>
                         <div class="text-xs-right">
                             <div class="show-more card-link">
                                 <a href='@Url.Action("Index","Blog", new {id = @post.Name })'>Show more...</a>
                             </div>
                         </div>
-                                @foreach (var tag in post.Tags)
-                                {
-                                    <span class="tag tag-default blog-post-tag">
-                                        <a asp-controller="Tag" asp-route-id="@tag.Name">#@tag.Name </a>
-                                    </span>
-                                }
-                            
-</div>
+                        @foreach (var tag in post.Tags)
+                        {
+                            <span class="tag tag-default blog-post-tag">
+                                <a asp-controller="Home" asp-action="Tag" asp-route-id="@tag.Name">#@tag.Name </a>
+                            </span>
+                        }
+
+                    </div>
                 </div>
             }
         </div>

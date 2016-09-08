@@ -23,11 +23,75 @@ namespace PersonalWebsite.Services.Models
             this.categoryModel = categoryModel;
             this.tagModel = tagModel;
         }
+        public List<SimplifiedPostViewModel> Search(string query)
+        {
+            //Parse query
 
+            //search
+
+            //for now just placeholder
+            return GetPublishedSimplifiedPosts();
+        }
         public List<SimplifiedPostViewModel> GetPublishedSimplifiedPosts()
         {
             var posts = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
                          where post.Status == PostStatusType.PUBLISHED
+                         select new SimplifiedPostViewModel
+                         {
+                             Name = post.Name,
+                             Title = post.Title,
+                             Excerpt = post.Excerpt,
+                             PostId = post.PostId,
+                             Categories = post.PostCategories.Select(y => new CategoryViewModel
+                             {
+                                 CategoryId = y.CategoryId,
+                                 Name = y.Category.Name,
+                                 Tittle = y.Category.Tittle
+                             }).ToList(),
+                             Tags = post.PostTags.Select(y => new TagViewModel
+                             {
+                                 TagId = y.TagId,
+                                 Name = y.Tag.Name
+                             }).ToList()
+                         }).ToList();
+            return posts;
+        }
+
+        public List<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByTag(string tagName)
+        {
+            var posts = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
+                         join postTag in db.PostTags on post.PostId equals postTag.PostId
+                         join tag in db.Tags on postTag.TagId equals tag.TagId
+                         where post.Status == PostStatusType.PUBLISHED
+                         && tag.Name == tagName
+                         select new SimplifiedPostViewModel
+                         {
+                             Name = post.Name,
+                             Title = post.Title,
+                             Excerpt = post.Excerpt,
+                             PostId = post.PostId,
+                             Categories = post.PostCategories.Select(y => new CategoryViewModel
+                             {
+                                 CategoryId = y.CategoryId,
+                                 Name = y.Category.Name,
+                                 Tittle = y.Category.Tittle
+                             }).ToList(),
+                             Tags = post.PostTags.Select(y => new TagViewModel
+                             {
+                                 TagId = y.TagId,
+                                 Name = y.Tag.Name
+                             }).ToList()
+                         }).ToList();
+            return posts;
+        }
+
+        public List<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByCategory(string categoryName)
+        {
+            var posts = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
+                         join postCategory in db.PostCategories on post.PostId equals postCategory.PostId
+                         join category in db.Categories on postCategory.CategoryId equals category.CategoryId
+                         where post.Status == PostStatusType.PUBLISHED
+                         && category.Name == categoryName
                          select new SimplifiedPostViewModel
                          {
                              Name = post.Name,
