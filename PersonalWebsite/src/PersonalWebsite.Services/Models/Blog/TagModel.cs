@@ -14,13 +14,41 @@ namespace PersonalWebsite.Services.Models
             this.db = db;
         }
 
-        public void AddTag(AddTagViewModel model)
+        public void AddTag(string name)
         {
             db.Tags.Add(new Tag
             {
-                Name = model.Name
+                Name = name
             });
             db.SaveChanges();
+        }
+        public void AddTag(AddTagViewModel model)
+        {
+            AddTag(model.Name);
+        }
+
+        public int GetTagId(string name)
+        {
+            var tag = (from t in db.Tags
+                       where t.Name == name
+                       select t.TagId
+                       ).FirstOrDefault();
+
+            return tag;
+        }
+    
+        public TagViewModel GetTag(string name)
+        {
+            var tag = (from t in db.Tags
+                       where t.Name == name
+                       select new TagViewModel
+                       {
+                           Name = t.Name,
+                           Uses = t.Uses,
+                           TagId = t.TagId
+                       }).FirstOrDefault();
+
+            return tag;
         }
 
         public TagViewModel GetTag(int id)

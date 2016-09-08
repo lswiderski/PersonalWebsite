@@ -15,11 +15,13 @@ namespace PersonalWebsite.Services.Models
     {
         private readonly DataContext db;
         private readonly ICategoryModel categoryModel;
+        private readonly ITagModel tagModel;
 
-        public PostModel(DataContext db, ICategoryModel categoryModel)
+        public PostModel(DataContext db, ICategoryModel categoryModel, ITagModel tagModel)
         {
             this.db = db;
             this.categoryModel = categoryModel;
+            this.tagModel = tagModel;
         }
 
         public List<SimplifiedPostViewModel> GetPublishedSimplifiedPosts()
@@ -100,18 +102,38 @@ namespace PersonalWebsite.Services.Models
                 }
             }
 
-           /* if (model.Tags != null)
+            if (model.Tags != null)
             {
-                foreach (var tag in model.Tags)
+                var tags = model.Tags.Distinct();
+                foreach (var tag in tags)
                 {
-                    var postTag = new PostTag
+                    var tagFromDb = tagModel.GetTag(tag);
+
+                    if(tagFromDb != null)
                     {
-                        TagId = tag,
-                        PostId = post.PostId
-                    };
-                    db.PostTags.Add(postTag);
+                        var postTag = new PostTag
+                        {
+                            TagId = tagFromDb.TagId,
+                            PostId = post.PostId
+                        };
+                        db.PostTags.Add(postTag);
+                    }
+                    else
+                    {
+
+                        Tag newTag = new Tag
+                        {
+                            Name = tag,
+                        };
+
+                        db.PostTags.Add(new PostTag
+                        {
+                            Post = post,
+                            Tag = newTag
+                        });
+                    }
                 }
-            }*/
+            }
 
             db.SaveChanges();
         }
@@ -236,7 +258,7 @@ namespace PersonalWebsite.Services.Models
 
         public void UpdatePost(EditPostViewModel model)
         {
-            var post = db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags).Where(x => x.PostId == model.PostId).FirstOrDefault();
+            var post = db.Posts.Include(x => x.PostCategories).ThenInclude(x => x.Category).Include(x => x.PostTags).ThenInclude(x =>x.Tag).Where(x => x.PostId == model.PostId).FirstOrDefault();
 
             post.Name = model.Name;
             post.Title = model.Title;
@@ -244,14 +266,6 @@ namespace PersonalWebsite.Services.Models
             post.Excerpt = model.Excerpt;
             post.Status = model.Status;
             post.ModifiedOn = DateTime.Now;
-            /*if (model.Tags != null)
-            {
-                post.PostTags = model.Tags.Select(y => new PostTag
-                {
-                    PostId = post.PostId,
-                    TagId = y.TagId
-                }).ToList();
-            }*/
 
             if (model.Categories != null)
             {
@@ -283,14 +297,50 @@ namespace PersonalWebsite.Services.Models
                         
                     }
                 }
+            }
 
-                var selectedCategories = model.Categories.Where(x => x.IsChecked).Select(x => x.ID).ToList();
-                foreach (var category in selectedCategories)
+            if (model.Tags != null)
+            {
+                var tags = model.Tags.Distinct().ToList();
+                var tagsInPost = post.PostTags.Select(x => x.Tag.Name).ToList();
+                var tagsToRemove = (from t in tagsInPost
+                                    where !tags.Any(x => x == t)
+                                    select t);
+                var postTags = post.PostTags.Where(x => tagsToRemove.Any(y => y == x.Tag.Name));
+
+                db.PostTags.RemoveRange(postTags);
+
+                var tagsToAdd = tags.Except(tagsInPost).Except(tagsToRemove);
+                foreach (var tag in tagsToAdd)
                 {
+                    var tagFromDb = tagModel.GetTag(tag);
+
+                    if (tagFromDb != null)
+                    {
+                        var postTag = new PostTag
+                        {
+                            TagId = tagFromDb.TagId,
+                            PostId = post.PostId
+                        };
+                        db.PostTags.Add(postTag);
+                    }
+                    else
+                    {
+                        Tag newTag = new Tag
+                        {
+                            Name = tag,
+                        };
+
+                        db.PostTags.Add(new PostTag
+                        {
+                            Post = post,
+                            Tag = newTag
+                        });
+                    }
                 }
             }
 
-            db.SaveChanges();
+                db.SaveChanges();
         }
 
         public void DeletePost(int id)
