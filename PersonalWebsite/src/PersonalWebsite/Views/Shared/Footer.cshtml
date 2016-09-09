@@ -1,9 +1,19 @@
 ﻿
 @{
     <footer>
-        <div class="container">
-            <p>&copy; 2016 - PersonalWebsite</p>
-            @await Html.PartialAsync("_LoginPartial")
+        <div class="container text-xs-center">
+            <div class="row">
+                <div class="col-md-4">
+                    DownMenu:
+                    <br />
+                    @await Html.PartialAsync("_LoginPartial")
+                </div>
+                <div class="col-md-4">latest posts links</div>
+                <div class="col-md-4">Socials</div>
+            </div>
+            <div class="row">
+                <div class="col-md-12"><p>&copy; 2016 - PersonalWebsite</p></div>
+            </div>
         </div>
     </footer>
 }
