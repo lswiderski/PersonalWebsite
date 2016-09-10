@@ -46,6 +46,7 @@ namespace PersonalWebsite.Controllers
                 
                 int pageNumber = (page ?? 1);
                 var viewModel = model.ToPagedList(pageSize, pageNumber);
+                ViewData["SiteHeader"] = "Blog";
                 return View(viewModel);
             }
 
@@ -64,6 +65,7 @@ namespace PersonalWebsite.Controllers
             {
                 var viewModel = postModel.GetPublishedSimplifiedPostsByTag(id);
                 int pageNumber = (page ?? 1);
+                ViewBag.SiteHeader = string.Format("Tag: #{0}", id);
                 return View("Blog", viewModel.ToPagedList(pageSize, pageNumber));
             }
 
@@ -76,6 +78,7 @@ namespace PersonalWebsite.Controllers
             {
                 var viewModel = postModel.GetPublishedSimplifiedPostsByCategory(id);
                 int pageNumber = (page ?? 1);
+                ViewBag.SiteHeader = string.Format("Category: #{0}", id);
                 return View("Blog", viewModel.ToPagedList(pageSize, pageNumber));
             }
 
@@ -96,11 +99,9 @@ namespace PersonalWebsite.Controllers
 
         public IActionResult Project(string id, int? page)
         {
-            if (!string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
             {
-                var viewModel = postModel.GetPublishedSimplifiedPostsByCategory("Project");
-                int pageNumber = (page ?? 1);
-                return View("Blog", viewModel.ToPagedList(pageSize, pageNumber));
+                return RedirectToAction("Projects", new { page = page });
             }
 
             var post = postModel.GetPublishedPost(id);
@@ -116,16 +117,15 @@ namespace PersonalWebsite.Controllers
         {
             var viewModel = postModel.GetPublishedSimplifiedPostsByCategory("Project");
             int pageNumber = (page ?? 1);
+            ViewBag.SiteHeader = "Category: #Project";
             return View("Blog", viewModel.ToPagedList(pageSize, pageNumber));
         }
 
         public IActionResult Adventure(string id, int? page)
         {
-            if (!string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
             {
-                var viewModel = postModel.GetPublishedSimplifiedPostsByCategory("Adventure");
-                int pageNumber = (page ?? 1);
-                return View("Blog", viewModel.ToPagedList(pageSize, pageNumber));
+                return RedirectToAction("Adventures", new { page = page });
             }
 
             var post = postModel.GetPublishedPost(id);
@@ -141,6 +141,7 @@ namespace PersonalWebsite.Controllers
         {
             var viewModel = postModel.GetPublishedSimplifiedPostsByCategory("Adventure");
             int pageNumber = (page ?? 1);
+            ViewBag.SiteHeader = "Category: #Adventure";
             return View("Blog", viewModel.ToPagedList(pageSize, pageNumber));
         }
     }

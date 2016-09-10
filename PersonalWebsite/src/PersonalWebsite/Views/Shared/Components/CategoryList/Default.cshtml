@@ -1,0 +1,14 @@
+﻿@using PersonalWebsite.Services.Models
+@model List<CategoryViewModel>
+@{
+}
+        <h3>Categories</h3>
+<ul class="list-group">
+    @foreach (var category in Model)
+    {
+        <li class="list-group-item">
+            <a asp-controller="Home" asp-action="Category" asp-route-id="@category.Name">@category.Tittle</a>
+        </li>
+
+    }
+    </ul>

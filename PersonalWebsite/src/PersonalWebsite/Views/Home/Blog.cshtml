@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="card card-block blog-nav">
-            #Adventures
+           @ViewData["SiteHeader"]
         </div>
         <div class="col-sm-8 blog-list">
             <div id="Post-List">
@@ -53,19 +53,9 @@
         <div class="col-sm-4 blog-sidebar">
             <div class="row">
                 <div class="card card-block">
-                    <h3>Categories</h3>
+                    @await Component.InvokeAsync("CategoryList")
                 </div>
-            </div>
-            <div class="row">
-                <div class="card card-block">
-                    <h3>Tags</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="card card-block">
-                    <h3>custom-widget</h3>
-                </div>
-            </div>
+            </div> 
         </div>
     </div>
 </div>
