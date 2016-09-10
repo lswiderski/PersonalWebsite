@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using PersonalWebsite.IdentityModel;
 using Sakura.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace PersonalWebsite
 {
@@ -78,6 +81,12 @@ namespace PersonalWebsite
             app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(
+                            Path.Combine(Directory.GetCurrentDirectory(), @"Content", @"Uploads")),
+                        RequestPath = new PathString("/media")
+            });
 
             app.UseIdentity();
             appServicesInit.Configure(app.ApplicationServices);
