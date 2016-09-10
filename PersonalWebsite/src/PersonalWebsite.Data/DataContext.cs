@@ -12,13 +12,13 @@ namespace PersonalWebsite.Data
         }
 
         public virtual DbSet<Setting> Settings { get; set; }
-
         public virtual DbSet<Post> Posts { get; set; }
-
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<PostTag> PostTags { get; set; }
         public virtual DbSet<PostCategory> PostCategories { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<File> Files { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
