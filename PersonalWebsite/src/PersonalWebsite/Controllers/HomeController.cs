@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PersonalWebsite.Services.Models;
+using Sakura.AspNetCore;
 
 namespace PersonalWebsite.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IPostModel postModel;
+        private int pageSize = 3;
 
         public HomeController(IPostModel postModel)
         {
@@ -36,11 +38,14 @@ namespace PersonalWebsite.Controllers
             return View();
         }
 
-        public IActionResult Blog(string id)
+        public IActionResult Blog(string id, int? page)
         {
             if (string.IsNullOrEmpty(id))
             {
-                var viewModel = postModel.GetPublishedSimplifiedPosts();
+                var model = postModel.GetPublishedSimplifiedPosts();
+                
+                int pageNumber = (page ?? 1);
+                var viewModel = model.ToPagedList(pageSize, pageNumber);
                 return View(viewModel);
             }
 
@@ -53,45 +58,49 @@ namespace PersonalWebsite.Controllers
             return NotFound(id);
         }
 
-        public IActionResult Tag(string id)
+        public IActionResult Tag(string id, int? page)
         {
             if (!string.IsNullOrEmpty(id))
             {
                 var viewModel = postModel.GetPublishedSimplifiedPostsByTag(id);
-                return View("Blog", viewModel);
+                int pageNumber = (page ?? 1);
+                return View("Blog", viewModel.ToPagedList(pageSize, pageNumber));
             }
 
             return NotFound(id);
         }
 
-        public IActionResult Category(string id)
+        public IActionResult Category(string id, int? page)
         {
             if (!string.IsNullOrEmpty(id))
             {
                 var viewModel = postModel.GetPublishedSimplifiedPostsByCategory(id);
-                return View("Blog", viewModel);
+                int pageNumber = (page ?? 1);
+                return View("Blog", viewModel.ToPagedList(pageSize, pageNumber));
             }
 
             return NotFound(id);
         }
 
-        public IActionResult Search(string id)
+        public IActionResult Search(string id, int? page)
         {
             if (!string.IsNullOrEmpty(id))
             {
                 var viewModel = postModel.Search(id);
-                return View("Blog", viewModel);
+                int pageNumber = (page ?? 1);
+                return View("Blog", viewModel.ToPagedList(pageSize, pageNumber));
             }
 
             return NotFound(id);
         }
 
-        public IActionResult Project(string id)
+        public IActionResult Project(string id, int? page)
         {
             if (!string.IsNullOrEmpty(id))
             {
                 var viewModel = postModel.GetPublishedSimplifiedPostsByCategory("Project");
-                return View("Blog", viewModel);
+                int pageNumber = (page ?? 1);
+                return View("Blog", viewModel.ToPagedList(pageSize, pageNumber));
             }
 
             var post = postModel.GetPublishedPost(id);
@@ -103,18 +112,20 @@ namespace PersonalWebsite.Controllers
             return NotFound(id);
         }
 
-        public IActionResult Projects()
+        public IActionResult Projects(int? page)
         {
             var viewModel = postModel.GetPublishedSimplifiedPostsByCategory("Project");
-            return View("Blog", viewModel);
+            int pageNumber = (page ?? 1);
+            return View("Blog", viewModel.ToPagedList(pageSize, pageNumber));
         }
 
-        public IActionResult Adventure(string id)
+        public IActionResult Adventure(string id, int? page)
         {
             if (!string.IsNullOrEmpty(id))
             {
                 var viewModel = postModel.GetPublishedSimplifiedPostsByCategory("Adventure");
-                return View("Blog", viewModel);
+                int pageNumber = (page ?? 1);
+                return View("Blog", viewModel.ToPagedList(pageSize, pageNumber));
             }
 
             var post = postModel.GetPublishedPost(id);
@@ -126,10 +137,11 @@ namespace PersonalWebsite.Controllers
             return NotFound(id);
         }
 
-        public IActionResult Adventures(string id)
+        public IActionResult Adventures(int? page)
         {
             var viewModel = postModel.GetPublishedSimplifiedPostsByCategory("Adventure");
-            return View("Blog", viewModel);
+            int pageNumber = (page ?? 1);
+            return View("Blog", viewModel.ToPagedList(pageSize, pageNumber));
         }
     }
 }

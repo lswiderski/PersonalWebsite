@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace PersonalWebsite.Services.Models
 {
     public class PostModel : IPostModel
@@ -23,7 +24,7 @@ namespace PersonalWebsite.Services.Models
             this.categoryModel = categoryModel;
             this.tagModel = tagModel;
         }
-        public List<SimplifiedPostViewModel> Search(string query)
+        public IEnumerable<SimplifiedPostViewModel> Search(string query)
         {
             //Parse query
 
@@ -32,7 +33,7 @@ namespace PersonalWebsite.Services.Models
             //for now just placeholder
             return GetPublishedSimplifiedPosts();
         }
-        public List<SimplifiedPostViewModel> GetPublishedSimplifiedPosts()
+        public IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPosts()
         {
             var posts = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
                          where post.Status == PostStatusType.PUBLISHED
@@ -53,11 +54,11 @@ namespace PersonalWebsite.Services.Models
                                  TagId = y.TagId,
                                  Name = y.Tag.Name
                              }).ToList()
-                         }).ToList();
+                         }).AsEnumerable();
             return posts;
         }
 
-        public List<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByTag(string tagName)
+        public IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByTag(string tagName)
         {
             var posts = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
                          join postTag in db.PostTags on post.PostId equals postTag.PostId
@@ -85,7 +86,7 @@ namespace PersonalWebsite.Services.Models
             return posts;
         }
 
-        public List<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByCategory(string categoryName)
+        public IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByCategory(string categoryName)
         {
             var posts = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
                          join postCategory in db.PostCategories on post.PostId equals postCategory.PostId
@@ -109,11 +110,11 @@ namespace PersonalWebsite.Services.Models
                                  TagId = y.TagId,
                                  Name = y.Tag.Name
                              }).ToList()
-                         }).ToList();
+                         }).AsEnumerable();
             return posts;
         }
 
-        public List<SimplifiedPostViewModel> GetSimplifiedPosts()
+        public IEnumerable<SimplifiedPostViewModel> GetSimplifiedPosts()
         {
             var posts = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
                          where post.Status != PostStatusType.DELETED
@@ -134,7 +135,7 @@ namespace PersonalWebsite.Services.Models
                                  TagId = y.TagId,
                                  Name = y.Tag.Name
                              }).ToList()
-                         }).ToList();
+                         }).AsEnumerable();
             return posts;
         }
 
@@ -260,7 +261,7 @@ namespace PersonalWebsite.Services.Models
             return postVM;
         }
 
-        private List<CheckBoxListItem> GetCategoriesCheckBoxListForPost(IEnumerable<int> categoryIds)
+        private IEnumerable<CheckBoxListItem> GetCategoriesCheckBoxListForPost(IEnumerable<int> categoryIds)
         {
             var categories = categoryModel.GetCategories().Select(x => new CheckBoxListItem
             {
@@ -298,11 +299,6 @@ namespace PersonalWebsite.Services.Models
                               Status = post.Status,
                               Categories = post.PostCategories.Select(y => y.CategoryId).ToList(),
                               Tags = post.PostTags.Select(y => y.Tag.Name).ToList(),
-                              AllTags = db.Tags.Select(y => new SelectListItem
-                              {
-                                  Text = y.Name,
-                                  Value = y.TagId.ToString()
-                              })
                           }).FirstOrDefault();
 
             EditPostViewModel viewModel = new EditPostViewModel
@@ -313,7 +309,7 @@ namespace PersonalWebsite.Services.Models
                 PostId = postVM.PostId,
                 Content = postVM.Content,
                 Status = postVM.Status,
-                Categories = this.GetCategoriesCheckBoxListForPost(postVM.Categories),
+                Categories = this.GetCategoriesCheckBoxListForPost(postVM.Categories).ToList(),
                 Tags = postVM.Tags
             };
 

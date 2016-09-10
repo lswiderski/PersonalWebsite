@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using PersonalWebsite.IdentityModel;
+using Sakura.AspNetCore.Mvc;
 
 namespace PersonalWebsite
 {
@@ -46,6 +47,12 @@ namespace PersonalWebsite
 
             appServicesInit = new Services.Initialization(services);
             services.AddMvc();
+
+            services.AddBootstrapPagerGenerator(options =>
+            {
+                // Use default pager options.
+                options.ConfigureDefault();
+            });
 
 
         }
