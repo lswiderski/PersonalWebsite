@@ -31,7 +31,8 @@
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.0.0",
     "PersonalWebsite.IdentityModel": "1.0.0-*",
     "Sakura.AspNetCore.Mvc.PagedList": "2.0.8",
-    "Sakura.AspNetCore.PagedList": "2.0.1"
+    "Sakura.AspNetCore.PagedList": "2.0.1",
+    "Ngonzalez.ImageProcessorCore": "0.0.1"
   },
 
   "tools": {

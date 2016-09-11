@@ -7,6 +7,7 @@ using PersonalWebsite.Services.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using ImageProcessorCore;
 
 namespace PersonalWebsite.Areas.Admin.Controllers
 {
@@ -43,9 +44,14 @@ namespace PersonalWebsite.Areas.Admin.Controllers
             {
                 if (file.Length > 0)
                 {
+                    
                     using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
                     {
                         await file.CopyToAsync(fileStream);
+
+                        Image image = new Image(fileStream);
+                        var width = image.Bounds.Width;
+                        var height = image.Bounds.Height;
                     }
                 }
             }
