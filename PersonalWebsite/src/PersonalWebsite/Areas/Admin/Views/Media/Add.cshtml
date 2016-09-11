@@ -3,3 +3,8 @@
 @{
     Layout = "_AdminLayout";
 }
+
+<form method="post" asp-action="Add" asp-controller="Media" asp-area="Admin" enctype="multipart/form-data">
+    <input type="file" name="files" multiple />
+    <input type="submit" value="Upload" />
+</form>

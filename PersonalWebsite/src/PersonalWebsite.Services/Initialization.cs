@@ -36,6 +36,8 @@ namespace PersonalWebsite.Services
             services.AddTransient<IPostModel, PostModel>();
             services.AddTransient<ITagModel, TagModel>();
             services.AddTransient<ICategoryModel, CategoryModel>();
+            services.AddTransient<IFileService, FileService>();
+            services.AddTransient<IImageService, ImageService>();
 
         }
 

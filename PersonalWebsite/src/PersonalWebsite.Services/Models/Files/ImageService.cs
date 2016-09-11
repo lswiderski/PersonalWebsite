@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace PersonalWebsite.Services.Models
 {
-    public class ImageService
+    public class ImageService : IImageService
     {
         private readonly DataContext db;
 

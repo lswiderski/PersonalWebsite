@@ -1,5 +1,15 @@
 ﻿@using PersonalWebsite.Services.Models
-
+@model IEnumerable<ImageDto>
 @{
     Layout = "_AdminLayout";
 }
+
+<table  class="table table-hover">
+    <tr>
+        @foreach (var img in Model)
+        {
+            <td>@img.Name</td>
+            <td><img src="(@Url.Content("~/media") + @img.Name)"</td>
+        }
+    </tr>
+</table>
