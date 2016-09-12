@@ -26,7 +26,8 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var viewModel = imageService.GetImages();
+            var viewModel = imageService.GetImageViewModels(string.Format("{0}://{1}", HttpContext.Request.Scheme, HttpContext.Request.Host.Value));
+            
             return View(viewModel);
         }
 
@@ -38,20 +39,37 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(ICollection<IFormFile> files)
         {
+            
             var uploads = Path.Combine(Directory.GetCurrentDirectory(), string.Format(@"Content/Uploads/{0}/", DateTime.Now.ToString("yyyy_MM")));
             Directory.CreateDirectory(uploads);
             foreach (var file in files)
             {
                 if (file.Length > 0)
                 {
-                    
-                    using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                    var newFileName = file.FileName.Replace(' ', '_');
+                    var path = Path.Combine(uploads, newFileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
                     {
                         await file.CopyToAsync(fileStream);
-
+                        var pathToSave = Path.Combine(string.Format(@"Media/{0}/", DateTime.Now.ToString("yyyy_MM")), newFileName);
                         Image image = new Image(fileStream);
                         var width = image.Bounds.Width;
                         var height = image.Bounds.Height;
+
+
+                        UploadImageDto img = new UploadImageDto
+                        {
+                            Width = width,
+                            Height = height,
+                            Path = pathToSave,
+                            Type = file.ContentType,
+                            Length = file.Length,
+                            Name = newFileName,
+                            NameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName),
+                            Extension = Path.GetExtension(path),
+                            UploadedOn = DateTime.Now
+                        };
+                        imageService.AddImage(img);
                     }
                 }
             }

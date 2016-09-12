@@ -14,5 +14,6 @@ namespace PersonalWebsite.Services.Models
         public string Extension { get; set; }
         public string Path { get; set; }
         public Guid Guid { get; set; }
+        public long Length { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using PersonalWebsite.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PersonalWebsite.Data;
 using PersonalWebsite.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,14 @@ namespace PersonalWebsite.Services.Models
     public class ImageService : IImageService
     {
         private readonly DataContext db;
+        private readonly IFileService fileService;
 
-        public ImageService(DataContext db)
+        private readonly string host;
+
+        public ImageService(DataContext db, IFileService fileService)
         {
             this.db = db;
+            this.fileService = fileService;
         }
 
         public ImageDto GetImage(int id)
@@ -26,6 +31,21 @@ namespace PersonalWebsite.Services.Models
                     Width = x.Width,
                     Title = x.Title,
                     ImageId = x.ImageId
+                }).FirstOrDefault();
+
+            return image;
+        }
+
+        public ImageViewModel GetImageViewModel(int id, string host)
+        {
+            var image = db.Images.Include(x => x.File).Where(x => x.ImageId == id)
+                .Select(x => new ImageViewModel
+                {
+                    Path = string.Format("{0}/{1}", host, x.File.Path),
+                    Name = x.Name,
+                    Height = x.Height,
+                    Width = x.Width,
+                    Title = x.Title,
                 }).FirstOrDefault();
 
             return image;
@@ -61,6 +81,22 @@ namespace PersonalWebsite.Services.Models
 
             return images;
         }
+        //TODO: order by uploadeddate desc
+        public IEnumerable<ImageViewModel> GetImageViewModels(string host)
+        {
+             
+            var images = db.Images.Select(x => new ImageViewModel
+            { 
+                    Path = string.Format("{0}/{1}", host,x.File.Path),
+                    Name = x.Name,
+                    Height = x.Height,
+                    Width = x.Width,
+                    Title = x.Title,
+            }).AsEnumerable();
+
+            return images;
+        }
+
 
         public void DeleteImage(int id)
         {
@@ -84,6 +120,31 @@ namespace PersonalWebsite.Services.Models
             db.SaveChanges();
 
             return image.ImageId;
+        }
+
+        public int AddImage(UploadImageDto img)
+        {
+            var fileDto = new FileDto
+            {
+                Extension = img.Extension,
+                Guid = Guid.NewGuid(),
+                Name = img.Name,
+                Path = img.Path,
+                Type = img.Type,
+                NameInStorage = img.Name,
+                Length = img.Length
+            };
+            fileDto.FileId = fileService.AddFile(fileDto);
+
+            var imageDto = new ImageDto
+            {
+                FileId = fileDto.FileId,
+                Name = fileDto.Name,
+                Height = img.Height,
+                Width = img.Width,
+                Title = img.NameWithoutExtension,
+            };
+            return this.AddImage(imageDto);
         }
     }
 }
