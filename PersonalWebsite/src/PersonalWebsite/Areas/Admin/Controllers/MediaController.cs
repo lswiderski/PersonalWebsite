@@ -42,6 +42,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
             
             var uploads = Path.Combine(Directory.GetCurrentDirectory(), string.Format(@"Content/Uploads/{0}/", DateTime.Now.ToString("yyyy_MM")));
             Directory.CreateDirectory(uploads);
+            var addedIds = new List<int>();
             foreach (var file in files)
             {
                 if (file.Length > 0)
@@ -69,11 +70,18 @@ namespace PersonalWebsite.Areas.Admin.Controllers
                             Extension = Path.GetExtension(path),
                             UploadedOn = DateTime.Now
                         };
-                        imageService.AddImage(img);
+                        addedIds.Add(imageService.AddImage(img));
                     }
                 }
             }
-            return View();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult UploadedList(List<int> ids)
+        {
+            var viewModel = imageService.GetImageViewModels(ids,string.Format("{0}://{1}", HttpContext.Request.Scheme, HttpContext.Request.Host.Value));
+
+            return PartialView(viewModel);
         }
     }
 }

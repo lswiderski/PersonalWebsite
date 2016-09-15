@@ -97,6 +97,21 @@ namespace PersonalWebsite.Services.Models
             return images;
         }
 
+        public IEnumerable<ImageViewModel> GetImageViewModels(List<int>ids,string host)
+        {
+
+            var images = db.Images.Where(x => ids.Any(y =>y == x.ImageId)).Select(x => new ImageViewModel
+            {
+                Path = string.Format("{0}/{1}", host, x.File.Path),
+                Name = x.Name,
+                Height = x.Height,
+                Width = x.Width,
+                Title = x.Title,
+            }).AsEnumerable();
+
+            return images;
+        }
+
 
         public void DeleteImage(int id)
         {

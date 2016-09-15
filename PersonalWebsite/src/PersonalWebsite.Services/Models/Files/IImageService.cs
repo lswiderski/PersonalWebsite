@@ -16,5 +16,6 @@ namespace PersonalWebsite.Services.Models
         int AddImage(UploadImageDto img);
         ImageViewModel GetImageViewModel(int id, string host);
         IEnumerable<ImageViewModel> GetImageViewModels(string host);
+        IEnumerable<ImageViewModel> GetImageViewModels(List<int> ids, string host);
     }
 }

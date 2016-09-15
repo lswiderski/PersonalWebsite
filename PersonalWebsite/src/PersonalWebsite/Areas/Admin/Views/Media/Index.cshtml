@@ -3,31 +3,60 @@
 @{
     Layout = "_AdminLayout";
 }
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#AddImages">
+    Add
+</button>
 
-<table  class="table table-hover">
-    <thead>
-        <tr>
-            <th>img</th>
-            <th>Name</th>
-            <th>Title</th>
-            <th>Size</th>
-            <th>Path</th>
-        </tr>
-    </thead>
-    <tbody>
-        
-            @foreach (var img in Model)
-            {
-                <tr>
+<div class="row">
+    @foreach (var img in Model)
+    {
+        <div class="col-xs-3 col-lg-2" style="word-break: break-all">
+            <div class="card">
+                <a href="@img.Path">
+                    <img class="card-img-top img-fluid" src="@Url.Content(img.Path)" alt="@img.Title" title="@img.Title" />
+                </a>
+                    <div class="card-block">
+                        <a class="card-link" href="@img.Path">
+                            <h4 class="card-title">@img.Title</h4>
+                        </a>
+                            <h6 class="card-subtitle text-muted">@img.Name</h6>
+                            <p class="card-text">
+                                @img.Width x @img.Height
+                            </p>
 
-                    <td><img src="@Url.Content(img.Path)" alt="@img.Title" title="@img.Title" height="100px" /></td>
-                    <td>@img.Name</td>
-                    <td>@img.Title</td>
-                    <td>@img.Width x @img.Height</td>
-                    <td>@img.Path</td>
-                </tr>
-            }
-                
-    </tbody>
+</div>
+                    <div class="card-footer text-muted">
+                        2 days ago
+                    </div>
+                </div>
+        </div>
+    }
+</div>
 
-</table>
+<div class="modal fade" id="AddImages" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="upload-form" method="post" asp-action="Add" asp-controller="Media" asp-area="Admin" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Upload Images</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="upload-result"></div>
+                    <div id="upload-form-div">
+
+                        <input  id="selected-files-upload" type="file" name="files" multiple />
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="upload-button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
