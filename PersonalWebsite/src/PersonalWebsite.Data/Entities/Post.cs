@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +15,8 @@ namespace PersonalWebsite.Data.Entities
         public Guid Guid { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public DateTime? PublishedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
 
@@ -30,6 +33,11 @@ namespace PersonalWebsite.Data.Entities
         public virtual ICollection<PostCategory> PostCategories { get; set; }
 
         public virtual ICollection<PostTag> PostTags { get; set; }
+
+        public int? HeaderImageId { get; set; }
+
+        [ForeignKey("HeaderImageId")]
+        public Image HeaderImage { get; set; }
 
     }
 }

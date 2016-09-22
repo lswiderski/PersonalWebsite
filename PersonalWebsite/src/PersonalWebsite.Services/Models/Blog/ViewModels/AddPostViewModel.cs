@@ -22,6 +22,8 @@ namespace PersonalWebsite.Services.Models
 
         public string Content { get; set; }
 
+        public int? HeaderImageId { get; set; }
+
         public PostStatusType Status { get; set; }
 
         public List<CheckBoxListItem> Categories { get; set; }

@@ -56,8 +56,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
                         Image image = new Image(fileStream);
                         var width = image.Bounds.Width;
                         var height = image.Bounds.Height;
-
-
+                        
                         UploadImageDto img = new UploadImageDto
                         {
                             Width = width,
@@ -74,6 +73,13 @@ namespace PersonalWebsite.Areas.Admin.Controllers
                     }
                 }
             }
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult ResizeImage(int id, float scale = 1)
+        {
+            imageService.ResizeImage(id, scale);
+
             return RedirectToAction("Index");
         }
 

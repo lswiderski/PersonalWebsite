@@ -7,7 +7,8 @@
     "NETStandard.Library": "1.6.0",
     "PersonalWebsite.Common": "1.0.0-*",
     "PersonalWebsite.Data": "1.0.0-*",
-    "PersonalWebsite.IdentityModel": "1.0.0-*"
+    "PersonalWebsite.IdentityModel": "1.0.0-*",
+    "Ngonzalez.ImageProcessorCore": "0.0.1"
   },
 
   "frameworks": {

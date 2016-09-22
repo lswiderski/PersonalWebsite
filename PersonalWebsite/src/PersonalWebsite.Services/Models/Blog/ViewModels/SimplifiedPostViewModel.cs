@@ -15,6 +15,8 @@ namespace PersonalWebsite.Services.Models
 
         public string Excerpt { get; set; }
 
+        public string ImgURL { get; set; }
+
         public List<CategoryViewModel> Categories { get; set; }
 
         public List<TagViewModel> Tags { get; set; }

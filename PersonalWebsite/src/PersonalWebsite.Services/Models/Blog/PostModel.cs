@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PersonalWebsite.Common;
 using PersonalWebsite.Common.Enums;
@@ -8,7 +7,6 @@ using PersonalWebsite.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 
 namespace PersonalWebsite.Services.Models
 {
@@ -24,6 +22,7 @@ namespace PersonalWebsite.Services.Models
             this.categoryModel = categoryModel;
             this.tagModel = tagModel;
         }
+
         public IEnumerable<SimplifiedPostViewModel> Search(string query)
         {
             //Parse query
@@ -33,9 +32,11 @@ namespace PersonalWebsite.Services.Models
             //for now just placeholder
             return GetPublishedSimplifiedPosts();
         }
+
         public IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPosts()
         {
-            var posts = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
+            var posts = (from post in db.Posts.Include(x => x.PostCategories)
+                         .Include(x => x.PostTags)
                          where post.Status == PostStatusType.PUBLISHED
                          select new SimplifiedPostViewModel
                          {
@@ -43,6 +44,7 @@ namespace PersonalWebsite.Services.Models
                              Title = post.Title,
                              Excerpt = post.Excerpt,
                              PostId = post.PostId,
+                             ImgURL = db.Set<Image>().Where(x => x.ImageId == post.HeaderImageId).Select(x => x.Thumbnail.Path).FirstOrDefault(),
                              Categories = post.PostCategories.Select(y => new CategoryViewModel
                              {
                                  CategoryId = y.CategoryId,
@@ -60,7 +62,8 @@ namespace PersonalWebsite.Services.Models
 
         public IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByTag(string tagName)
         {
-            var posts = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
+            var posts = (from post in db.Posts.Include(x => x.PostCategories)
+                         .Include(x => x.PostTags)
                          join postTag in db.PostTags on post.PostId equals postTag.PostId
                          join tag in db.Tags on postTag.TagId equals tag.TagId
                          where post.Status == PostStatusType.PUBLISHED
@@ -71,34 +74,7 @@ namespace PersonalWebsite.Services.Models
                              Title = post.Title,
                              Excerpt = post.Excerpt,
                              PostId = post.PostId,
-                             Categories = post.PostCategories.Select(y => new CategoryViewModel
-                             {
-                                 CategoryId = y.CategoryId,
-                                 Name = y.Category.Name,
-                                 Tittle = y.Category.Tittle
-                             }).ToList(),
-                             Tags = post.PostTags.Select(y => new TagViewModel
-                             {
-                                 TagId = y.TagId,
-                                 Name = y.Tag.Name
-                             }).ToList()
-                         }).ToList();
-            return posts;
-        }
-
-        public IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByCategory(string categoryName)
-        {
-            var posts = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
-                         join postCategory in db.PostCategories on post.PostId equals postCategory.PostId
-                         join category in db.Categories on postCategory.CategoryId equals category.CategoryId
-                         where post.Status == PostStatusType.PUBLISHED
-                         && category.Name == categoryName
-                         select new SimplifiedPostViewModel
-                         {
-                             Name = post.Name,
-                             Title = post.Title,
-                             Excerpt = post.Excerpt,
-                             PostId = post.PostId,
+                             ImgURL = db.Set<Image>().Where(x => x.ImageId == post.HeaderImageId).Select(x => x.Thumbnail.Path).FirstOrDefault(),
                              Categories = post.PostCategories.Select(y => new CategoryViewModel
                              {
                                  CategoryId = y.CategoryId,
@@ -114,9 +90,53 @@ namespace PersonalWebsite.Services.Models
             return posts;
         }
 
+        public IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByCategory(string categoryName)
+        {
+
+            var posts = (from post in db.Posts.Include(x => x.PostCategories)
+                         .Include(x => x.PostTags)
+                         join postCategory in db.PostCategories on post.PostId equals postCategory.PostId
+                         join category in db.Categories on postCategory.CategoryId equals category.CategoryId
+                         where post.Status == PostStatusType.PUBLISHED
+                          && category.Name == categoryName
+                         select new
+                         {
+                             Name = post.Name,
+                             Title = post.Title,
+                             Excerpt = post.Excerpt,
+                             PostId = post.PostId,
+                             Categories = post.PostCategories.Select(y => new CategoryViewModel
+                             {
+                                 CategoryId = y.CategoryId,
+                                 Name = y.Category.Name,
+                                 Tittle = y.Category.Tittle
+                             }).ToList(),
+                             Tags = post.PostTags.Select(y => new TagViewModel
+                             {
+                                 TagId = y.TagId,
+                                 Name = y.Tag.Name
+                             }).ToList(),
+                             HeaderImg = db.Set<Image>().Where(x => x.ImageId == post.HeaderImageId).Select(x => x.Thumbnail.Path).FirstOrDefault()
+                         }).AsEnumerable();
+
+            var selectedposts = posts.Select(x => new SimplifiedPostViewModel
+            {
+                Name = x.Name,
+                Title = x.Title,
+                Excerpt = x.Excerpt,
+                PostId = x.PostId,
+                Categories = x.Categories,
+                Tags = x.Tags,
+                ImgURL = x.HeaderImg,
+            }).AsEnumerable();
+
+            return selectedposts;
+        }
+
         public IEnumerable<SimplifiedPostViewModel> GetSimplifiedPosts()
         {
-            var posts = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
+            var posts = (from post in db.Posts.Include(x => x.PostCategories)
+                         .Include(x => x.PostTags)
                          where post.Status != PostStatusType.DELETED
                          select new SimplifiedPostViewModel
                          {
@@ -124,6 +144,7 @@ namespace PersonalWebsite.Services.Models
                              Title = post.Title,
                              Excerpt = post.Excerpt,
                              PostId = post.PostId,
+                             ImgURL = db.Set<Image>().Where(x => x.ImageId == post.HeaderImageId).Select(x => x.Thumbnail.Path).FirstOrDefault(),
                              Categories = post.PostCategories.Select(y => new CategoryViewModel
                              {
                                  CategoryId = y.CategoryId,
@@ -149,7 +170,8 @@ namespace PersonalWebsite.Services.Models
                 Excerpt = model.Excerpt,
                 Guid = Guid.NewGuid(),
                 Status = model.Status,
-                Name = model.Name
+                Name = model.Name,
+                HeaderImageId = model.HeaderImageId
             };
 
             db.Posts.Add(post);
@@ -174,7 +196,7 @@ namespace PersonalWebsite.Services.Models
                 {
                     var tagFromDb = tagModel.GetTag(tag);
 
-                    if(tagFromDb != null)
+                    if (tagFromDb != null)
                     {
                         var postTag = new PostTag
                         {
@@ -185,7 +207,6 @@ namespace PersonalWebsite.Services.Models
                     }
                     else
                     {
-
                         Tag newTag = new Tag
                         {
                             Name = tag,
@@ -216,6 +237,7 @@ namespace PersonalWebsite.Services.Models
                               PostId = post.PostId,
                               Content = new HtmlString(post.Content),
                               CreatedOn = post.CreatedOn,
+                              HeaderImageId = post.HeaderImageId,
                               Categories = post.PostCategories.Select(y => new CategoryViewModel
                               {
                                   CategoryId = y.CategoryId,
@@ -245,6 +267,7 @@ namespace PersonalWebsite.Services.Models
                               PostId = post.PostId,
                               Content = new HtmlString(post.Content),
                               CreatedOn = post.CreatedOn,
+                              HeaderImageId = post.HeaderImageId,
                               Categories = post.PostCategories.Select(y => new CategoryViewModel
                               {
                                   CategoryId = y.CategoryId,
@@ -297,6 +320,7 @@ namespace PersonalWebsite.Services.Models
                               PostId = post.PostId,
                               Content = post.Content,
                               Status = post.Status,
+                              HeaderImageId = post.HeaderImageId,
                               Categories = post.PostCategories.Select(y => y.CategoryId).ToList(),
                               Tags = post.PostTags.Select(y => y.Tag.Name).ToList(),
                           }).FirstOrDefault();
@@ -309,6 +333,7 @@ namespace PersonalWebsite.Services.Models
                 PostId = postVM.PostId,
                 Content = postVM.Content,
                 Status = postVM.Status,
+                HeaderImageId = postVM.HeaderImageId,
                 Categories = this.GetCategoriesCheckBoxListForPost(postVM.Categories).ToList(),
                 Tags = postVM.Tags
             };
@@ -318,13 +343,14 @@ namespace PersonalWebsite.Services.Models
 
         public void UpdatePost(EditPostViewModel model)
         {
-            var post = db.Posts.Include(x => x.PostCategories).ThenInclude(x => x.Category).Include(x => x.PostTags).ThenInclude(x =>x.Tag).Where(x => x.PostId == model.PostId).FirstOrDefault();
+            var post = db.Posts.Include(x => x.PostCategories).ThenInclude(x => x.Category).Include(x => x.PostTags).ThenInclude(x => x.Tag).Where(x => x.PostId == model.PostId).FirstOrDefault();
 
             post.Name = model.Name;
             post.Title = model.Title;
             post.Content = model.Content;
             post.Excerpt = model.Excerpt;
             post.Status = model.Status;
+            post.HeaderImageId = model.HeaderImageId;
             post.ModifiedOn = DateTime.Now;
 
             if (model.Categories != null)
@@ -333,9 +359,9 @@ namespace PersonalWebsite.Services.Models
                 {
                     if (category.IsChecked)
                     {
-                        if(post.PostCategories == null)
+                        if (post.PostCategories == null)
                         {
-                            post.PostCategories = new List<PostCategory>(); 
+                            post.PostCategories = new List<PostCategory>();
                         }
                         if (!post.PostCategories.Any(x => x.CategoryId == category.ID))
                         {
@@ -350,11 +376,10 @@ namespace PersonalWebsite.Services.Models
                     else
                     {
                         var categoryToDelete = post.PostCategories.Where(x => x.CategoryId == category.ID).FirstOrDefault();
-                        if(categoryToDelete != null)
+                        if (categoryToDelete != null)
                         {
                             db.PostCategories.Remove(categoryToDelete);
                         }
-                        
                     }
                 }
             }
@@ -400,7 +425,7 @@ namespace PersonalWebsite.Services.Models
                 }
             }
 
-                db.SaveChanges();
+            db.SaveChanges();
         }
 
         public void DeletePost(int id)

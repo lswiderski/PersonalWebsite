@@ -14,5 +14,6 @@ namespace PersonalWebsite.Data.Entities
         public string Extension { get; set; }
         public string Path { get; set; }
         public Guid Guid { get; set; }
+        public DateTime UploadedOn { get; set; }
     }
 }

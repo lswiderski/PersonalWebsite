@@ -17,6 +17,8 @@ namespace PersonalWebsite.Services.Models
 
         public string Excerpt { get; set; }
 
+        public int? HeaderImageId { get; set; }
+
         [DisplayFormat(DataFormatString = "{MM-dd-yy}")]
         public DateTime CreatedOn { get; set; }
 
