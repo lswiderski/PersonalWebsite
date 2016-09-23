@@ -27,5 +27,7 @@ namespace PersonalWebsite.Services.Models
         public List<CategoryViewModel> Categories { get; set; }
 
         public List<TagViewModel> Tags { get; set; }
+
+        public string HeaderPath { get; set; }
     }
 }

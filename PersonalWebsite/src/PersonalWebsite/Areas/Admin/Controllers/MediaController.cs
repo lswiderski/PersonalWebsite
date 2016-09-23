@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using ImageProcessorCore;
+using Sakura.AspNetCore;
 
 namespace PersonalWebsite.Areas.Admin.Controllers
 {
@@ -16,7 +17,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
     {
         private readonly IImageService imageService;
         private readonly IHostingEnvironment environment;
-
+        private int pageSize = 10;
 
         public MediaController(IImageService imageService, IHostingEnvironment environment)
         {
@@ -24,10 +25,12 @@ namespace PersonalWebsite.Areas.Admin.Controllers
             this.environment = environment;
         }
         // GET: /<controller>/
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
-            var viewModel = imageService.GetImageViewModels(string.Format("{0}://{1}", HttpContext.Request.Scheme, HttpContext.Request.Host.Value));
-            
+            var model = imageService.GetImageViewModels(string.Format("{0}://{1}", HttpContext.Request.Scheme, HttpContext.Request.Host.Value));
+            int pageNumber = (page ?? 1);
+            var viewModel = model.ToPagedList(pageSize, pageNumber);
+
             return View(viewModel);
         }
 

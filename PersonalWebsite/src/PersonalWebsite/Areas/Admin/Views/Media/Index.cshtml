@@ -1,5 +1,5 @@
 ﻿@using PersonalWebsite.Services.Models
-@model IEnumerable<ImageViewModel>
+@model Sakura.AspNetCore.IPagedList<ImageViewModel>
 @{
     Layout = "_AdminLayout";
 }
@@ -46,6 +46,11 @@
             </div>
         </div>
     }
+</div>
+<div class="row">
+    <nav aria-label="Page navigation">
+        <pager setting-item-attr-class="page-item" setting-link-attr-class="page-link" />
+    </nav>
 </div>
 
 <div class="modal fade" id="AddImages" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -256,7 +256,7 @@ namespace PersonalWebsite.Services.Models
 
         public PostViewModel GetPublishedPost(string name)
         {
-            var postVM = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags)
+            var postVM = (from post in db.Posts.Include(x => x.PostCategories).Include(x => x.PostTags).Include(x => x.HeaderImage).ThenInclude(y =>y.File)
                           where post.Name == name
                           && post.Status == PostStatusType.PUBLISHED
                           select new PostViewModel
@@ -268,6 +268,7 @@ namespace PersonalWebsite.Services.Models
                               Content = new HtmlString(post.Content),
                               CreatedOn = post.CreatedOn,
                               HeaderImageId = post.HeaderImageId,
+                              HeaderPath = post.HeaderImage.File.Path,
                               Categories = post.PostCategories.Select(y => new CategoryViewModel
                               {
                                   CategoryId = y.CategoryId,

@@ -126,9 +126,9 @@ namespace PersonalWebsite.Services.Models
         }
 
         //TODO: order by uploadeddate desc
-        public IEnumerable<ImageViewModel> GetImageViewModels(string host)
+        public IQueryable<ImageViewModel> GetImageViewModels(string host)
         {
-            var images = db.Images.Include(x => x.Thumbnail).Include(x => x.File).Select(x => new ImageViewModel
+            var images = db.Images.Include(x => x.Thumbnail).Include(x => x.File).OrderByDescending(x => x.File.UploadedOn).Select(x => new ImageViewModel
             {
                 Id = x.ImageId,
                 Path = string.Format("{0}/{1}", host, x.File.Path),
@@ -137,12 +137,12 @@ namespace PersonalWebsite.Services.Models
                 Height = x.Height,
                 Width = x.Width,
                 Title = x.Title,
-            }).AsEnumerable();
+            }).AsQueryable();
 
             return images;
         }
 
-        public IEnumerable<ImageViewModel> GetImageViewModels(List<int> ids, string host)
+        public IQueryable<ImageViewModel> GetImageViewModels(List<int> ids, string host)
         {
             var images = db.Images.Include(x => x.File).Include(x => x.Thumbnail).Where(x => ids.Any(y => y == x.ImageId)).Select(x => new ImageViewModel
             {
@@ -153,7 +153,7 @@ namespace PersonalWebsite.Services.Models
                 Height = x.Height,
                 Width = x.Width,
                 Title = x.Title,
-            }).AsEnumerable();
+            }).AsQueryable();
 
             return images;
         }

@@ -96,6 +96,7 @@ namespace PersonalWebsite.Services.Models
                 Type = filedto.Type,
                 Extension = filedto.Extension,
                 Guid = Guid.NewGuid(),
+                UploadedOn = DateTime.Now
             };
             db.Files.Add(file);
             db.SaveChanges();
