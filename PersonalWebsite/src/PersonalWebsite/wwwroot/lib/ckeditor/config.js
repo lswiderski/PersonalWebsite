@@ -3,22 +3,6 @@
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 CKEDITOR.stylesSet.add('default2', [
-	/* Block Styles */
-
-	// These styles are already available in the "Format" combo ("format" plugin),
-	// so they are not needed here by default. You may enable them to avoid
-	// placing the "Format" combo in the toolbar, maintaining the same features.
-	/*
-	{ name: 'Paragraph',		element: 'p' },
-	{ name: 'Heading 1',		element: 'h1' },
-	{ name: 'Heading 2',		element: 'h2' },
-	{ name: 'Heading 3',		element: 'h3' },
-	{ name: 'Heading 4',		element: 'h4' },
-	{ name: 'Heading 5',		element: 'h5' },
-	{ name: 'Heading 6',		element: 'h6' },
-	{ name: 'Preformatted Text',element: 'pre' },
-	{ name: 'Address',			element: 'address' },
-	*/
 
 	{ name: 'Italic Title', element: 'h2', styles: { 'font-style': 'italic' } },
 	{ name: 'Subtitle', element: 'h3', styles: { 'color': '#aaa', 'font-style': 'italic' } },
@@ -32,19 +16,6 @@ CKEDITOR.stylesSet.add('default2', [
 	    }
 	},
 
-	/* Inline Styles */
-
-	// These are core styles available as toolbar buttons. You may opt enabling
-	// some of them in the Styles combo, removing them from the toolbar.
-	// (This requires the "stylescombo" plugin)
-	/*
-	{ name: 'Strong',			element: 'strong', overrides: 'b' },
-	{ name: 'Emphasis',			element: 'em'	, overrides: 'i' },
-	{ name: 'Underline',		element: 'u' },
-	{ name: 'Strikethrough',	element: 'strike' },
-	{ name: 'Subscript',		element: 'sub' },
-	{ name: 'Superscript',		element: 'sup' },
-	*/
 
 	{ name: 'Marker', element: 'span', attributes: { 'class': 'marker' } },
 
@@ -102,16 +73,19 @@ CKEDITOR.stylesSet.add('default2', [
 	{ name: 'Borderless Table', element: 'table', styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
 	{ name: 'Square Bulleted List', element: 'ul', styles: { 'list-style-type': 'square' } }
 ]);
+
+
 CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here.
 	// For complete reference see:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
-	// The toolbar groups arrangement, optimized for two toolbar rows.
+    // The toolbar groups arrangement, optimized for two toolbar rows.
+    
 	config.toolbarGroups = [
 		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
 		{ name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
-		{ name: 'links' },
+		{ name: 'links', groups: ['lightbox'] },
 		{ name: 'insert' },
 		{ name: 'forms' },
 		{ name: 'tools' },
@@ -125,6 +99,7 @@ CKEDITOR.editorConfig = function( config ) {
         { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi']},
 	];
 	
+	
 	// Remove some buttons provided by the standard plugins, which are
 	// not needed in the Standard(s) toolbar.
 	config.removeButtons = 'Underline,Subscript,Superscript';
@@ -136,6 +111,9 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 
 	config.extraPlugins = 'justify'
+
+	config.extraPlugins = 'lightbox';
+	config.extraAllowedContent = 'a[data-lightbox,data-title,data-lightbox-saved]';
 
 	config.stylesSet = 'default2'
 };

@@ -137,6 +137,7 @@ namespace PersonalWebsite.Services.Models
                 Height = x.Height,
                 Width = x.Width,
                 Title = x.Title,
+                UploaddedOn = x.File.UploadedOn.ToString("dd'/'MM'/'yyyy"),
             }).AsQueryable();
 
             return images;

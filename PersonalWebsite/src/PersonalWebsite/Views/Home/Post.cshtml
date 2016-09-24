@@ -4,37 +4,38 @@
 @{
     Layout = "_Layout";
 }
-<style>
-    .full-width-img{
-            position: relative;
-         max-width: 100%;
-         height: auto;
-         
-    }
-</style>
-    <img src="@Url.Content("~/"+Model.HeaderPath)" class="img-fluid full-width-img"/>
+
+    
     
 
     <div class="container">
 
-        <div class="post card card-block">
-            <h1 class="text-xs-center card-title">@Model.Title</h1>
-            <h6 class="card-subtitle text-muted text-xs-center ">
-                @foreach (var category in @Model.Categories)
-            {
-                    <a asp-controller="Home" asp-action="Category" asp-route-id="@category.Name">@category.Tittle </a>
-                }
-                </h6n>
+        <div class="post card ">
+            <div class="card-block">
+                <h1 class="text-xs-center card-title">@Model.Title</h1>
+                <h6 class="card-subtitle text-muted text-xs-center ">
+                    @foreach (var category in @Model.Categories)
+                    {
+                        <a asp-controller="Home" asp-action="Category" asp-route-id="@category.Name">@category.Tittle </a>
+                    }
+                </h6>
                 <h6 class="text-xs-right">@Model.CreatedOn</h6>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.HeaderPath)) { 
+            <img src="@Url.Content("~/" + Model.HeaderPath)" class="img-fluid card-img"/>
+            }
+            <div class="card-block">
+
+                
 
                 <div class="post-content">@Model.Content</div>
 
                 <div>
                     @foreach (var tag in @Model.Tags)
-            {
+                    {
                         <span class="tag tag-default blog-post-tag">
-                            <a asp-controller="Home" asp-action="Tag" asp-route-id="@tag.Name">#@tag.Name </a>
-                        </span>
+                                <a asp-controller="Home" asp-action="Tag" asp-route-id="@tag.Name">#@tag.Name </a>
+                            </span>
                     }
                 </div>
 
@@ -42,5 +43,6 @@
                     <h4>Comments:</h4>
                     DISQUS
                 </div>
+            </div>
         </div>
     </div>

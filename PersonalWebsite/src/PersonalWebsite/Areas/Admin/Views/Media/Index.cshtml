@@ -3,78 +3,97 @@
 @{
     Layout = "_AdminLayout";
 }
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#AddImages">
-    Add
-</button>
-
 <div class="row">
-    @foreach (var img in Model)
-    {
-        <div class="col-xs-3 col-lg-2" style="word-break: break-all">
-            <div class="card">
-                <a href="@img.Path" a>
-                    <img class="card-img-top img-fluid" src="@Url.Content(img.Path)" alt="@img.Title" title="@img.Title" />
-                </a>
-                <div class="card-block">
-                    <a class="card-link" href="@img.Path">
-                        <h4 class="card-title">@img.Title</h4>
-                    </a>
-                    <h6 class="card-subtitle text-muted">@img.Name</h6>
-                    <p class="card-text">
-                        @img.Width x @img.Height
-                    </p>
-                    <a asp-action="ResizeImage" asp-area="Admin" asp-controller="Media" asp-route-id="@img.Id" asp-route-scale="0.5" class="btn btn-primary">Generate Thumbnail</a>
-                    <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseUrl-@img.Id" aria-expanded="false" aria-controls="collapseUrl-@img.Id">show URLs</button>
-                    <div class="collapse" id="collapseUrl-@img.Id">
-                        <div class="form-inline">
-                            <div class="form-group">
-                                <label for="ImgPath-@img.Id">Image</label>
-                                <input class="form-control" id="ImgPath-@img.Id" type="text" value="@img.Path" readonly>
-                            </div>
-                        </div>
-                        <div class="form-inline">
-                            <div class="form-group">
-                                <label for="ThumbnailPath-@img.Id">Thumbnail</label>
-                                <input class="form-control" id="ThumbnailPath-@img.Id" type="text" value="@img.ThumbnailPath" readonly>
-                            </div>
-                        </div>
+    <button type="button" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#AddImages">
+        Add
+    </button>
+        <nav aria-label="Page navigation">
+            <pager setting-item-attr-class="page-item" setting-link-attr-class="page-link" />
+        </nav>
+    </div>
+    <div class="row">
+        @foreach (var img in Model)
+        {
+            <div class="col-xs-4 col-lg-3" style="word-break: break-all">
+                <div class="card">
+                    <div style="height: 150px;">
+                        <a href="@img.Path" a>
+                            <img class="card-img-top img-fluid m-x-auto" src="@Url.Content(img.Path)" alt="@img.Title" title="@img.Title" style="height: 100%;" />
+                        </a>
                     </div>
-                </div>
-                <div class="card-footer text-muted">
-                    2 days ago
+                    <div class="card-block">
+                        <a class="card-link" href="@img.Path">
+                            <h4 class="card-title">@img.Title</h4>
+                        </a>
+                        <h6 class="card-subtitle text-muted">@img.Name</h6>
+                        <p class="card-text">
+                            @img.Width x @img.Height
+                        </p>
+
+                        <div class="dropdown pull-xs-left">
+                            <button class="btn btn-secondary dropdown-toggle  btn-sm" type="button" id="dropdownResize-@img.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-crop" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownResize-@img.Id">
+                                <a asp-action="ResizeImage" asp-area="Admin" asp-controller="Media" asp-route-id="@img.Id" asp-route-scale="0.25" class="dropdown-item">x0.25</a>
+                                <a asp-action="ResizeImage" asp-area="Admin" asp-controller="Media" asp-route-id="@img.Id" asp-route-scale="0.5" class="dropdown-item">x0.5</a>
+                                <a asp-action="ResizeImage" asp-area="Admin" asp-controller="Media" asp-route-id="@img.Id" asp-route-scale="0.75" class="dropdown-item">x0.75</a>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-sm pull-xs-right" type="button" data-toggle="collapse" data-target="#collapseUrl-@img.Id" aria-expanded="false" aria-controls="collapseUrl-@img.Id"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                        <div class="collapse" id="collapseUrl-@img.Id">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <label for="ImgPath-@img.Id">Image</label>
+                                    <input class="form-control" id="ImgPath-@img.Id" type="text" value="@img.Path" readonly>
+                                </div>
+                            </div>
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <label for="ThumbnailPath-@img.Id">Thumbnail</label>
+                                    <input class="form-control" id="ThumbnailPath-@img.Id" type="text" value="@img.ThumbnailPath" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer text-muted">
+                        <span class="pull-xs-left"># @img.Id</span>
+                        <span class="pull-xs-right">@img.UploaddedOn</span>
+                        
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
-<div class="row">
-    <nav aria-label="Page navigation">
-        <pager setting-item-attr-class="page-item" setting-link-attr-class="page-link" />
-    </nav>
-</div>
+        }
+    </div>
+    <div class="row">
+        <nav aria-label="Page navigation">
+            <pager setting-item-attr-class="page-item" setting-link-attr-class="page-link" />
+        </nav>
+    </div>
 
-<div class="modal fade" id="AddImages" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form id="upload-form" method="post" asp-action="Add" asp-controller="Media" asp-area="Admin" enctype="multipart/form-data">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">Upload Images</h4>
-                </div>
-                <div class="modal-body">
-                    <div id="upload-result"></div>
-                    <div id="upload-form-div">
-
-                        <input id="selected-files-upload" type="file" name="files" multiple />
+    <div class="modal fade" id="AddImages" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="upload-form" method="post" asp-action="Add" asp-controller="Media" asp-area="Admin" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Upload Images</h4>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="upload-button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Upload</button>
-                </div>
-            </form>
+                    <div class="modal-body">
+                        <div id="upload-result"></div>
+                        <div id="upload-form-div">
+
+                            <input id="selected-files-upload" type="file" name="files" multiple />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="upload-button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
