@@ -1,41 +1,61 @@
 ﻿@using PersonalWebsite.Services.Models
+@using Microsoft.AspNetCore.WebUtilities
+@using Microsoft.AspNetCore.Hosting
+@using Microsoft.AspNetCore.Http
 @model PostViewModel
 
 @{
     Layout = "_Layout";
 }
 
-    <div class="container">
-        <div class="post card ">
-            <div class="card-block">
-                <h1 class="text-xs-center card-title">@Model.Title</h1>
-                <h6 class="card-subtitle text-muted text-xs-center ">
-                    @foreach (var category in @Model.Categories)
-                    {
-                        <a asp-controller="Home" asp-action="Category" asp-route-id="@category.Name">@category.Tittle </a>
-                    }
-                </h6>
-                <h6 class="text-xs-right">@Model.CreatedOn</h6>
-            </div>
-            @if (!string.IsNullOrEmpty(Model.HeaderPath)) { 
+<div class="container">
+    <div class="post card ">
+        <div class="card-block">
+            <h1 class="text-xs-center card-title">@Model.Title</h1>
+            <h6 class="card-subtitle text-muted text-xs-center ">
+                @foreach (var category in @Model.Categories)
+                {
+                    <a asp-controller="Home" asp-action="Category" asp-route-id="@category.Name">@category.Tittle </a>
+                }
+            </h6>
+            <h6 class="text-xs-right">@Model.CreatedOn</h6>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.HeaderPath)) { 
             <img src="@Url.Content("~/" + Model.HeaderPath)" class="img-fluid card-img"/>
-            }
-            <div class="card-block">
-                <div class="post-content">@Model.Content</div>
+        }
+        <div class="card-block">
+            <div class="post-content">@Model.Content</div>
 
-                <div>
-                    @foreach (var tag in @Model.Tags)
-                    {
-                        <span class="tag tag-default blog-post-tag">
+            <div>
+                @foreach (var tag in @Model.Tags)
+                {
+                    <span class="tag tag-default blog-post-tag">
                                 <a asp-controller="Home" asp-action="Tag" asp-route-id="@tag.Name">#@tag.Name </a>
                             </span>
-                    }
-                </div>
+                }
+            </div>
 
-                <div class="post-comments">
-                    <h4>Comments:</h4>
-                    DISQUS
-                </div>
+            <div class="post-comments">
+                <h4>Comments:</h4>
+                <div id="disqus_thread"></div>
             </div>
         </div>
     </div>
+</div>
+
+
+<script>
+    var disqus_developer = 1;
+var disqus_config = function () {
+    this.page.url = "@Context.Request.Host.Value";
+    this.page.identifier = "neufrin-test-@Model.GUID";
+};
+
+(function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//lukaszswiderski.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

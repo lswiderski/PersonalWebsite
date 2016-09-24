@@ -292,6 +292,7 @@ namespace PersonalWebsite.Services.Models
                               CreatedOn = post.CreatedOn,
                               HeaderImageId = post.HeaderImageId,
                               HeaderPath = post.HeaderImage.File.Path,
+                              GUID = post.Guid.ToString(),
                               Categories = post.PostCategories.Select(y => new CategoryViewModel
                               {
                                   CategoryId = y.CategoryId,

@@ -29,5 +29,7 @@ namespace PersonalWebsite.Services.Models
         public List<TagViewModel> Tags { get; set; }
 
         public string HeaderPath { get; set; }
+
+        public string GUID { get; set; }
     }
 }
