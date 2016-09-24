@@ -1,5 +1,5 @@
 ﻿@using PersonalWebsite.Services.Models
-@model IEnumerable<SimplifiedPostViewModel>
+@model Sakura.AspNetCore.IPagedList<SimplifiedPostViewModel>
 
 @{
     Layout = "_AdminLayout";
@@ -8,48 +8,52 @@
     <a asp-area="Admin" asp-controller="Post" asp-action="Add" class="btn button btn-secondary">Add new</a>
 </div>
 <div class="row card" id="Post-List">
-        <table class="table table-hover">
-            <thead class="thead-inverse">
-                <tr>
-                    <th>
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-warning dropdown-toggle" type="button" id="dropdownPostsMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Action
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownPostsMenuButton">
-                                <a class="dropdown-item" href="#">Publish</a>
-                                <a class="dropdown-item" href="#">Unpublish</a>
-                                <a class="dropdown-item" href="#">Move to trash</a>
-                            </div>
-                        </div>
-                    </th>
-                    <th>Tittle</th>
-                    <th>Categories</th>
-                    <th>Tags</th>
+    <table class="table table-hover">
+        <thead class="thead-inverse">
+        <tr>
+            <th>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-warning dropdown-toggle" type="button" id="dropdownPostsMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Action
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownPostsMenuButton">
+                        <a class="dropdown-item" href="#">Publish</a>
+                        <a class="dropdown-item" href="#">Unpublish</a>
+                        <a class="dropdown-item" href="#">Move to trash</a>
+                    </div>
+                </div>
+            </th>
+            <th>Tittle</th>
+            <th>Categories</th>
+            <th>Tags</th>
 
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var post in Model)
-                {
-                    <tr>
-                        <td><input type="checkbox" name="action" value="" /></td>
-                        <td><a asp-area="Admin" asp-controller="Post" asp-action="Edit" asp-route-id="@post.PostId">@post.Title</a></td>
-                        <td>
-                            @foreach (var category in post.Categories)
-                {
-                                <a href="@category.Name">@category.Tittle, </a>
-                            }
-                        </td>
-                        <td>
-                            @foreach (var tag in post.Tags)
-                {
-                                <a href="@tag.Name">@tag.Name, </a>
-                            }
-                        </td>
-                    </tr>
-                }
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var post in Model)
+        {
+            <tr>
+                <td><input type="checkbox" name="action" value="" /></td>
+                <td><a asp-area="Admin" asp-controller="Post" asp-action="Edit" asp-route-id="@post.PostId">@post.Title</a></td>
+                <td>
+                    @foreach (var category in post.Categories)
+                    {
+                        <a href="@category.Name">@category.Tittle, </a>
+                    }
+                </td>
+                <td>
+                    @foreach (var tag in post.Tags)
+                    {
+                        <a href="@tag.Name">@tag.Name, </a>
+                    }
+                </td>
+            </tr>
+        }
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 </div>
+    
+<nav aria-label="Page navigation">
+    <pager setting-item-attr-class="page-item" setting-link-attr-class="page-link" />
+</nav>

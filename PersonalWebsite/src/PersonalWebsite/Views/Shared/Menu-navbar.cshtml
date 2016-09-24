@@ -26,9 +26,12 @@
                         </li>
                     </ul>
                     <span class="search-nav pull-md-right pull-xs-left">
-                        <form class="form-inline ">
-                            <input class="form-control" type="text" placeholder="Search">
-                        </form>
+
+                        @using (Html.BeginForm("Search", "Home", null, FormMethod.Get,false, new {@class="form-inline"}))
+                        {
+                                <input name="query" class="form-control" type="text" placeholder="Search">                          
+                        } 
+                       
                     </span>
                 </div>
 

@@ -7,16 +7,16 @@ namespace PersonalWebsite.Services.Models
 {
     public interface IPostModel
     {
-        IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPosts();
+        IQueryable<SimplifiedPostViewModel> GetPublishedSimplifiedPosts();
         void AddPost(AddPostViewModel model);
         PostViewModel GetPublishedPost(int id);
         PostViewModel GetPublishedPost(string name);
         EditPostViewModel GetPostForEdit(int id);
         void UpdatePost(EditPostViewModel model);
         void DeletePost(int id);
-        IEnumerable<SimplifiedPostViewModel> GetSimplifiedPosts();
-        IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByTag(string tagName);
-        IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByCategory(string categoryName);
-        IEnumerable<SimplifiedPostViewModel> Search(string query);
+        IQueryable<SimplifiedPostViewModel> GetSimplifiedPosts();
+        IQueryable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByTag(string tagName);
+        IQueryable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByCategory(string categoryName);
+        IQueryable<SimplifiedPostViewModel> Search(string query);
     }
 }

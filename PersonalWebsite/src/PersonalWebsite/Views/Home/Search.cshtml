@@ -1,0 +1,69 @@
+﻿@using PersonalWebsite.Services.Models
+@model Sakura.AspNetCore.IPagedList<SimplifiedPostViewModel>
+
+@{
+    Layout = "_Layout";
+}
+<div class="full-width-img"></div>
+<div class="container">
+    <div class="row">
+
+        <div class="card card-block">
+            @ViewData["SiteHeader"]
+            <br />
+            <a asp-controller="Home" asp-action="Category" asp-route-id="@ViewData["Query"]">Search by Category: @ViewData["Query"] </a>
+            <br />
+            <a asp-controller="Home" asp-action="Tag" asp-route-id="@ViewData["Query"]">Search by Tag: #@ViewData["Query"] </a>
+        </div>
+        <div class="col-sm-8 blog-list">
+            <div id="Post-List">
+
+                @foreach (var post in Model)
+            {
+                    <div class="post-item-box card">
+                        @if (!string.IsNullOrEmpty(post.ImgURL))
+                        {
+                            <img class="card-img-top img-fluid" src="@Url.Content("~/"+post.ImgURL)" alt="Card image cap">
+                        }
+                        <div class="card-block">
+                            <span><h4 class="card-title post-item-box-tittle"><a href='@Url.Action("Blog","Home", new {id = @post.Name })'>@post.Title</a></h4></span>
+                            <h6 class="card-subtitle text-muted">
+                                dsadas
+                                @foreach (var category in post.Categories)
+                                {
+                                    <a asp-controller="Home" asp-action="Category" asp-route-id="@category.Name">@category.Tittle </a>
+                                }
+                            </h6>
+
+                            <p class="card-text">@post.Excerpt</p>
+                            <div class="text-xs-right">
+                                <div class="show-more card-link">
+                                    <a href='@Url.Action("Index","Blog", new {id = @post.Name })'>Show more...</a>
+                                </div>
+                            </div>
+                            @foreach (var tag in post.Tags)
+                            {
+                                <span class="tag tag-default blog-post-tag">
+                                    <a asp-controller="Home" asp-action="Tag" asp-route-id="@tag.Name">#@tag.Name </a>
+                                </span>
+                            }
+
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <nav aria-label="Page navigation">
+                <pager setting-item-attr-class="page-item" setting-link-attr-class="page-link" />
+            </nav>
+
+        </div>
+        <div class="col-sm-4 blog-sidebar">
+            <div class="row">
+                <div class="card card-block">
+                    @await Component.InvokeAsync("CategoryList")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

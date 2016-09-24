@@ -23,17 +23,40 @@ namespace PersonalWebsite.Services.Models
             this.tagModel = tagModel;
         }
 
-        public IEnumerable<SimplifiedPostViewModel> Search(string query)
+        public IQueryable<SimplifiedPostViewModel> Search(string query)
         {
-            //Parse query
+            var posts = (from post in db.Posts
+                where (post.Content.Contains(query)
+                       || post.Excerpt.Contains(query))
+                      && post.Status == PostStatusType.PUBLISHED
+                select new SimplifiedPostViewModel
+                {
+                    Name = post.Name,
+                    Title = post.Title,
+                    Excerpt = post.Excerpt,
+                    PostId = post.PostId,
+                    ImgURL =
+                        db.Set<Image>()
+                            .Where(x => x.ImageId == post.HeaderImageId)
+                            .Select(x => x.Thumbnail.Path)
+                            .FirstOrDefault(),
+                    Categories = post.PostCategories.Select(y => new CategoryViewModel
+                    {
+                        CategoryId = y.CategoryId,
+                        Name = y.Category.Name,
+                        Tittle = y.Category.Tittle
+                    }).ToList(),
+                    Tags = post.PostTags.Select(y => new TagViewModel
+                    {
+                        TagId = y.TagId,
+                        Name = y.Tag.Name
+                    }).ToList()
+                }).AsQueryable();
 
-            //search
-
-            //for now just placeholder
-            return GetPublishedSimplifiedPosts();
+            return posts;
         }
 
-        public IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPosts()
+        public IQueryable<SimplifiedPostViewModel> GetPublishedSimplifiedPosts()
         {
             var posts = (from post in db.Posts.Include(x => x.PostCategories)
                          .Include(x => x.PostTags)
@@ -56,11 +79,11 @@ namespace PersonalWebsite.Services.Models
                                  TagId = y.TagId,
                                  Name = y.Tag.Name
                              }).ToList()
-                         }).AsEnumerable();
+                         }).AsQueryable();
             return posts;
         }
 
-        public IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByTag(string tagName)
+        public IQueryable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByTag(string tagName)
         {
             var posts = (from post in db.Posts.Include(x => x.PostCategories)
                          .Include(x => x.PostTags)
@@ -86,11 +109,11 @@ namespace PersonalWebsite.Services.Models
                                  TagId = y.TagId,
                                  Name = y.Tag.Name
                              }).ToList()
-                         }).AsEnumerable();
+                         }).AsQueryable();
             return posts;
         }
 
-        public IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByCategory(string categoryName)
+        public IQueryable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByCategory(string categoryName)
         {
 
             var posts = (from post in db.Posts.Include(x => x.PostCategories)
@@ -117,7 +140,7 @@ namespace PersonalWebsite.Services.Models
                                  Name = y.Tag.Name
                              }).ToList(),
                              HeaderImg = db.Set<Image>().Where(x => x.ImageId == post.HeaderImageId).Select(x => x.Thumbnail.Path).FirstOrDefault()
-                         }).AsEnumerable();
+                         }).AsQueryable();
 
             var selectedposts = posts.Select(x => new SimplifiedPostViewModel
             {
@@ -128,12 +151,12 @@ namespace PersonalWebsite.Services.Models
                 Categories = x.Categories,
                 Tags = x.Tags,
                 ImgURL = x.HeaderImg,
-            }).AsEnumerable();
+            }).AsQueryable();
 
             return selectedposts;
         }
 
-        public IEnumerable<SimplifiedPostViewModel> GetSimplifiedPosts()
+        public IQueryable<SimplifiedPostViewModel> GetSimplifiedPosts()
         {
             var posts = (from post in db.Posts.Include(x => x.PostCategories)
                          .Include(x => x.PostTags)
@@ -156,7 +179,7 @@ namespace PersonalWebsite.Services.Models
                                  TagId = y.TagId,
                                  Name = y.Tag.Name
                              }).ToList()
-                         }).AsEnumerable();
+                         }).AsQueryable();
             return posts;
         }
 

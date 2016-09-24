@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PersonalWebsite.Services.Models;
+using Sakura.AspNetCore;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,6 +15,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
     {
         private readonly IPostModel postModel;
         private readonly ICategoryModel categoryModel;
+        private int pageSize = 10;
 
         public PostController(IPostModel postModel, ICategoryModel categoryModel)
         {
@@ -21,10 +23,14 @@ namespace PersonalWebsite.Areas.Admin.Controllers
             this.categoryModel = categoryModel;
         }
         // GET: /<controller>/
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
-            var viewModel = postModel.GetSimplifiedPosts();
-            return View(viewModel);
+            var model = postModel.GetSimplifiedPosts();
+
+            int pageNumber = (page ?? 1);
+            var viewModel = model.ToPagedList(pageSize, pageNumber);
+            ViewData["SiteHeader"] = "Blog";
+            return View(viewModel);;
         }
 
         public IActionResult Add()
