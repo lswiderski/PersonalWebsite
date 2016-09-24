@@ -2,8 +2,9 @@
 $primary-color: #333;
 $break-small: 543px;
 $break-medium: 768px;
+$break-large: 992px;
 $navbar-height: 75px;
-$footer-height: 60px;
+$footer-height: 100px;
 
 html {
   position: relative;
@@ -72,9 +73,21 @@ body {
      margin-top: 10px;
      padding-top: 5px;
      }
-
+     .blog-list {
+     padding-left: 0px;
+     }
+      
+ }
+ @media screen and (min-width: $break-medium) and (max-width: $break-large){
+ #searchFormNav {
+     display: none;
+ }
  }
 
+ .index-header{
+     background-color: #323232;
+     height:500px;
+ }
 
  footer{
 
@@ -83,15 +96,36 @@ body {
   width: 100%;
   /* Set the fixed height of the footer here */
   height: $footer-height;
-  background-color: #f5f5f5;
+  color: #f0f0f0;
+  background-color: #323232;
  }
 
+ .socials{
+     list-style: none;
+     text-align: center;
+     font-size: 21px;
+     margin-top: 25px;
+     padding-left: 0px;
+ }
+ .socials li {
+    border: 0!important;
+    list-style: none;
+    padding-left: 0;
+    text-align: center;
+    display: inline-block;
+ }
+  .socials li a {
+      color: #f0f0f0;
+      margin: 0 15px;
+  }
  .post-item-box-tittle a{
      color: #000;
  }
  .blog-post-tag a{
      color: #fff;
  }
+
+
 
  .tag-remove-button{
      color: #fff;

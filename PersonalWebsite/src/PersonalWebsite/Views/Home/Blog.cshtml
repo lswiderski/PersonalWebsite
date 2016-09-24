@@ -10,15 +10,16 @@
         <div class="card card-block blog-nav">
            @ViewData["SiteHeader"]
         </div>
-        <div class="col-sm-8 blog-list">
+        <div class="col-md-8 blog-list">
             <div id="Post-List">
 
                 @foreach (var post in Model)
             {
                     <div class="post-item-box card">
                         @if (!string.IsNullOrEmpty(post.ImgURL))
-                        {
-                            <img class="card-img-top img-fluid" src="@Url.Content("~/"+post.ImgURL)" alt="Card image cap">
+                        {<a href='@Url.Action("Blog","Home", new {id = @post.Name })'>
+                        <img class="card-img-top img-fluid" src="@Url.Content("~/"+post.ImgURL)" alt="@post.Name ">
+                        </a>
                         }                      
                         <div class="card-block">
                             <span><h4 class="card-title post-item-box-tittle"><a href='@Url.Action("Blog","Home", new {id = @post.Name })'>@post.Title</a></h4></span>
@@ -33,7 +34,7 @@
                             <p class="card-text">@post.Excerpt</p>
                             <div class="text-xs-right">
                                 <div class="show-more card-link">
-                                    <a href='@Url.Action("Index","Blog", new {id = @post.Name })'>Show more...</a>
+                                    <a href='@Url.Action("Blog","Home", new {id = @post.Name })'>Show more...</a>
                                 </div>
                             </div>
                             @foreach (var tag in post.Tags)
@@ -53,7 +54,7 @@
                     </nav>
 
         </div>
-        <div class="col-sm-4 blog-sidebar">
+        <div class="col-md-4 blog-sidebar">
             <div class="row">
                 <div class="card card-block">
                     @await Component.InvokeAsync("CategoryList")

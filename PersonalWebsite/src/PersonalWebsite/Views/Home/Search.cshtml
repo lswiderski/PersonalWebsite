@@ -23,7 +23,9 @@
                     <div class="post-item-box card">
                         @if (!string.IsNullOrEmpty(post.ImgURL))
                         {
-                            <img class="card-img-top img-fluid" src="@Url.Content("~/"+post.ImgURL)" alt="Card image cap">
+                            <a href='@Url.Action("Blog","Home", new {id = @post.Name })'>
+                                <img class="card-img-top img-fluid" src="@Url.Content("~/"+post.ImgURL)" alt="@post.Name ">
+                            </a>
                         }
                         <div class="card-block">
                             <span><h4 class="card-title post-item-box-tittle"><a href='@Url.Action("Blog","Home", new {id = @post.Name })'>@post.Title</a></h4></span>
