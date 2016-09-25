@@ -11,8 +11,12 @@ namespace PersonalWebsite.Services.Models
 
         void EditSetting(EditSettingViewModel model);
 
+        EditSettingViewModel GetSettingForEdit(int id);
+
         SettingViewModel GetSetting(int id);
 
         List<SettingViewModel> GetSettings();
+
+        Dictionary<string, SettingViewModel> GetDictionary();
     }
 }

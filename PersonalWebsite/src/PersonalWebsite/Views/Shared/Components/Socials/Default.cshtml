@@ -1,0 +1,13 @@
+﻿@using PersonalWebsite.Services.Models
+@model Dictionary<string, SettingViewModel>
+
+
+<ul class="socials">
+    <li><a href="@Model["Socials.Facebook.Profile.Link"].Value"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+    <li><a href="@Model["Socials.Twitter.Profile.Link"].Value"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+    <li><a href="@Model["Socials.Github.Profile.Link"].Value"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+    <li><a href="@Model["Socials.Instagram.Profile.Link"].Value"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+    <li><a href="mailto:@Model["Socials.Mail"].Value"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+    <li><a href="@Model["Socials.LinkedIn.Profile.Link"].Value"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a></li>
+    <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
+</ul>

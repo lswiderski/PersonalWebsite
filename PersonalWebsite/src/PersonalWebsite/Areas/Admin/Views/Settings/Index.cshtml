@@ -8,17 +8,26 @@
 <br />
 <br />
 <br />
-<table>
-    <tr>
-        <td>Setting Name</td>
-        <td>Value</td>
-    </tr>
-
-    @foreach (var setting in Model)
-    {
+<table class="table table-hover">
+    <thead>
         <tr>
-            <td>@setting.Name</td>
-            <td>@setting.Value</td>
+            <th>Setting Name</th>
+            <th>Value</th>
+            <th>Type</th>
+            <th></th>
         </tr>
-    }
+    </thead>
+    
+    <tbody>
+        @foreach (var setting in Model)
+        {
+            <tr>
+                <td>@setting.Name</td>
+                <td>@setting.Value</td>
+                <td>@setting.Type</td>
+                <td><a asp-area="Admin" asp-controller="Settings" asp-action="Edit" asp-route-id="@setting.SettingId">Edit</a></td>
+            </tr>
+        }
+    </tbody>
 </table>
+<a asp-area="Admin" asp-controller="Settings" asp-action="Add" class="btn btn-primary">Add new setting</a>

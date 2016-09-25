@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using PersonalWebsite.IdentityModel;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Caching.Memory;
+using PersonalWebsite.Common;
 
 
 namespace PersonalWebsite.Services
@@ -20,10 +22,13 @@ namespace PersonalWebsite.Services
         public Initialization(IServiceCollection services)
         {
             this.ConfigureServices(services);
+
         }
         public void ConfigureServices(IServiceCollection services)
         {
             dataInit = new Data.Initialization(services);
+
+            services.AddMemoryCache();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<DataContext>()
@@ -32,19 +37,27 @@ namespace PersonalWebsite.Services
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+           
+            services.AddTransient<ICacheService, CacheService>();
 
-            services.AddTransient<ISettingModel,SettingModel>();
+            ConfigureDataServices(services);
+
+        }
+
+        private void ConfigureDataServices(IServiceCollection services)
+        {
+            services.AddTransient<ISettingModel, SettingModel>();
             services.AddTransient<IPostModel, PostModel>();
             services.AddTransient<ITagModel, TagModel>();
             services.AddTransient<ICategoryModel, CategoryModel>();
             services.AddTransient<IFileService, FileService>();
             services.AddTransient<IImageService, ImageService>();
-
         }
 
         public void Configure(IServiceProvider serviceProvider)
         {
             dataInit.Configure(serviceProvider);
         }
+
     }
 }

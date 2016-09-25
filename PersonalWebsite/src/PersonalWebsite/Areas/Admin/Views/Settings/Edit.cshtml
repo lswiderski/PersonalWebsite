@@ -1,0 +1,26 @@
+﻿@using PersonalWebsite.Common.Enums
+@model PersonalWebsite.Services.Models.EditSettingViewModel
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<form asp-controller="Settings" asp-action="Edit" method="post" role="form" id="post-form" class="form-inline">
+    <div class="card card-block">
+        <div asp-validation-summary="All" class="text-danger"></div>
+       @Html.HiddenFor(x => x.SettingId)
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Value"></label>
+            <input asp-for="Value" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Type"></label>
+            @Html.DropDownListFor(x => x.Type, Html.GetEnumSelectList(typeof(SettingDataType)), new { @class = "form-control" })
+        </div>
+        <input type="Submit" value="Edit" class="btn btn-default" id="submit-button" />
+    </div>
+</form>
