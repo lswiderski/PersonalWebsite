@@ -1,0 +1,17 @@
+﻿@using PersonalWebsite.Services.Models
+@model List<TagViewModel>
+
+<style>
+    .tag-button {
+        margin: 3px;
+    }
+</style>
+<h3>Tags</h3>
+
+    @foreach (var tag in Model)
+    {
+       
+            <a asp-controller="Home" asp-action="Tag" asp-route-id="@tag.Name" class="btn btn-outline-primary btn-sm tag-button">#@tag.Name</a>
+        
+
+    }

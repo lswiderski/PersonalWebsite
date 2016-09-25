@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PersonalWebsite.Common;
 
 namespace PersonalWebsite.Areas.Admin.Controllers
 {
@@ -13,16 +14,19 @@ namespace PersonalWebsite.Areas.Admin.Controllers
     
     public class SettingsController : Controller
     {
-        ISettingModel settingModel;
-        public SettingsController(ISettingModel settingModel)
+        private readonly ISettingModel _settingModel;
+        private readonly ICacheService _cacheService;
+
+        public SettingsController(ISettingModel settingModel, ICacheService cacheService)
         {
-            this.settingModel = settingModel;
+            _settingModel = settingModel;
+            _cacheService = cacheService;
         }
 
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var viewModel = settingModel.GetSettings();
+            var viewModel = _settingModel.GetSettings();
             return View(viewModel);
         }
 
@@ -36,7 +40,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                settingModel.AddSetting(model);
+                _settingModel.AddSetting(model);
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -44,7 +48,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
 
         public IActionResult Edit(int id)
         {
-            var viewModel = settingModel.GetSettingForEdit(id);
+            var viewModel = _settingModel.GetSettingForEdit(id);
             return View(viewModel);
         }
 
@@ -53,10 +57,16 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                settingModel.EditSetting(model);
+                _settingModel.EditSetting(model);
                 return RedirectToAction("Index");
             }
             return View(model);
+        }
+
+        public IActionResult ClearCache()
+        {
+            _cacheService.Clear();
+            return RedirectToAction("Index");
         }
     }
 }

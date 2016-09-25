@@ -37,9 +37,8 @@ namespace PersonalWebsite.Components
 
             if (string.IsNullOrEmpty(instagramData))
             {
-                var settings = settingModel.GetDictionary();
-                var userId = settings["Instagram.UserID"].Value;
-                var token = settings["Instagram.AccessToken"].Value;
+                var userId = settingModel.GetString("Instagram.UserID");
+                var token = settingModel.GetString("Instagram.AccessToken");
 
                 instagramData = GetImagesFromServer(token, userId, 0);
             }

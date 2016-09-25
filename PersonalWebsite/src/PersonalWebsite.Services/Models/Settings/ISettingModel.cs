@@ -18,5 +18,13 @@ namespace PersonalWebsite.Services.Models
         List<SettingViewModel> GetSettings();
 
         Dictionary<string, SettingViewModel> GetDictionary();
+
+        decimal GetDecimal(string key);
+
+        bool GetLogic(string key);
+
+        int GetInt(string key);
+
+        string GetString(string key);
     }
 }

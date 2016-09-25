@@ -1,16 +1,29 @@
-﻿using System;
+﻿using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace PersonalWebsite.Common
 {
     public class CacheService : ICacheService
     {
         private readonly IMemoryCache _memoryCache;
+        private static List<string> keys;
+
+        public static List<string> Keys
+        {
+            get
+            {
+                if (keys == null)
+                {
+                    keys = new List<string>();
+                }
+                return keys;
+            }
+        }
+
         // object life time in cache in minutes
         public static int LifeTime = 5;
+
         public CacheService(IMemoryCache memoryCache)
         {
             _memoryCache = memoryCache;
@@ -21,6 +34,7 @@ namespace PersonalWebsite.Common
             _memoryCache.Set(key, obj,
                   new MemoryCacheEntryOptions()
                   .SetAbsoluteExpiration(TimeSpan.FromMinutes(LifeTime)));
+            Keys.Add(key);
         }
 
         public string Store<T>(T obj) where T : class
@@ -29,7 +43,7 @@ namespace PersonalWebsite.Common
             _memoryCache.Set(key, obj,
                   new MemoryCacheEntryOptions()
                   .SetAbsoluteExpiration(TimeSpan.FromMinutes(LifeTime)));
-
+            Keys.Add(key);
             return key;
         }
 
@@ -50,6 +64,13 @@ namespace PersonalWebsite.Common
             return false;
         }
 
-        
+        public void Clear()
+        {
+            foreach (var key in Keys)
+            {
+                _memoryCache.Remove(key);
+            }
+            Keys.Clear();
+        }
     }
 }

@@ -14,5 +14,7 @@ namespace PersonalWebsite.Common
         T Get<T>(string key) where T : class;
 
         bool IsCached(string key);
+
+        void Clear();
     }
 }

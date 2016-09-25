@@ -7,11 +7,14 @@ namespace PersonalWebsite.Controllers
     public class HomeController : Controller
     {
         private readonly IPostModel _postModel;
+        private readonly ISettingModel _settingModel;
         private int pageSize = 3;
 
-        public HomeController(IPostModel postModel)
+        public HomeController(IPostModel postModel, ISettingModel settingModel)
         {
             _postModel = postModel;
+            _settingModel = settingModel;
+            pageSize = _settingModel.GetInt("Blog.PageSize");
         }
 
         public IActionResult Index()

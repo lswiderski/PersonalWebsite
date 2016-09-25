@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using PersonalWebsite.Common;
+using PersonalWebsite.Common.Enums;
 using PersonalWebsite.Data;
 using PersonalWebsite.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using PersonalWebsite.Common;
 
 namespace PersonalWebsite.Services.Models
 {
@@ -85,8 +86,8 @@ namespace PersonalWebsite.Services.Models
 
         public Dictionary<string, SettingViewModel> GetDictionary()
         {
-           var key = "Settings";
-           var cachedSettings = _cacheService.Get<Dictionary<string, SettingViewModel>>(key);
+            var key = "Settings";
+            var cachedSettings = _cacheService.Get<Dictionary<string, SettingViewModel>>(key);
             if (cachedSettings == null)
             {
                 var settings = db.Settings.Select(x => new SettingViewModel
@@ -101,7 +102,99 @@ namespace PersonalWebsite.Services.Models
                 return settings;
             }
             return cachedSettings;
+        }
 
+        public int GetInt(string key)
+        {
+            var dictionary = this.GetDictionary();
+            int result;
+
+            if (!dictionary.ContainsKey(key))
+            {
+                throw new Exception(string.Format("Missing Setting Name: {0}",key));
+            }
+
+            if (dictionary[key].Type == SettingDataType.INT)
+            {
+                if (!int.TryParse(dictionary[key].Value, out result))
+                {
+                    throw new Exception("Value doesn't match type");
+                }
+            }
+            else
+            {
+                throw new Exception("Wrong Type");
+            }
+            return result;
+        }
+
+        public bool GetLogic(string key)
+        {
+            var dictionary = this.GetDictionary();
+            bool result;
+
+            if (!dictionary.ContainsKey(key))
+            {
+                throw new Exception(string.Format("Missing Setting Name: {0}", key));
+            }
+
+            if (dictionary[key].Type == SettingDataType.LOGIC)
+            {
+                if (!bool.TryParse(dictionary[key].Value, out result))
+                {
+                    throw new Exception("Value doesn't match type");
+                }
+            }
+            else
+            {
+                throw new Exception("Wrong Type");
+            }
+            return result;
+        }
+
+        public decimal GetDecimal(string key)
+        {
+            var dictionary = this.GetDictionary();
+            decimal result;
+
+            if (!dictionary.ContainsKey(key))
+            {
+                throw new Exception(string.Format("Missing Setting Name: {0}", key));
+            }
+
+            if (dictionary[key].Type == SettingDataType.DECIMAL)
+            {
+                if (!decimal.TryParse(dictionary[key].Value, out result))
+                {
+                    throw new Exception("Value doesn't match type");
+                }
+            }
+            else
+            {
+                throw new Exception("Wrong Type");
+            }
+            return result;
+        }
+
+        public string GetString(string key)
+        {
+            var dictionary = this.GetDictionary();
+            string result;
+
+            if (!dictionary.ContainsKey(key))
+            {
+                throw new Exception(string.Format("Missing Setting Name: {0}", key));
+            }
+
+            if (dictionary[key].Type == SettingDataType.STRING)
+            {
+                result = dictionary[key].Value;
+            }
+            else
+            {
+                throw new Exception("Wrong Type");
+            }
+            return result;
         }
 
         public void DeleteSetting(int id)
