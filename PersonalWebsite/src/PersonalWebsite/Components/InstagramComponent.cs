@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PersonalWebsite.Common;
 using PersonalWebsite.Services.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -12,9 +14,7 @@ namespace PersonalWebsite.Components
     {
         private readonly ISettingModel settingModel;
         private readonly ICacheService _cacheService;
-        private static ManualResetEvent allDone = new ManualResetEvent(false);
         private string cacheKey = "InstagramData";
-        private string instagramData;
 
         public InstagramComponent(ISettingModel settingModel, ICacheService cacheService)
         {
@@ -24,42 +24,82 @@ namespace PersonalWebsite.Components
 
         public IViewComponentResult Invoke()
         {
+            var instagramData = GetImages();
+
+            var ig = ParseResponse(instagramData);
+
+            return View(ig);
+        }
+
+        private string GetImages()
+        {
             var instagramData = _cacheService.Get<string>(cacheKey);
 
             if (string.IsNullOrEmpty(instagramData))
             {
                 var settings = settingModel.GetDictionary();
-                var url = string.Format("https://api.instagram.com/v1/users/{0}/media/recent?access_token={1}&count={2}",
-                   settings["Instagram.UserID"].Value,
-                   settings["Instagram.AccessToken"].Value,
-                   9);
+                var userId = settings["Instagram.UserID"].Value;
+                var token = settings["Instagram.AccessToken"].Value;
 
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-
-                request.Method = "GET";
-                request.ContentType = "jsonp";
-                request.BeginGetResponse(new AsyncCallback(GetResponseCallback), request);
-                allDone.WaitOne();
+                instagramData = GetImagesFromServer(token, userId, 0);
             }
-            return View(new ContentResult { Content = instagramData, ContentType = "application/json" });
+            return instagramData;
         }
 
-        private void GetResponseCallback(IAsyncResult asynchronousResult)
+        private string GetImagesFromServer(string accessToken, string userId, int count)
         {
-            HttpWebRequest request = (HttpWebRequest)asynchronousResult.AsyncState;
+            var url = string.Format("https://api.instagram.com/v1/users/{0}/media/recent?access_token={1}&count={2}",
+                 userId, accessToken, 9);
 
-            HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(asynchronousResult);
-            Stream streamResponse = response.GetResponseStream();
-            StreamReader streamRead = new StreamReader(streamResponse);
-            instagramData = streamRead.ReadToEnd();
+            string instagramData = "";
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.ContentType = "jsonp";
 
-            streamRead.Dispose();
-            streamResponse.Dispose();
+                HttpWebResponse response = (HttpWebResponse)request.GetResponseAsync().Result;
+                Stream streamResponse = response.GetResponseStream();
+                StreamReader streamRead = new StreamReader(streamResponse);
 
-            response.Dispose();
-            _cacheService.Store(cacheKey, instagramData);
+                instagramData = streamRead.ReadToEnd();
 
-            allDone.Set();
+                streamRead.Dispose();
+                streamResponse.Dispose();
+                response.Dispose();
+
+                _cacheService.Store(cacheKey, instagramData);
+            }
+            catch (Exception ex)
+            {
+                //log
+            }
+            return instagramData;
+        }
+
+        public List<InstagramDTO> ParseResponse(string response)
+        {
+            var ig = new List<InstagramDTO>();
+            try
+            {
+                var instagram = JsonConvert.DeserializeObject<dynamic>(response);
+                foreach (var image in instagram.data)
+                {
+                    ig.Add(new InstagramDTO
+                    {
+                        ImgURL = image.images.standard_resolution.url,
+                        ThumbnailURL = image.images.low_resolution.url,
+                        Link = image.link,
+                        Text = image.caption.test
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                //log
+            }
+
+            return ig;
         }
     }
 }
