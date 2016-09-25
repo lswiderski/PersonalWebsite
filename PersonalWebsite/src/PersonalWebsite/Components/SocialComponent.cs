@@ -7,11 +7,11 @@ using PersonalWebsite.Services.Models;
 
 namespace PersonalWebsite.Components
 {
-    public class Socials : ViewComponent
+    public class SocialComponent : ViewComponent
     {
         private readonly ISettingModel settingModel;
 
-        public Socials(ISettingModel settingModel)
+        public SocialComponent(ISettingModel settingModel)
         {
             this.settingModel = settingModel;
         }
