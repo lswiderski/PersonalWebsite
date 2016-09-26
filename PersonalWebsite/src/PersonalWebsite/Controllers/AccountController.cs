@@ -14,7 +14,7 @@ using PersonalWebsite.IdentityModel;
 namespace PersonalWebsite.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : PersonalController
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;

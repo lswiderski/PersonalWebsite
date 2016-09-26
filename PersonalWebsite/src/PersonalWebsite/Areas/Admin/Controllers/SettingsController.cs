@@ -6,13 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PersonalWebsite.Common;
+using PersonalWebsite.Controllers;
 
 namespace PersonalWebsite.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
     
-    public class SettingsController : Controller
+    public class SettingsController : PersonalController
     {
         private readonly ISettingModel _settingModel;
         private readonly ICacheService _cacheService;

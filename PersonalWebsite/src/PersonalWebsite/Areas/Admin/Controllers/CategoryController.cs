@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PersonalWebsite.Controllers;
 using PersonalWebsite.Services.Models;
 
 namespace PersonalWebsite.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController : Controller
+    public class CategoryController : PersonalController
     {
         private readonly ICategoryModel categoryModel;
 

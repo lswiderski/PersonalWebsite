@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
+using NLog;
 
 namespace PersonalWebsite.Common
 {
@@ -8,7 +9,7 @@ namespace PersonalWebsite.Common
     {
         private readonly IMemoryCache _memoryCache;
         private static List<string> keys;
-
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
         public static List<string> Keys
         {
             get
@@ -34,7 +35,7 @@ namespace PersonalWebsite.Common
             _memoryCache.Set(key, obj,
                   new MemoryCacheEntryOptions()
                   .SetAbsoluteExpiration(TimeSpan.FromMinutes(LifeTime)));
-            Keys.Add(key);
+            AddKey(key);
         }
 
         public string Store<T>(T obj) where T : class
@@ -43,7 +44,7 @@ namespace PersonalWebsite.Common
             _memoryCache.Set(key, obj,
                   new MemoryCacheEntryOptions()
                   .SetAbsoluteExpiration(TimeSpan.FromMinutes(LifeTime)));
-            Keys.Add(key);
+            AddKey(key);
             return key;
         }
 
@@ -66,11 +67,19 @@ namespace PersonalWebsite.Common
 
         public void Clear()
         {
+            _logger.Info("Cache Keys:" + Keys.ToString());
             foreach (var key in Keys)
             {
                 _memoryCache.Remove(key);
             }
+            _logger.Info("Cache cleared");
             Keys.Clear();
+        }
+
+        private void AddKey(string key)
+        {
+            _logger.Info("new Cache Key: " + key);
+            Keys.Add(key);
         }
     }
 }

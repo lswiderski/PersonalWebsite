@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading;
+using NLog;
 
 namespace PersonalWebsite.Components
 {
@@ -15,6 +16,7 @@ namespace PersonalWebsite.Components
         private readonly ISettingModel settingModel;
         private readonly ICacheService _cacheService;
         private string cacheKey = "InstagramData";
+        private Logger _logger = LogManager.GetCurrentClassLogger();
 
         public InstagramComponent(ISettingModel settingModel, ICacheService cacheService)
         {
@@ -71,7 +73,7 @@ namespace PersonalWebsite.Components
             }
             catch (Exception ex)
             {
-                //log
+                _logger.Error(ex);
             }
             return instagramData;
         }
@@ -95,7 +97,7 @@ namespace PersonalWebsite.Components
             }
             catch (Exception ex)
             {
-                //log
+                _logger.Error(ex);
             }
 
             return ig;

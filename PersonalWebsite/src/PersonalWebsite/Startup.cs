@@ -14,6 +14,7 @@ using Sakura.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using NLog.Extensions.Logging;
 
 namespace PersonalWebsite
 {
@@ -65,6 +66,8 @@ namespace PersonalWebsite
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            loggerFactory.AddNLog();
+            env.ConfigureNLog("nlog.config");
 
             app.UseApplicationInsightsRequestTelemetry();
 

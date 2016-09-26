@@ -1,4 +1,5 @@
-﻿using PersonalWebsite.Common;
+﻿using NLog;
+using PersonalWebsite.Common;
 using PersonalWebsite.Common.Enums;
 using PersonalWebsite.Data;
 using PersonalWebsite.Data.Entities;
@@ -12,6 +13,7 @@ namespace PersonalWebsite.Services.Models
     {
         private readonly DataContext db;
         private readonly ICacheService _cacheService;
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         public SettingModel(DataContext db, ICacheService cacheService)
         {
@@ -107,93 +109,125 @@ namespace PersonalWebsite.Services.Models
         public int GetInt(string key)
         {
             var dictionary = this.GetDictionary();
-            int result;
+            int result = 0;
 
-            if (!dictionary.ContainsKey(key))
+            try
             {
-                throw new Exception(string.Format("Missing Setting Name: {0}",key));
-            }
-
-            if (dictionary[key].Type == SettingDataType.INT)
-            {
-                if (!int.TryParse(dictionary[key].Value, out result))
+                if (!dictionary.ContainsKey(key))
                 {
-                    throw new Exception("Value doesn't match type");
+                    throw new Exception(string.Format("Missing Setting Name: {0}", key));
+                }
+
+                if (dictionary[key].Type == SettingDataType.INT)
+                {
+                    if (!int.TryParse(dictionary[key].Value, out result))
+                    {
+                        throw new Exception("Value doesn't match type");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Wrong Type");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                throw new Exception("Wrong Type");
+                _logger.Error(ex);
             }
+
             return result;
         }
 
         public bool GetLogic(string key)
         {
             var dictionary = this.GetDictionary();
-            bool result;
+            bool result = false;
 
-            if (!dictionary.ContainsKey(key))
+            try
             {
-                throw new Exception(string.Format("Missing Setting Name: {0}", key));
-            }
-
-            if (dictionary[key].Type == SettingDataType.LOGIC)
-            {
-                if (!bool.TryParse(dictionary[key].Value, out result))
+                if (!dictionary.ContainsKey(key))
                 {
-                    throw new Exception("Value doesn't match type");
+                    throw new Exception(string.Format("Missing Setting Name: {0}", key));
+                }
+
+                if (dictionary[key].Type == SettingDataType.LOGIC)
+                {
+                    if (!bool.TryParse(dictionary[key].Value, out result))
+                    {
+                        throw new Exception("Value doesn't match type");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Wrong Type");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                throw new Exception("Wrong Type");
+                _logger.Error(ex);
             }
+
             return result;
         }
 
         public decimal GetDecimal(string key)
         {
             var dictionary = this.GetDictionary();
-            decimal result;
+            decimal result = 0;
 
-            if (!dictionary.ContainsKey(key))
+            try
             {
-                throw new Exception(string.Format("Missing Setting Name: {0}", key));
-            }
-
-            if (dictionary[key].Type == SettingDataType.DECIMAL)
-            {
-                if (!decimal.TryParse(dictionary[key].Value, out result))
+                if (!dictionary.ContainsKey(key))
                 {
-                    throw new Exception("Value doesn't match type");
+                    throw new Exception(string.Format("Missing Setting Name: {0}", key));
+                }
+
+                if (dictionary[key].Type == SettingDataType.DECIMAL)
+                {
+                    if (!decimal.TryParse(dictionary[key].Value, out result))
+                    {
+                        throw new Exception("Value doesn't match type");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Wrong Type");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                throw new Exception("Wrong Type");
+                _logger.Error(ex);
             }
+
             return result;
         }
 
         public string GetString(string key)
         {
             var dictionary = this.GetDictionary();
-            string result;
+            string result = string.Empty;
 
-            if (!dictionary.ContainsKey(key))
+            try
             {
-                throw new Exception(string.Format("Missing Setting Name: {0}", key));
+                if (!dictionary.ContainsKey(key))
+                {
+                    throw new Exception(string.Format("Missing Setting Name: {0}", key));
+                }
+
+                if (dictionary[key].Type == SettingDataType.STRING)
+                {
+                    result = dictionary[key].Value;
+                }
+                else
+                {
+                    throw new Exception("Wrong Type");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
             }
 
-            if (dictionary[key].Type == SettingDataType.STRING)
-            {
-                result = dictionary[key].Value;
-            }
-            else
-            {
-                throw new Exception("Wrong Type");
-            }
             return result;
         }
 

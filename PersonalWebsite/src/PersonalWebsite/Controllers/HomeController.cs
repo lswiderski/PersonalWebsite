@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NLog;
 using PersonalWebsite.Services.Models;
 using Sakura.AspNetCore;
 
 namespace PersonalWebsite.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : PersonalController
     {
+        
         private readonly IPostModel _postModel;
         private readonly ISettingModel _settingModel;
         private int pageSize = 3;
@@ -19,6 +21,7 @@ namespace PersonalWebsite.Controllers
 
         public IActionResult Index()
         {
+            Logger.Info("Entered to Index");
             return View();
         }
 

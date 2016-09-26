@@ -12,7 +12,7 @@ using PersonalWebsite.IdentityModel;
 namespace PersonalWebsite.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : PersonalController
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
