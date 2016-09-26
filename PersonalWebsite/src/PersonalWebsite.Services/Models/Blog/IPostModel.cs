@@ -18,5 +18,6 @@ namespace PersonalWebsite.Services.Models
         IQueryable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByTag(string tagName);
         IQueryable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByCategory(string categoryName);
         IQueryable<SimplifiedPostViewModel> Search(string query);
+        List<SimplifiedPostViewModel> GetPublishedSimplifiedPostsForFeed(int count);
     }
 }

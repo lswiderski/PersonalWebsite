@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using NLog;
 
-namespace PersonalWebsite.Common
+namespace PersonalWebsite.Services
 {
     public class CacheService : ICacheService
     {

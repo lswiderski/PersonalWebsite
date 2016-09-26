@@ -8,6 +8,7 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using NLog;
+using PersonalWebsite.Services;
 
 namespace PersonalWebsite.Components
 {

@@ -183,6 +183,37 @@ namespace PersonalWebsite.Services.Models
             return posts;
         }
 
+        public List<SimplifiedPostViewModel> GetPublishedSimplifiedPostsForFeed(int count)
+        {
+            var posts = (from post in db.Posts.Include(x => x.PostCategories)
+                    .Include(x => x.PostTags)
+                where post.Status == PostStatusType.PUBLISHED
+                select new SimplifiedPostViewModel
+                {
+                    Name = post.Name,
+                    Title = post.Title,
+                    Excerpt = post.Excerpt,
+                    PostId = post.PostId,
+                    ImgURL =
+                        db.Set<Image>()
+                            .Where(x => x.ImageId == post.HeaderImageId)
+                            .Select(x => x.Thumbnail.Path)
+                            .FirstOrDefault(),
+                    Categories = post.PostCategories.Select(y => new CategoryViewModel
+                    {
+                        CategoryId = y.CategoryId,
+                        Name = y.Category.Name,
+                        Tittle = y.Category.Tittle
+                    }).ToList(),
+                    Tags = post.PostTags.Select(y => new TagViewModel
+                    {
+                        TagId = y.TagId,
+                        Name = y.Tag.Name
+                    }).ToList()
+                }).Take(count).ToList();
+            return posts;
+        }
+
         public void AddPost(AddPostViewModel model)
         {
             var post = new Post

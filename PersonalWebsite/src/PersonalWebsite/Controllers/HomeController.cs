@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using NLog;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Xml;
+using System.Xml.Linq;
+using Microsoft.AspNetCore.Mvc;
+using PersonalWebsite.Services;
 using PersonalWebsite.Services.Models;
 using Sakura.AspNetCore;
 
@@ -10,12 +15,16 @@ namespace PersonalWebsite.Controllers
         
         private readonly IPostModel _postModel;
         private readonly ISettingModel _settingModel;
+        private readonly ICacheService _cacheService;
+        private readonly IXmlFeedService _xmlFeedService;
         private int pageSize = 3;
 
-        public HomeController(IPostModel postModel, ISettingModel settingModel)
+        public HomeController(IPostModel postModel, ISettingModel settingModel, ICacheService cacheService, IXmlFeedService xmlFeedService)
         {
             _postModel = postModel;
             _settingModel = settingModel;
+            _cacheService = cacheService;
+            _xmlFeedService = xmlFeedService;
             pageSize = _settingModel.GetInt("Blog.PageSize");
         }
 
@@ -145,5 +154,18 @@ namespace PersonalWebsite.Controllers
             ViewBag.SiteHeader = "Category: #Adventure";
             return View("Blog", viewModel.ToPagedList(pageSize, pageNumber));
         }
+
+        public IActionResult RSS()
+        {
+            var x = Request;
+            var feed = _xmlFeedService.BuildXmlFeed(this.ControllerContext);
+            return Content(feed, "application/rss+xml");
+        }
+        public IActionResult Feed()
+        {
+            var feed = _xmlFeedService.BuildXmlFeed(this.ControllerContext);
+            return Content(feed, "application/rss+xml");
+        }
+        
     }
 }

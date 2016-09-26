@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using PersonalWebsite.IdentityModel;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
@@ -39,9 +41,10 @@ namespace PersonalWebsite.Services
             services.AddTransient<ISmsSender, AuthMessageSender>();
            
             services.AddTransient<ICacheService, CacheService>();
+            services.AddTransient<IXmlFeedService, XmlFeedService>();
 
             ConfigureDataServices(services);
-
+            
         }
 
         private void ConfigureDataServices(IServiceCollection services)
