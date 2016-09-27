@@ -24,7 +24,6 @@
                         <div class="card-block">
                             <span><h4 class="card-title post-item-box-tittle"><a href='@Url.Action("Blog","Home", new {id = @post.Name })'>@post.Title</a></h4></span>
                             <h6 class="card-subtitle text-muted">
-                                dsadas
                                 @foreach (var category in post.Categories)
                                 {
                                     <a asp-controller="Home" asp-action="Category" asp-route-id="@category.Name">@category.Tittle </a>

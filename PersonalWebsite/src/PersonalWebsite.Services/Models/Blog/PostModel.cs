@@ -492,5 +492,35 @@ namespace PersonalWebsite.Services.Models
 
             db.SaveChanges();
         }
+
+        public List<UltraSimplifiedPostViewModel> GetTopPublishedPosts(int number, List<string> categories = null)
+        {
+            var posts = (from post in db.Posts.Include(x => x.PostCategories)
+                       .Include(x => x.PostTags)
+                         join postCategory in db.PostCategories on post.PostId equals postCategory.PostId
+                         join category in db.Categories on postCategory.CategoryId equals category.CategoryId
+                         where post.Status == PostStatusType.PUBLISHED
+                         && ((categories!= null && categories.Any(x => x == category.Name))
+                         || categories == null)
+                         select new
+                         {
+                             Name = post.Name,
+                             Title = post.Title,
+                             PostId = post.PostId,                           
+                             HeaderImg = db.Set<Image>().Where(x => x.ImageId == post.HeaderImageId).Select(x => x.Thumbnail.Path).FirstOrDefault(),
+                             PublishedOn = post.PublishedOn
+                         }).Take(number).ToList();
+
+            var selectedposts = posts.Select(x => new UltraSimplifiedPostViewModel
+            {
+                Name = x.Name,
+                Title = x.Title,    
+                PostId = x.PostId,
+                PublishedOn = x.PublishedOn,
+                ImgURL = x.HeaderImg,
+            }).ToList();
+
+            return selectedposts;
+        }
     }
 }
