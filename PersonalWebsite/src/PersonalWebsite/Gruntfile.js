@@ -20,6 +20,7 @@ module.exports = function (grunt) {
         // Sass
         sass: {
             options: {
+                bundleExec: true,
                 lineNumbers: true,
                 sourcemap: 'none', // Create source map
                 outputStyle: 'expanded' // Minify output

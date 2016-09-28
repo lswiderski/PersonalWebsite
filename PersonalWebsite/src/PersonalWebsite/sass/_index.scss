@@ -1,0 +1,43 @@
+﻿@import "_variables.scss";
+ .index-header{
+     background-color: #323232;
+     height:700px;
+     text-align: center;
+        margin-bottom: 15px;
+ }
+
+   .latestpost-img {
+        position: relative;
+        width: 100%;
+    }
+
+    .latestpost-text {
+        position: absolute;
+        bottom: 30px;
+        left: 0;
+        width: 100%;
+      
+        background: rgb(0, 0, 0); /* fallback color */
+        background: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        color: #fff;
+        text-decoration: none;
+    }
+    .latestpost-text h2, .latestpost-text h6 {
+        color: #fff;
+        text-decoration: none;
+    }
+    .index-logo img{
+        border-radius: 50%;
+        max-height: 200px;
+        align-content: center;
+    }
+    .index-logo {
+        align-content: center;
+        text-align: center;
+        padding-top: 200px;
+    }
+    .index-header-text {
+        color: #fff;
+        margin-top: 50px;
+    }

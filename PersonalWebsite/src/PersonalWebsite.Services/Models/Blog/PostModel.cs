@@ -493,7 +493,7 @@ namespace PersonalWebsite.Services.Models
             db.SaveChanges();
         }
 
-        public List<UltraSimplifiedPostViewModel> GetTopPublishedPosts(int number, List<string> categories = null)
+        public List<SimplifiedPostViewModel> GetTopPublishedPosts(int number, List<string> categories = null)
         {
             var posts = (from post in db.Posts.Include(x => x.PostCategories)
                        .Include(x => x.PostTags)
@@ -508,16 +508,29 @@ namespace PersonalWebsite.Services.Models
                              Title = post.Title,
                              PostId = post.PostId,                           
                              HeaderImg = db.Set<Image>().Where(x => x.ImageId == post.HeaderImageId).Select(x => x.Thumbnail.Path).FirstOrDefault(),
-                             PublishedOn = post.PublishedOn
+                             PublishedOn = post.PublishedOn,
+                             Categories = post.PostCategories.Select(y => new CategoryViewModel
+                             {
+                                 CategoryId = y.CategoryId,
+                                 Name = y.Category.Name,
+                                 Tittle = y.Category.Tittle
+                             }).ToList(),
+                             Tags = post.PostTags.Select(y => new TagViewModel
+                             {
+                                 TagId = y.TagId,
+                                 Name = y.Tag.Name
+                             }).ToList(),
                          }).Take(number).ToList();
 
-            var selectedposts = posts.Select(x => new UltraSimplifiedPostViewModel
+            var selectedposts = posts.Select(x => new SimplifiedPostViewModel
             {
                 Name = x.Name,
                 Title = x.Title,    
                 PostId = x.PostId,
                 PublishedOn = x.PublishedOn,
                 ImgURL = x.HeaderImg,
+                Categories = x.Categories,
+                Tags = x.Tags
             }).ToList();
 
             return selectedposts;

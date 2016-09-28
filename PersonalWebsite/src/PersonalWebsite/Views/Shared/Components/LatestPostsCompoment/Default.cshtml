@@ -1,24 +1,29 @@
 ﻿@using System.Runtime.InteropServices.ComTypes
 @using PersonalWebsite.Services.Models
-@model List<UltraSimplifiedPostViewModel>
+@model List<SimplifiedPostViewModel>
+
 
 
 <div class="post-item-box card card-inverse">
 
     @foreach (var post in Model)
     {
-        <div class="card-title ">
-            <span><h4 class="card-title post-item-box-tittle"><a href='@Url.Action("Blog", "Home", new {id = @post.Name})'>@post.Title</a></h4></span>
-        </div>
-        if (!string.IsNullOrEmpty(post.ImgURL))
-        {
-            <a href='@Url.Action("Blog","Home", new {id = @post.Name })'>
-                <img class="card-img-top card-img img-fluid" src="@Url.Content("~/"+post.ImgURL)" alt="@post.Name ">
-            </a>
 
-        }
-
-
+        <a href='@Url.Action("Blog", "Home", new {id = @post.Name})'>
+            @if (!string.IsNullOrEmpty(post.ImgURL))
+            {
+                <img class="card-img-top card-img img-fluid latestpost-img" src="@Url.Content("~/" + post.ImgURL)" alt="@post.Name ">
+                <div class="latestpost-text">
+                    <h2>@post.Title</h2>
+                    <h6>
+                        @foreach (var category in post.Categories)
+                        {
+                            @(category.Tittle + " ")
+                        }
+                    </h6>
+                </div>
+            }
+        </a>
 
 
     }

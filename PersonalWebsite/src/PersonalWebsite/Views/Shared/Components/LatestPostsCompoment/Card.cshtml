@@ -1,11 +1,11 @@
 ﻿@using System.Runtime.InteropServices.ComTypes
 @using PersonalWebsite.Services.Models
-@model List<UltraSimplifiedPostViewModel>
+@model List<SimplifiedPostViewModel>
 
 
-        @foreach (var post in Model)
-        {<div class="col-md-6">
-        <div class="post-item-box card">
+@foreach (var post in Model)
+{<div class="col-md-6">
+        <div class="card">
             @if (!string.IsNullOrEmpty(post.ImgURL))
             {
                 <a href='@Url.Action("Blog","Home", new {id = @post.Name })'>
@@ -13,12 +13,17 @@
                 </a>
 
             }
+            <div class="card-block">
+                <div class="card-title"><h4 class="post-item-box-tittle"><a href='@Url.Action("Blog","Home", new {id = @post.Name })'>@post.Title</a></h4></div>
+                <p class="card-text">
+                    @foreach (var category in post.Categories)
+                {
+                        <a asp-controller="Home" asp-action="Category" asp-route-id="@category.Name">@category.Tittle</a>
 
-            <li class="list-group-item">
-                <span><h6 class="card-title post-item-box-tittle"><a href='@Url.Action("Blog","Home", new {id = @post.Name })'>@post.Title</a></h6></span>
-            </li>
+                    }
+                    </p>
+</div>
         </div>
     </div>
-        }
+}
 
-   

@@ -5,7 +5,15 @@
     Layout = "_Layout";
 }
 <div class="index-header">
-    :D
+    <div class="index-logo">
+        <img src="http://localhost:5000/Media/2016_09/avatar.jpg"/>
+    </div>
+    <h4 class="index-header-text">
+        Lukasz Swiderski –  <span data-toggle="tooltip" data-placement="top" title="FullStack C# .NET MVC">Software Developer</span>,
+        <span data-toggle="tooltip" data-placement="bottom" title="And amateur photographer">Traveler</span>,
+        <span data-toggle="tooltip" data-placement="right" title="I <3 retro consoles">Geek</span>
+    </h4>
+    @await Component.InvokeAsync("SocialComponent")
 </div>
 <div class="container">
     <div class="row">
@@ -21,7 +29,7 @@
                         <div class="carousel-inner" role="listbox">
                             <div class="carousel-item active">
 
-                                <h4 class="card-title">Recent Projects</h4>
+                               
 
                                 @await Component.InvokeAsync("LatestPostsCompoment", new { number = 1, categories = new List<string> { "project" } })
 
@@ -29,14 +37,14 @@
                             </div>
                             <div class="carousel-item">
 
-                                <h4 class="card-title">Recent Adventures</h4>
+                                
 
                                 @await Component.InvokeAsync("LatestPostsCompoment", new { number = 1, categories = new List<string> { "adventure" } })
 
                             </div>
                             <div class="carousel-item">
 
-                                <h4 class="card-title">Recent Posts</h4>
+                               
 
                                 @await Component.InvokeAsync("LatestPostsCompoment", new { number = 1 })
 
@@ -57,11 +65,10 @@
                 @await Component.InvokeAsync("LatestPostsCompoment", new { number = 6, view="Card" })
             </div>
                
-            </div>
+        </div>
         <div class="col-lg-4">
             <div class="row">
                 <div class="card">
-                    <h4 class="card-title">Instagram:</h4>
                     <div class="card-block">
                         @await Component.InvokeAsync("InstagramComponent")
                     </div>

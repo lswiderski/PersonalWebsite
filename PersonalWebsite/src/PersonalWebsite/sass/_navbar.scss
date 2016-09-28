@@ -1,0 +1,66 @@
+﻿ @import "_variables.scss";
+@media screen and (min-width: $break-medium) and (max-width: $break-large){
+ #searchFormNav {
+     display: none;
+ }
+ }
+  @media screen and (min-width: $break-medium) {
+     .nav .navbar-nav .nav-link {
+     margin-top: 10px;
+     padding-top: 5px;
+     }
+
+ }
+
+  @media screen and (max-width: $break-medium ) {
+    .search-nav{
+        width: 100%;
+    }
+ }
+ @media screen and (max-width: $break-medium) {
+    .navbar-top-logo{
+    float: none;
+    }
+    .navbar-nav{
+        text-align: center;
+    }
+    .brand-logo{
+        display: inline-block;
+    }
+    .nav .navbar-nav {
+        text-align: left;
+    }
+
+    .navbar-button{
+        float: left;
+    }
+    .navbar-toggler.hidden-sm-up.navbar-button
+    {
+        color: rgba(0, 0, 0, 0.8);
+    }
+ }
+    
+    .nav-icon {
+     margin-right: 5px;
+    }
+    .navbar-light .navbar-nav .nav-link {
+        color:rgba(0, 0, 0, 0.8);
+    }
+    .navbar-light .navbar-nav .nav-link:hover {
+        color: #38b7ea;
+    }
+    .navbar-light{
+        background: #ffffff;
+    }
+    .logo {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-size: contain;
+    }
+    .logo-text {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 10px;
+    }

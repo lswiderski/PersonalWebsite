@@ -19,6 +19,6 @@ namespace PersonalWebsite.Services.Models
         IQueryable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByCategory(string categoryName);
         IQueryable<SimplifiedPostViewModel> Search(string query);
         List<SimplifiedPostViewModel> GetPublishedSimplifiedPostsForFeed(int count);
-        List<UltraSimplifiedPostViewModel> GetTopPublishedPosts(int number, List<string> categories);
+        List<SimplifiedPostViewModel> GetTopPublishedPosts(int number, List<string> categories);
     }
 }
