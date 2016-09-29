@@ -18,7 +18,7 @@
                     <a asp-controller="Home" asp-action="Category" asp-route-id="@category.Name">@category.Tittle </a>
                 }
             </h6>
-            <h6 class="text-xs-right">@Model.CreatedOn</h6>
+            <h6 class="text-xs-right">@Model.CreatedOn.ToString("dd MMM yyyy")</h6>
         </div>
         @if (!string.IsNullOrEmpty(Model.HeaderPath)) { 
             <img src="@Url.Content("~/" + Model.HeaderPath)" class="img-fluid card-img"/>

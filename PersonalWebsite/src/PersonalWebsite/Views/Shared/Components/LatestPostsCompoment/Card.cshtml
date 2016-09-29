@@ -5,25 +5,38 @@
 
 @foreach (var post in Model)
 {<div class="col-md-6">
-        <div class="card">
-            @if (!string.IsNullOrEmpty(post.ImgURL))
-            {
-                <a href='@Url.Action("Blog","Home", new {id = @post.Name })'>
-                    <img class="card-img-top img-fluid" src="@Url.Content("~/"+post.ImgURL)" alt="@post.Name ">
-                </a>
+     <div class="card  text-xs-center">
+         <div class="card-block">
+             @if (post.PublishedOn.HasValue)
+             {
+                <span>
+                    <small class="text-muted">@post.PublishedOn.Value.ToString("dd MMM yyyy")</small>
+                </span>
+             }
+             <h4 class="card-title"><a href='@Url.Action("Blog", "Home", new {id = @post.Name})'>@post.Title</a></h4>
+             <h6 class="card-subtitle post-item-subtitle">
+                 <p class="card-text">
+                     @foreach (var category in post.Categories)
+                     {
+                         <a asp-controller="Home" asp-action="Category" asp-route-id="@category.Name">@category.Tittle</a>
 
-            }
-            <div class="card-block">
-                <div class="card-title"><h4 class="post-item-box-tittle"><a href='@Url.Action("Blog","Home", new {id = @post.Name })'>@post.Title</a></h4></div>
-                <p class="card-text">
-                    @foreach (var category in post.Categories)
-                {
-                        <a asp-controller="Home" asp-action="Category" asp-route-id="@category.Name">@category.Tittle</a>
+                     }
+                 </p>
 
-                    }
-                    </p>
-</div>
-        </div>
+             </h6>
+         </div>
+         @if (!string.IsNullOrEmpty(post.ImgURL))
+         {
+             <a href='@Url.Action("Blog", "Home", new {id = @post.Name})'>
+                 <img class="card-img img-fluid" src="@Url.Content("~/" + post.ImgURL)" alt="@post.Name ">
+             </a>
+
+         }
+             <div class="card-block text-xs-left">
+                 <p class="=card-text">@post.Excerpt</p>
+
+             </div>
+         </div>
     </div>
 }
 

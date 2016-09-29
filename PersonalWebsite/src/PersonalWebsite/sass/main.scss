@@ -2,6 +2,7 @@
 @import "_index.scss";
 @import "_navbar.scss";
 @import "_navadmin.scss";
+
 html {
   position: relative;
   min-height: 100%;
@@ -23,8 +24,17 @@ body {
       
  }
 
+ .post-item-data{
+     float: right;
+ }
 
-
+ .post-item-subtitle{
+     margin-bottom:5px;
+ }
+  .post-item-subtitle a{
+     text-decoration: none;
+     color: #818a91;
+ }
 
  footer{
 

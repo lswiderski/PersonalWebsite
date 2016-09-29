@@ -9,6 +9,7 @@
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/lib/prism/themes/prism-okaidia.css" />
         <link rel="stylesheet" href="~/css/main.css" />
     </environment>
     <environment names="Staging,Production">
@@ -17,6 +18,7 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
               asp-fallback-href="~/lib/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/lib/prism/themes/prism-okaidia.css" />
         <link rel="stylesheet" href="~/css/main.min.css" asp-append-version="true" />
     </environment>
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
@@ -24,9 +26,16 @@
 <body>
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
+        <script src="~/lib/lightbox2/dist/js/lightbox.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        
+        <script src="~/lib/prism/prism.js"></script>
+        <script src="~/lib/prism/components/prism-core.js"></script>
+        <script src="~/lib/prism/components/prism-clike.js"></script>
+        <script src="~/lib/prism/components/prism-c.js"></script>
+        <script src="~/lib/prism/components/prism-csharp.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script id="dsq-count-scr" src="//lukaszswiderski.disqus.com/count.js" async></script>
     </environment>
     <environment names="Staging,Production">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"
@@ -41,6 +50,13 @@
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
         </script>
+        <script src="~/lib/prism/prism.js"></script>
+        <script src="~/lib/prism/components/prism-core.js"></script>
+        <script src="~/lib/prism/components/prism-clike.js"></script>
+        <script src="~/lib/prism/components/prism-c.js"></script>
+        <script src="~/lib/prism/components/prism-csharp.js"></script>
+        <script src="~/lib/lightbox2/dist/js/lightbox.min.js"></script>
+        <script id="dsq-count-scr" src="//lukaszswiderski.disqus.com/count.js" async></script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
     @Html.Partial("Menu-navbar")

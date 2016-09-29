@@ -292,6 +292,19 @@ body {
   }
 }
 
+.post-item-data {
+  float: right;
+}
+
+.post-item-subtitle {
+  margin-bottom: 5px;
+}
+
+.post-item-subtitle a {
+  text-decoration: none;
+  color: #818a91;
+}
+
 footer {
   position: absolute;
   bottom: 0;

@@ -35,6 +35,7 @@ namespace PersonalWebsite.Services.Models
                     Title = post.Title,
                     Excerpt = post.Excerpt,
                     PostId = post.PostId,
+                    PublishedOn = post.PublishedOn,
                     ImgURL =
                         db.Set<Image>()
                             .Where(x => x.ImageId == post.HeaderImageId)
@@ -67,6 +68,7 @@ namespace PersonalWebsite.Services.Models
                              Title = post.Title,
                              Excerpt = post.Excerpt,
                              PostId = post.PostId,
+                             PublishedOn = post.PublishedOn,
                              ImgURL = db.Set<Image>().Where(x => x.ImageId == post.HeaderImageId).Select(x => x.Thumbnail.Path).FirstOrDefault(),
                              Categories = post.PostCategories.Select(y => new CategoryViewModel
                              {
@@ -97,6 +99,7 @@ namespace PersonalWebsite.Services.Models
                              Title = post.Title,
                              Excerpt = post.Excerpt,
                              PostId = post.PostId,
+                             PublishedOn = post.PublishedOn,
                              ImgURL = db.Set<Image>().Where(x => x.ImageId == post.HeaderImageId).Select(x => x.Thumbnail.Path).FirstOrDefault(),
                              Categories = post.PostCategories.Select(y => new CategoryViewModel
                              {
@@ -128,6 +131,7 @@ namespace PersonalWebsite.Services.Models
                              Title = post.Title,
                              Excerpt = post.Excerpt,
                              PostId = post.PostId,
+                             PublishedOn = post.PublishedOn,
                              Categories = post.PostCategories.Select(y => new CategoryViewModel
                              {
                                  CategoryId = y.CategoryId,
@@ -151,6 +155,7 @@ namespace PersonalWebsite.Services.Models
                 Categories = x.Categories,
                 Tags = x.Tags,
                 ImgURL = x.HeaderImg,
+                PublishedOn = x.PublishedOn,
             }).AsQueryable();
 
             return selectedposts;
@@ -167,6 +172,7 @@ namespace PersonalWebsite.Services.Models
                              Title = post.Title,
                              Excerpt = post.Excerpt,
                              PostId = post.PostId,
+                             PublishedOn = post.PublishedOn,
                              ImgURL = db.Set<Image>().Where(x => x.ImageId == post.HeaderImageId).Select(x => x.Thumbnail.Path).FirstOrDefault(),
                              Categories = post.PostCategories.Select(y => new CategoryViewModel
                              {
@@ -194,6 +200,7 @@ namespace PersonalWebsite.Services.Models
                     Title = post.Title,
                     Excerpt = post.Excerpt,
                     PostId = post.PostId,
+                    PublishedOn = post.PublishedOn,
                     ImgURL =
                         db.Set<Image>()
                             .Where(x => x.ImageId == post.HeaderImageId)
@@ -506,7 +513,8 @@ namespace PersonalWebsite.Services.Models
                          {
                              Name = post.Name,
                              Title = post.Title,
-                             PostId = post.PostId,                           
+                             PostId = post.PostId,
+                             Excerpt =  post.Excerpt,                          
                              HeaderImg = db.Set<Image>().Where(x => x.ImageId == post.HeaderImageId).Select(x => x.Thumbnail.Path).FirstOrDefault(),
                              PublishedOn = post.PublishedOn,
                              Categories = post.PostCategories.Select(y => new CategoryViewModel
@@ -530,7 +538,8 @@ namespace PersonalWebsite.Services.Models
                 PublishedOn = x.PublishedOn,
                 ImgURL = x.HeaderImg,
                 Categories = x.Categories,
-                Tags = x.Tags
+                Tags = x.Tags,
+                Excerpt = x.Excerpt
             }).ToList();
 
             return selectedposts;

@@ -7,8 +7,9 @@
     "jquery-validation-unobtrusive": "3.2.6",
     "bootstrap": "4.0.0-alpha.3",
     "font-awesome": "4.6.3",
-    "ckeditor": "4.5.10",
-    "lightbox2": "2.8.2"
+    "ckeditor": "#4.5.11/full",
+    "lightbox2": "2.8.2",
+    "prism-js": "1.0.0" 
   },
   "resolutions": {
     "jquery": "1.9.1 - 3"
