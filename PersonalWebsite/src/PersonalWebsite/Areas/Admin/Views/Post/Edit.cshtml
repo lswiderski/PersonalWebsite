@@ -58,12 +58,14 @@
             </div>
             <div class="card card-block" id="Header">
                 Header Img: <br />
-                <button type="button" class="btn btn-primary">Select Button</button><br />
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#selectHeaderImg" >Select Button</button><br />
                 <input asp-for="HeaderImageId" class="form-control" placeholder="Header Image Id"/>
             </div>
         </div>
     </div>
 </form>
+
+@await Component.InvokeAsync("SelectImageComponent", new { modalTarget = "selectHeaderImg", inputId = "#HeaderImageId" })
 
 <script src="~/js/postManagementTags.js" asp-append-version="true"></script>
 <script>

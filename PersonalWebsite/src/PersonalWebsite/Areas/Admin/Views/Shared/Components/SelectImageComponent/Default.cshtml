@@ -1,0 +1,133 @@
+﻿@using PersonalWebsite.Services.Models
+@model Sakura.AspNetCore.IPagedList<ImageViewModel>
+
+<style>
+    .img-card:focus {
+        outline: 1px solid blue !important;
+    }
+</style>
+<div class="modal fade" id="@ViewData["modalTarget"]" tabindex="-1" role="dialog" aria-labelledby="selectHeaderImgLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="selectHeaderImg">Select image</h4>
+            </div>
+            <div class="modal-body">
+                <div id="MediaPageOuter">
+                    <div id="MediaPageInner">
+                        <div class="row">
+                            <button type="button" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#AddImages">
+                                Add
+                            </button>
+                            <nav aria-label="Page navigation">
+                                <pager setting-item-attr-class="page-item" setting-link-attr-class="page-link" setting-item-default-link='PagerItemLinkGenerators.Format("Admin/Media/MediaPage/page={0:d}")' />
+                            </nav>
+                        </div>
+                        <div class="row">
+                            @foreach (var img in Model)
+                            {
+                                <div class="col-xs-4 col-lg-3" style="word-break: break-all">
+                                    <div class="card img-card text-xs-centerd" id="img-@img.Id" data-id="@img.Id" data-img="@img.Path" data-thumbnail="@img.ThumbnailPath" tabindex="-1">
+                                        <div style="height: 150px;">
+                                            <a data-lightbox="2" data-lightbox-saved="@img.Id" data-title="@img.Title | @img.Width x @img.Height | @img.Name" href="@img.Path" title="avatar2">
+                                                <img class="card-img-top img-fluid m-x-auto" src="@Url.Content(img.Path)" alt="@img.Title" title="@img.Title" style="height: 100%;" />
+                                            </a>
+                                        </div>
+                                        <div class="card-block">
+                                            <h4 class="card-title">@img.Title</h4>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="row">
+                            <nav aria-label="Page navigation">
+                                <pager setting-item-attr-class="page-item" setting-link-attr-class="page-link" />
+                            </nav>
+                        </div>
+
+                        <div class="modal fade" id="AddImages" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <form id="upload-form" method="post" asp-action="Add" asp-controller="Media" asp-area="Admin" enctype="multipart/form-data">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel">Upload Images</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="upload-result"></div>
+                                            <div id="upload-form-div">
+
+                                                <input id="selected-files-upload" type="file" name="files" multiple />
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" id="upload-button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Upload</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="selectIdOfImage" data-dismiss="modal">Select</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var imageSelection = new ImageSelectionScope();
+        imageSelection.Init();
+    });
+    function ImageSelectionScope() {
+        var self = this;
+        var selectedId, selectedImg, selectedThumbnail;
+        this.Init = function () {
+            self.bind();
+        }
+        this.bind = function () {
+            $(".img-card").focus(self.setSelectedItem);
+            $('.page-link')
+                        .click(function (e) {
+                            e.preventDefault();
+                            var pageNumber = $(this).attr("href").match(/page=([0-9]+)/)[1];
+                            self.callPage(pageNumber);
+                        });
+            $('#selectIdOfImage').click(function (e) {
+                $('@ViewData["inputId"]').val(self.selectedId);
+            });
+        }
+
+        this.setSelectedItem = function (e) {
+            self.selectedId = $(this).data("id");
+            self.selectedImg = $(this).data("img");
+            self.selectedThumbnail = $(this).data("thumbnail");
+        }
+        this.callPage = function (pageNumber) {
+            $.ajax({
+                url: '@Url.Action("MediaPage", "Media")',
+                type: 'POST',
+
+                data: { page: pageNumber },
+                success: function (_data) {
+                    $('#MediaPageInner').replaceWith(_data);
+                    self.bind();
+                },
+            });
+
+
+        }
+    }
+</script>

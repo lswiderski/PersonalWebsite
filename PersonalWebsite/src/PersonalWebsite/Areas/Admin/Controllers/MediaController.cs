@@ -93,5 +93,15 @@ namespace PersonalWebsite.Areas.Admin.Controllers
 
             return PartialView(viewModel);
         }
+
+        [HttpPost]
+        public IActionResult MediaPage(int? page)
+        {
+            var model = imageService.GetImageViewModels(string.Format("{0}://{1}", HttpContext.Request.Scheme, HttpContext.Request.Host.Value));
+            int pageNumber = (page ?? 1);
+            var viewModel = model.ToPagedList(pageSize, pageNumber);
+
+            return PartialView(viewModel);
+        }
     }
 }
