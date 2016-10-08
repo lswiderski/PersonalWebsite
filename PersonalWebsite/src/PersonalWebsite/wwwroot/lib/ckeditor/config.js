@@ -94,7 +94,7 @@ CKEDITOR.editorConfig = function (config) {
     ];
 
 
-    config.extraPlugins = 'codesnippet,lineutils,widget,prism,lightbox,justify';
+    config.extraPlugins = 'codesnippet,lineutils,widget,prism,lightbox,justify,insertimg';
 
     config.extraAllowedContent = 'a[data-lightbox,data-title,data-lightbox-saved]';
     config.stylesSet = 'default2'

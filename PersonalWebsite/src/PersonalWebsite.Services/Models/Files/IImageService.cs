@@ -17,6 +17,7 @@ namespace PersonalWebsite.Services.Models
         ImageViewModel GetImageViewModel(int id, string host);
         IQueryable<ImageViewModel> GetImageViewModels(string host);
         IQueryable<ImageViewModel> GetImageViewModels(List<int> ids, string host);
+        IQueryable<ImageToSelectViewModel> GetImageToSelectViewModels(string host);
         void ResizeImage(int id, float scale);
     }
 }

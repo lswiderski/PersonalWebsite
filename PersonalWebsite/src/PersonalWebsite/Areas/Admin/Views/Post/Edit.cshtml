@@ -65,8 +65,8 @@
     </div>
 </form>
 
-@await Component.InvokeAsync("SelectImageComponent", new { modalTarget = "selectHeaderImg", inputId = "#HeaderImageId" })
-
+@await Component.InvokeAsync("SelectImageComponent", new { modalTarget = "selectHeaderImg", name="selectHeader", inputIdForId = "#HeaderImageId" })
+@await Component.InvokeAsync("SelectImageComponent", new { modalTarget = "selectImg", name = "selectImg", inputIdForURL = ".ImgUrlField", inputIdForThumbnailURL = ".ImgThumbnailUrlField" })
 <script src="~/js/postManagementTags.js" asp-append-version="true"></script>
 <script>
     var PostTag;
@@ -75,4 +75,6 @@
         PostTag = new PostTagScope();
         PostTag.Init();
     });
+
+  
 </script>

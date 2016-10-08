@@ -125,7 +125,6 @@ namespace PersonalWebsite.Services.Models
             return images;
         }
 
-        //TODO: order by uploadeddate desc
         public IQueryable<ImageViewModel> GetImageViewModels(string host)
         {
             var images = db.Images.Include(x => x.Thumbnail).Include(x => x.File).OrderByDescending(x => x.File.UploadedOn).Select(x => new ImageViewModel
@@ -138,10 +137,29 @@ namespace PersonalWebsite.Services.Models
                 Width = x.Width,
                 Title = x.Title,
                 UploaddedOn = x.File.UploadedOn.ToString("dd'/'MM'/'yyyy"),
-            }).AsQueryable();
+            }).OrderByDescending(x => x.UploaddedOn).AsQueryable();
 
             return images;
         }
+        public IQueryable<ImageToSelectViewModel> GetImageToSelectViewModels(string host)
+        {
+            var images = db.Images.Include(x => x.Thumbnail).Include(x => x.File).OrderByDescending(x => x.File.UploadedOn).Select(x => new ImageToSelectViewModel
+            {
+                Id = x.ImageId,
+                Path = string.Format("{0}/{1}", host, x.File.Path),
+                ThumbnailPath = string.Format("{0}/{1}", host, x.Thumbnail.Path),
+                PurePath = x.File.Path,
+                PureThumbnailPath = x.Thumbnail.Path,
+                Name = x.Name,
+                Height = x.Height,
+                Width = x.Width,
+                Title = x.Title,
+                UploaddedOn = x.File.UploadedOn.ToString("dd'/'MM'/'yyyy"),
+            }).OrderByDescending(x => x.UploaddedOn).AsQueryable();
+
+            return images;
+        }
+        
 
         public IQueryable<ImageViewModel> GetImageViewModels(List<int> ids, string host)
         {

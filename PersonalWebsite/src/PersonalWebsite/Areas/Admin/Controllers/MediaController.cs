@@ -97,7 +97,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult MediaPage(int? page)
         {
-            var model = imageService.GetImageViewModels(string.Format("{0}://{1}", HttpContext.Request.Scheme, HttpContext.Request.Host.Value));
+            var model = imageService.GetImageToSelectViewModels(string.Format("{0}://{1}", HttpContext.Request.Scheme, HttpContext.Request.Host.Value));
             int pageNumber = (page ?? 1);
             var viewModel = model.ToPagedList(pageSize, pageNumber);
 

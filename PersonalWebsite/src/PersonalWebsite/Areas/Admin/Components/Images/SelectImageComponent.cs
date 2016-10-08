@@ -20,12 +20,15 @@ namespace PersonalWebsite.Areas.Admin.Components
             this.imageService = imageService;
         }
 
-        public IViewComponentResult Invoke(string modalTarget, string inputId)
+        public IViewComponentResult Invoke(string modalTarget, string name = null, string inputIdForId = null, string inputIdForURL = null, string inputIdForThumbnailURL = null)
         {
-            var model = imageService.GetImageViewModels(string.Format("{0}://{1}", HttpContext.Request.Scheme, HttpContext.Request.Host.Value));
+            var model = imageService.GetImageToSelectViewModels(string.Format("{0}://{1}", HttpContext.Request.Scheme, HttpContext.Request.Host.Value));
             int pageNumber = 1;
+            ViewData["name"] = name;
             ViewData["modalTarget"] = modalTarget;
-            ViewData["inputId"] = inputId;
+            ViewData["inputId"] = inputIdForId;
+            ViewData["inputIdForURL"] = inputIdForURL;
+            ViewData["inputIdForThumbnailURL"] = inputIdForThumbnailURL;
             var viewModel = model.ToPagedList(pageSize, pageNumber);
 
             return View(viewModel);
