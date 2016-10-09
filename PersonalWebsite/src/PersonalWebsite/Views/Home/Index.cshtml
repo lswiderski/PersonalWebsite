@@ -62,9 +62,12 @@
                 </div>
             </div>
             <div class="row">
-                @await Component.InvokeAsync("LatestPostsCompoment", new { number = 6, view="Card" })
+                <div class="col-md-12">
+                    <div class="card-columns">
+                        @await Component.InvokeAsync("LatestPostsCompoment", new { number = 6, view = "Card" })
+                    </div>
+                </div>
             </div>
-               
         </div>
         <div class="col-lg-4">
             <div class="row">
