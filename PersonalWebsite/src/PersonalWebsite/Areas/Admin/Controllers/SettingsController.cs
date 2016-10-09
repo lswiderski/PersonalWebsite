@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PersonalWebsite.Controllers;
 using PersonalWebsite.Services;
+using Sakura.AspNetCore;
 
 namespace PersonalWebsite.Areas.Admin.Controllers
 {
@@ -17,6 +18,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
     {
         private readonly ISettingModel _settingModel;
         private readonly ICacheService _cacheService;
+        private int pageSize = 10;
 
         public SettingsController(ISettingModel settingModel, ICacheService cacheService)
         {
@@ -25,9 +27,13 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         }
 
         // GET: /<controller>/
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
-            var viewModel = _settingModel.GetSettings();
+            var model = _settingModel.GetSettings();
+
+            int pageNumber = (page ?? 1);
+            var viewModel = model.ToPagedList(pageSize, pageNumber);
+            ViewData["SiteHeader"] = "Blog";
             return View(viewModel);
         }
 

@@ -15,7 +15,7 @@ namespace PersonalWebsite.Services.Models
 
         SettingViewModel GetSetting(int id);
 
-        List<SettingViewModel> GetSettings();
+        IQueryable<SettingViewModel> GetSettings();
 
         Dictionary<string, SettingViewModel> GetDictionary();
 

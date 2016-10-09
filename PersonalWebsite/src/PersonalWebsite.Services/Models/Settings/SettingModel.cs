@@ -51,7 +51,8 @@ namespace PersonalWebsite.Services.Models
                     SettingId = x.SettingId,
                     Name = x.Name,
                     Value = x.Value,
-                    Type = x.Type
+                    Type = x.Type,
+                    Code = x.Code
                 }
                 ).FirstOrDefault();
 
@@ -66,22 +67,24 @@ namespace PersonalWebsite.Services.Models
                     SettingId = x.SettingId,
                     Name = x.Name,
                     Value = x.Value,
-                    Type = x.Type
+                    Type = x.Type,
+                    Code = x.Code
                 }
                 ).FirstOrDefault();
 
             return setting;
         }
 
-        public List<SettingViewModel> GetSettings()
+        public IQueryable<SettingViewModel> GetSettings()
         {
             var settings = db.Settings.Select(x => new SettingViewModel
             {
                 SettingId = x.SettingId,
                 Name = x.Name,
                 Value = x.Value,
-                Type = x.Type
-            }).ToList();
+                Type = x.Type,
+                Code = x.Code
+            }).AsQueryable();
 
             return settings;
         }
@@ -97,8 +100,9 @@ namespace PersonalWebsite.Services.Models
                     SettingId = x.SettingId,
                     Name = x.Name,
                     Value = x.Value,
-                    Type = x.Type
-                }).ToDictionary(x => x.Name, x => x);
+                    Type = x.Type,
+                    Code = x.Code
+                }).ToDictionary(x => x.Code, x => x);
 
                 _cacheService.Store(key, settings);
                 return settings;

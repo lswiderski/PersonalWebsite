@@ -1,33 +1,47 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model List<PersonalWebsite.Services.Models.SettingViewModel> 
+@model Sakura.AspNetCore.IPagedList<PersonalWebsite.Services.Models.SettingViewModel> 
 @{
     Layout = "_AdminLayout";
 }
 <br />
 <br />
 <br />
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Setting Name</th>
-            <th>Value</th>
-            <th>Type</th>
-            <th></th>
-        </tr>
-    </thead>
-    
-    <tbody>
-        @foreach (var setting in Model)
-        {
-            <tr>
-                <td>@setting.Name</td>
-                <td>@setting.Value</td>
-                <td>@setting.Type</td>
-                <td><a asp-area="Admin" asp-controller="Settings" asp-action="Edit" asp-route-id="@setting.SettingId">Edit</a></td>
-            </tr>
-        }
-    </tbody>
-</table>
-<a asp-area="Admin" asp-controller="Settings" asp-action="Add" class="btn btn-primary">Add new setting</a>
+<div class="col-md-8">
+    <div class="card">
+        <div class="card-block">
+            <div class="card-title"><h2>Settings</h2></div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Setting Name</th>
+                        <th>Value</th>
+                        <th>Type</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var setting in Model)
+                    {
+                        <tr>
+                            <td><a asp-area="Admin" asp-controller="Settings" asp-action="Edit" asp-route-id="@setting.SettingId">@setting.Name (@setting.Code)</a></td>
+                                <td>@setting.Value</td>
+                                <td>@setting.Type</td>
+                                <td><a asp-area="Admin" asp-controller="Settings" asp-action="Edit" asp-route-id="@setting.SettingId">Edit</a></td>
+                            </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-block">
+            <nav aria-label="Page navigation">
+                <pager setting-item-attr-class="page-item" setting-link-attr-class="page-link" />
+            </nav>
+        </div>
+        <div class="card-block"><a asp-area="Admin" asp-controller="Settings" asp-action="Add" class="btn btn-primary">Add new setting</a></div>
+    </div>
+
+</div>
+

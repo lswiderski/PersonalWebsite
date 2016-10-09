@@ -67,24 +67,24 @@ namespace PersonalWebsite.Data.SeedData
         {
             var settings = new List<Setting>()
             {
-                new Setting {Name = "Blog.PageSize", Type = SettingDataType.INT, Value = "5"},
-                new Setting {Name = "Socials.Facebook.Profile.Link", Type = SettingDataType.STRING, Value = ""},
-                new Setting {Name = "Socials.Twitter.Profile.Link", Type = SettingDataType.STRING, Value = ""},
-                new Setting {Name = "Socials.Github.Profile.Link", Type = SettingDataType.STRING, Value = ""},
-                new Setting {Name = "Socials.Instagram.Profile.Link", Type = SettingDataType.STRING, Value = ""},
-                new Setting {Name = "Socials.LinkedIn.Profile.Link", Type = SettingDataType.STRING, Value = ""},
-                new Setting {Name = "Socials.Mail", Type = SettingDataType.STRING, Value = ""},
-                new Setting {Name = "Instagram.AccessToken", Type = SettingDataType.STRING, Value = ""},
-                new Setting {Name = "Instagram.UserID", Type = SettingDataType.STRING, Value = ""},
-                new Setting {Name = "Twitter.Widget.ID", Type = SettingDataType.STRING, Value = ""},
-                new Setting {Name = "Twitter.UserName", Type = SettingDataType.STRING, Value = ""},
-                new Setting {Name = "Website.Name", Type = SettingDataType.STRING, Value = "Website"},
-                new Setting {Name = "Website.Description", Type = SettingDataType.STRING, Value = "Personal Website"}
+                new Setting {Code = "Blog.PageSize", Name = "Blog.PageSize", Type = SettingDataType.INT, Value = "5"},
+                new Setting {Code = "Socials.Facebook.Profile.Link", Name = "Facebook Profile Link", Type = SettingDataType.STRING, Value = ""},
+                new Setting {Code = "Socials.Twitter.Profile.Link", Name = "Twitter Profile Link", Type = SettingDataType.STRING, Value = ""},
+                new Setting {Code = "Socials.Github.Profile.Link", Name = "Github Profile Link", Type = SettingDataType.STRING, Value = ""},
+                new Setting {Code = "Socials.Instagram.Profile.Link", Name = "Instagram Profile Link", Type = SettingDataType.STRING, Value = ""},
+                new Setting {Code = "Socials.LinkedIn.Profile.Link", Name = "LinkedIn Profile Link", Type = SettingDataType.STRING, Value = ""},
+                new Setting {Code = "Socials.Mail", Name = "Mail", Type = SettingDataType.STRING, Value = ""},
+                new Setting {Code = "Instagram.AccessToken", Name = "Instagram AccessToken", Type = SettingDataType.STRING, Value = ""},
+                new Setting {Code = "Instagram.UserID", Name = "Instagram UserID", Type = SettingDataType.STRING, Value = ""},
+                new Setting {Code = "Twitter.Widget.ID", Name = "Twitter Widget.ID", Type = SettingDataType.STRING, Value = ""},
+                new Setting {Code = "Twitter.UserName", Name = "Twitter UserName", Type = SettingDataType.STRING, Value = ""},
+                new Setting {Code = "Website.Name", Name = "Website Name", Type = SettingDataType.STRING, Value = "Website"},
+                new Setting {Code = "Website.Description", Name = "Website Description", Type = SettingDataType.STRING, Value = "Personal Website"}
             };
 
             foreach (var setting in settings)
             {
-                if (!context.Settings.Any(r => r.Name == setting.Name))
+                if (!context.Settings.Any(r => r.Code == setting.Code))
                 {
                     context.Add(setting);
                 }

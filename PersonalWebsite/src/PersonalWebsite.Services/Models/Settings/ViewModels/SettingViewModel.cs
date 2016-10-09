@@ -11,7 +11,6 @@ namespace PersonalWebsite.Services.Models
     {
         public int SettingId { get; set; }
 
-        [Required]
         [Display(Name = "Setting Name")]
         public string Name { get; set; }
 
@@ -19,5 +18,8 @@ namespace PersonalWebsite.Services.Models
         public SettingDataType Type { get; set; }
 
         public string Value { get; set; }
+
+        [Required]
+        public string Code { get; set; }
     }
 }
