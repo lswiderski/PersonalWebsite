@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PersonalWebsite.Controllers;
+using PersonalWebsite.Data;
+using PersonalWebsite.Data.Entities;
 using PersonalWebsite.Services.Models;
 using Sakura.AspNetCore;
 
@@ -22,6 +24,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         {
             this.postModel = postModel;
             this.categoryModel = categoryModel;
+            var x = new Post();
         }
         // GET: /<controller>/
         public IActionResult Index(int? page)

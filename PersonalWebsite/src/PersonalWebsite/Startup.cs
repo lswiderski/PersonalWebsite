@@ -15,6 +15,7 @@ using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using NLog.Extensions.Logging;
+using PersonalWebsite.Data.SeedData;
 
 namespace PersonalWebsite
 {
@@ -62,7 +63,7 @@ namespace PersonalWebsite
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceScopeFactory scopeFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -82,7 +83,6 @@ namespace PersonalWebsite
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseApplicationInsightsExceptionTelemetry();
-
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
             {
@@ -93,7 +93,7 @@ namespace PersonalWebsite
 
             app.UseIdentity();
             appServicesInit.Configure(app.ApplicationServices);
-
+            scopeFactory.SeedData();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
