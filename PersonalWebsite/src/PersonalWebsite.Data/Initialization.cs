@@ -16,14 +16,13 @@ namespace PersonalWebsite.Data
 {
     public class Initialization
     {
-        public Initialization(IServiceCollection services)
+        public Initialization(IServiceCollection services, IConfigurationRoot configuration)
         {
-            this.ConfigureServices(services);
+            this.ConfigureServices(services, configuration);
         }
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services, IConfigurationRoot configuration)
         {
-            string connection = @"Server=DESKTOP-14EBE41\SQLEXPRESS;Database=SeedTest1;Trusted_Connection=True;";
-
+            string connection = configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<DataContext>(options => options.UseSqlServer(connection, b =>b.MigrationsAssembly("PersonalWebsite.Data")), ServiceLifetime.Scoped);
 
         }

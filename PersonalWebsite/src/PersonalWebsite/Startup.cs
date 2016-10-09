@@ -49,8 +49,8 @@ namespace PersonalWebsite
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
-
-            appServicesInit = new Services.Initialization(services);
+           
+            appServicesInit = new Services.Initialization(services, Configuration);
             services.AddMvc();
 
             services.AddBootstrapPagerGenerator(options =>

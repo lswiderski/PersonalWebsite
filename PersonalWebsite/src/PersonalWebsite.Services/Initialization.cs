@@ -21,14 +21,14 @@ namespace PersonalWebsite.Services
     {
 
         private Data.Initialization dataInit;
-        public Initialization(IServiceCollection services)
+        public Initialization(IServiceCollection services, IConfigurationRoot configuration)
         {
-            this.ConfigureServices(services);
+            this.ConfigureServices(services, configuration);
 
         }
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services, IConfigurationRoot configuration)
         {
-            dataInit = new Data.Initialization(services);
+            dataInit = new Data.Initialization(services, configuration);
 
             services.AddMemoryCache();
 
