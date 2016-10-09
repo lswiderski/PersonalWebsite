@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonalWebsite.Controllers;
 using PersonalWebsite.Services.Models;
@@ -9,6 +10,7 @@ using PersonalWebsite.Services.Models;
 namespace PersonalWebsite.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Administrator")]
     public class TagsController : PersonalController
     {
         private readonly ITagModel tagModel;

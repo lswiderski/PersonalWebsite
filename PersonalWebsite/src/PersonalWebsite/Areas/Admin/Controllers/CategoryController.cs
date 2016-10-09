@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PersonalWebsite.Controllers;
 using PersonalWebsite.Services.Models;
 
 namespace PersonalWebsite.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Administrator")]
     public class CategoryController : PersonalController
     {
         private readonly ICategoryModel categoryModel;

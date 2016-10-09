@@ -35,7 +35,7 @@ namespace PersonalWebsite.Data.SeedData
 
                 if (!context.Roles.Any(r => r.Name == role))
                 {
-                    var x = roleStore.CreateAsync(new IdentityRole(role)).Result;
+                    var x = roleStore.CreateAsync(new IdentityRole(role) { NormalizedName = role}).Result;
                 }
             }
 
@@ -59,8 +59,6 @@ namespace PersonalWebsite.Data.SeedData
                 var result = userStore.CreateAsync(user).Result;
                 var resultRole = userStore.AddToRoleAsync(user, "Administrator");
             }
-            // var userResult = userManager.FindByEmailAsync(user.Email).Result;
-            // var rolesResult = userManager.AddToRolesAsync(userResult, roles).Result;
         }
 
         private static void CreateSettings(DataContext context)

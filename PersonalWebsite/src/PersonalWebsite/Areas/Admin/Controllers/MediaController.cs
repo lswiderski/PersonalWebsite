@@ -8,12 +8,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using ImageProcessorCore;
+using Microsoft.AspNetCore.Authorization;
 using PersonalWebsite.Controllers;
 using Sakura.AspNetCore;
 
 namespace PersonalWebsite.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Administrator")]
     public class MediaController : PersonalController
     {
         private readonly IImageService imageService;

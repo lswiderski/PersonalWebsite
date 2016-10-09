@@ -13,7 +13,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
-    
+    [Authorize(Roles = "Administrator")]
     public class SettingsController : PersonalController
     {
         private readonly ISettingModel _settingModel;
