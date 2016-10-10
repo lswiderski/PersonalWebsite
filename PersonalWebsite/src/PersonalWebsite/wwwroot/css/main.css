@@ -1,23 +1,23 @@
 .index-header {
-  background-color: rgba(50, 50, 50, 0.9);
-  height: 700px;
   text-align: center;
   margin-bottom: 15px;
-  position: relative;
   display: block;
+  margin-top: 20em;
+  padding: 20px;
 }
 
-.index-header::after {
-  content: "";
-  background: url("http://swiderski.xyz/wp-content/uploads/2016/03/marocoup-1920x550.jpg");
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+.index-header-text {
+  color: #fff;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+h1.index-header-text {
+  font-size: 5em;
+  font-weight: bold;
+}
+
+h2.index-header-text {
+  font-size: 2em;
 }
 
 .latestpost-img {
@@ -53,15 +53,6 @@
   align-content: center;
   text-align: center;
   padding-top: 200px;
-}
-
-.index-header-text {
-  color: #fff;
-  margin-top: 50px;
-}
-
-.card-columns {
-  column-count: 2;
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
