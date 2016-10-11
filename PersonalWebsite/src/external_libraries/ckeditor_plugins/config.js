@@ -90,11 +90,11 @@ CKEDITOR.editorConfig = function (config) {
         { name: 'styles' },
         { name: 'colors' },
         { name: 'about' },
-        { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'] },
+        { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'justify'] },
     ];
 
 
-    config.extraPlugins = 'codesnippet,lineutils,widget,prism,lightbox';
+    config.extraPlugins = 'codesnippet,lineutils,widget,prism,justify,insertimg';
 
     config.extraAllowedContent = 'a[data-lightbox,data-title,data-lightbox-saved]';
     config.stylesSet = 'default2'
@@ -104,4 +104,5 @@ CKEDITOR.editorConfig = function (config) {
         csharp: 'csharp',
     };
     config.codeSnippet_theme = 'okaidia';
+    config.height = 500;
 };

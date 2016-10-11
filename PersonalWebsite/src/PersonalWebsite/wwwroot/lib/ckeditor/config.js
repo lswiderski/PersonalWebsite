@@ -90,11 +90,11 @@ CKEDITOR.editorConfig = function (config) {
         { name: 'styles' },
         { name: 'colors' },
         { name: 'about' },
-        { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi','justify'] },
+        { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'justify'] },
     ];
 
 
-    config.extraPlugins = 'codesnippet,lineutils,widget,prism,lightbox,justify,insertimg';
+    config.extraPlugins = 'codesnippet,lineutils,widget,prism,justify,insertimg';
 
     config.extraAllowedContent = 'a[data-lightbox,data-title,data-lightbox-saved]';
     config.stylesSet = 'default2'
