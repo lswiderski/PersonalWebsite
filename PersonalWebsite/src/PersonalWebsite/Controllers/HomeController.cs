@@ -17,14 +17,16 @@ namespace PersonalWebsite.Controllers
         private readonly ISettingModel _settingModel;
         private readonly ICacheService _cacheService;
         private readonly IXmlFeedService _xmlFeedService;
+        private readonly IAdventureModel _adventureModel;
         private int pageSize = 3;
 
-        public HomeController(IPostModel postModel, ISettingModel settingModel, ICacheService cacheService, IXmlFeedService xmlFeedService)
+        public HomeController(IPostModel postModel, ISettingModel settingModel, ICacheService cacheService, IXmlFeedService xmlFeedService, IAdventureModel adventureModel)
         {
             _postModel = postModel;
             _settingModel = settingModel;
             _cacheService = cacheService;
             _xmlFeedService = xmlFeedService;
+            _adventureModel = adventureModel;
             pageSize = _settingModel.GetInt("Blog.PageSize");
         }
 
@@ -135,7 +137,7 @@ namespace PersonalWebsite.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return RedirectToAction("Adventures", new {  page });
+                return RedirectToAction("Adventures", new { page });
             }
 
             var post = _postModel.GetPublishedPost(id);
@@ -152,7 +154,24 @@ namespace PersonalWebsite.Controllers
             var viewModel = _postModel.GetPublishedSimplifiedPostsByCategory("Adventure");
             int pageNumber = (page ?? 1);
             ViewBag.SiteHeader = "Category: #Adventure";
-            return View("Blog", viewModel.ToPagedList(pageSize, pageNumber));
+            return View(viewModel.ToPagedList(pageSize, pageNumber));
+        }
+
+        [HttpGet]
+        public JsonResult AdventuresForMap()
+        {
+            var viewModel = _adventureModel.GetListForMap();
+
+            foreach (var adventure in viewModel)
+            {
+                var url = Url.Action("Adventure", "Home", new {id = adventure.Url});
+                var imgUrl = string.Format("{0}://{1}/{2}", HttpContext.Request.Scheme,
+                    HttpContext.Request.Host.Value, adventure.CustomData);
+
+                adventure.CustomData = string.Format("<img src='{0}' style='width:200px;' /><br /> <p>{1}</p>", imgUrl, adventure.Title);
+                adventure.Url = url;
+            }
+            return Json(viewModel);
         }
 
         public IActionResult RSS()

@@ -15,5 +15,7 @@ namespace PersonalWebsite.Data.Entities
         public int Uses { get; set; }
 
         public virtual ICollection<PostTag> PostTags { get; set; }
+
+        public virtual ICollection<ImageTag> ImageTags { get; set; }
     }
 }

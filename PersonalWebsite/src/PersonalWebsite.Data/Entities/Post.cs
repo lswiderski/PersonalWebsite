@@ -39,5 +39,6 @@ namespace PersonalWebsite.Data.Entities
         [ForeignKey("HeaderImageId")]
         public Image HeaderImage { get; set; }
 
+        public virtual Adventure Adventure { get; set; }
     }
 }

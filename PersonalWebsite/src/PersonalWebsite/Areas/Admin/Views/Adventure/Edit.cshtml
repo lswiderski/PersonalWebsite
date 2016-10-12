@@ -1,0 +1,36 @@
+﻿@using PersonalWebsite.Common.Enums
+@model PersonalWebsite.Services.Models.EditAdventureViewModel
+
+@{
+    Layout = "_AdminLayout";
+}
+<div class="col-md-6">
+    <form asp-controller="Adventure" asp-action="Edit" method="post" role="form" id="post-form" class="form">
+        <div class="card card-block">
+            <div class="card-title"><h3>Edit Setting</h3></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            @Html.HiddenFor(x => x.Id)
+            <div class="form-group">
+                <label asp-for="Country"></label>
+                <input asp-for="Country" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Latitude"></label>
+                <input asp-for="Latitude" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Longitude"></label>
+                <input asp-for="Longitude" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="PostId"></label>
+                <input asp-for="PostId" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Map"></label>
+                <input asp-for="Map" class="form-control" />
+            </div>
+            <input type="Submit" value="Edit" class="btn btn-default" id="submit-button" />
+        </div>
+    </form>
+</div>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PersonalWebsite.Data.Entities
 {
@@ -23,5 +24,7 @@ namespace PersonalWebsite.Data.Entities
 
         [ForeignKey("ThumbnailId")]
         public File Thumbnail { get; set; }
+
+        public virtual ICollection<ImageTag> ImageTags { get; set; }
     }
 }

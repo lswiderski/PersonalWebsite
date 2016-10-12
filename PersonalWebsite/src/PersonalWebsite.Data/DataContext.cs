@@ -19,11 +19,12 @@ namespace PersonalWebsite.Data
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<Image> Images { get; set; }
+        public virtual DbSet<ImageTag> ImageTags { get; set; }
+        public virtual DbSet<Adventure> Adventures { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-          
 
             modelBuilder.Entity<PostTag>()
                             .HasKey(t => new { t.PostId, t.TagId });
@@ -50,6 +51,28 @@ namespace PersonalWebsite.Data
                             .HasOne(pt => pt.Category)
                             .WithMany(t => t.PostCategories)
                             .HasForeignKey(pt => pt.CategoryId);
+
+            modelBuilder.Entity<Post>()
+                .HasAlternateKey(p => p.Name);
+
+            modelBuilder.Entity<Tag>()
+                .HasAlternateKey(p => p.Name);
+
+            modelBuilder.Entity<Category>()
+                .HasAlternateKey(p => p.Name);
+
+            modelBuilder.Entity<ImageTag>()
+                            .HasKey(t => new { t.ImageId, t.TagId });
+
+            modelBuilder.Entity<ImageTag>()
+                            .HasOne(pt => pt.Image)
+                            .WithMany(p => p.ImageTags)
+                            .HasForeignKey(pt => pt.ImageId);
+
+            modelBuilder.Entity<ImageTag>()
+                            .HasOne(pt => pt.Tag)
+                            .WithMany(t => t.ImageTags)
+                            .HasForeignKey(pt => pt.TagId);
         }
     }
 }

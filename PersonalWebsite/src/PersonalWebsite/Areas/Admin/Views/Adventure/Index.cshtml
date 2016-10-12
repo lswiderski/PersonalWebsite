@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using System.Threading.Tasks
+@using PersonalWebsite.Services.Models
+@model List<PersonalWebsite.Services.Models.AdventureViewModel>
+@{
+    Layout = "_AdminLayout";
+}
+<br />
+<br />
+<br />
+<div class="col-md-8">
+    <div class="card">
+        <div class="card-block">
+            <div class="card-title"><h2>Settings</h2></div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Adventure Title</th>
+                        <th>Country</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var adventure in Model)
+                    {
+                        <tr>
+                            <td><a asp-area="Admin" asp-controller="Adventure" asp-action="Edit" asp-route-id="@adventure.Id">@adventure.Title</a></td>
+                            <td>@adventure.Country</td>
+                            <td><a asp-area="Admin" asp-controller="Adventure" asp-action="Edit" asp-route-id="@adventure.Id">Edit</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-block">
+        </div>
+        <div class="card-block"><a asp-area="Admin" asp-controller="Adventure" asp-action="Add" class="btn btn-primary">Add new Adventure</a></div>
+    </div>
+
+</div>
+
