@@ -1,4 +1,5 @@
-﻿@using PersonalWebsite.Common.Enums
+﻿@using System.Xml.Linq
+@using PersonalWebsite.Common.Enums
 @model PersonalWebsite.Services.Models.AddAdventureViewModel
 
 @{
@@ -7,7 +8,7 @@
 <div class="col-md-6">
     <form asp-controller="Adventure" asp-action="Add" method="post" role="form" id="post-form" class="form">
         <div class="card card-block">
-            <div class="card-title"><h3>Add new Setting</h3></div>
+            <div class="card-title"><h3>Add new Adventure</h3></div>
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Country"></label>
@@ -23,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="PostId"></label>
-                <input asp-for="PostId" class="form-control" />
+              @Html.DropDownListFor(x => x.PostId, Model.Posts, null, new { @class = "form-control" })
             </div>
             <div class="form-group">
                 <label asp-for="Map"></label>

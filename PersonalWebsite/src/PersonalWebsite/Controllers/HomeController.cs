@@ -168,7 +168,7 @@ namespace PersonalWebsite.Controllers
                 var imgUrl = string.Format("{0}://{1}/{2}", HttpContext.Request.Scheme,
                     HttpContext.Request.Host.Value, adventure.CustomData);
 
-                adventure.CustomData = string.Format("<img src='{0}' style='width:200px;' /><br /> <p>{1}</p>", imgUrl, adventure.Title);
+                adventure.CustomData = string.Format("<img src='{0}' style='width:180px;' /><br /> <p>{1}</p>", imgUrl, adventure.Title);
                 adventure.Url = url;
             }
             return Json(viewModel);

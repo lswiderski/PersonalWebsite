@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace PersonalWebsite.Services.Models
 {
@@ -17,6 +18,8 @@ namespace PersonalWebsite.Services.Models
         public double Longitude { get; set; }
 
         public int PostId { get; set; }
+
+        public List<SelectListItem> Posts { get; set; }
 
     }
 }

@@ -13,7 +13,7 @@
 <div class="col-md-8">
     <div class="card">
         <div class="card-block">
-            <div class="card-title"><h2>Settings</h2></div>
+            <div class="card-title"><h2>Adventures</h2></div>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -29,7 +29,7 @@
                         <tr>
                             <td><a asp-area="Admin" asp-controller="Adventure" asp-action="Edit" asp-route-id="@adventure.Id">@adventure.Title</a></td>
                             <td>@adventure.Country</td>
-                            <td><a asp-area="Admin" asp-controller="Adventure" asp-action="Edit" asp-route-id="@adventure.Id">Edit</a></td>
+                            <td><a asp-area="Admin" asp-controller="Adventure" asp-action="Remove" asp-route-id="@adventure.Id">X</a></td>
                         </tr>
                     }
                 </tbody>

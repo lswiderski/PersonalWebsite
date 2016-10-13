@@ -12,5 +12,7 @@ namespace PersonalWebsite.Services.Models
         EditAdventureViewModel GetEdit(int id);
         void Edit(EditAdventureViewModel model);
         void Add(AddAdventureViewModel model);
+        AddAdventureViewModel GetAdd();
+        void Remove(int id);
     }
 }

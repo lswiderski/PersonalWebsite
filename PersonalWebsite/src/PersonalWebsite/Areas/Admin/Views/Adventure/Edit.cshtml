@@ -7,7 +7,7 @@
 <div class="col-md-6">
     <form asp-controller="Adventure" asp-action="Edit" method="post" role="form" id="post-form" class="form">
         <div class="card card-block">
-            <div class="card-title"><h3>Edit Setting</h3></div>
+            <div class="card-title"><h3>Edit Adventure</h3></div>
             <div asp-validation-summary="All" class="text-danger"></div>
             @Html.HiddenFor(x => x.Id)
             <div class="form-group">
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="PostId"></label>
-                <input asp-for="PostId" class="form-control" />
+                @Html.DropDownListFor(x => x.PostId, Model.Posts,null, new {@class ="form-control"})
             </div>
             <div class="form-group">
                 <label asp-for="Map"></label>

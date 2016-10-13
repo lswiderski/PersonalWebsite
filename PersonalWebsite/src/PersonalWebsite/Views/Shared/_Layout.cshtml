@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Threading.Tasks
+@using Microsoft.ApplicationInsights.Extensibility
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -12,6 +14,7 @@
         <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
         <link rel="stylesheet" href="~/lib/prism/themes/prism-okaidia.css" />
         <link rel="stylesheet" href="~/css/main.css" />
+        <script src="~/lib/jquery/dist/jquery.js"></script>
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css"
@@ -23,8 +26,14 @@
         <link rel="stylesheet" href="~/lib/prism/themes/prism-okaidia.css" />
 
         <link rel="stylesheet" href="~/css/main.min.css" asp-append-version="true" />
+       
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
     </environment>
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+    @RenderSection("Header", required: false)
 </head>
 <body>
     @Html.Partial("Menu-navbar")
@@ -36,7 +45,7 @@
         </div>
     @Html.Partial("Footer")
     <environment names="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
+       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
         <script src="~/lib/lightbox2/dist/js/lightbox.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -49,10 +58,7 @@
         <script id="dsq-count-scr" src="//lukaszswiderski.disqus.com/count.js" async></script>
     </environment>
     <environment names="Staging,Production">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery">
-        </script>
+      
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"
                 asp-fallback-src="~/lib/tether/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery">

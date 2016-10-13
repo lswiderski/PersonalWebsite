@@ -26,7 +26,8 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Add()
         {
-            return View();
+            var model = _adventureModel.GetAdd();
+            return View(model);
         }
 
         [HttpPost]
@@ -56,6 +57,13 @@ namespace PersonalWebsite.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult Remove(int id)
+        {
+            _adventureModel.Remove(id);
+            return RedirectToAction("Index");
         }
 
 
