@@ -130,7 +130,7 @@ namespace PersonalWebsite.Controllers
             var viewModel = _postModel.GetPublishedSimplifiedPostsByCategory("Project");
             int pageNumber = (page ?? 1);
             ViewBag.SiteHeader = "Category: #Project";
-            return View("Blog", viewModel.ToPagedList(pageSize, pageNumber));
+            return View(viewModel.ToPagedList(pageSize, pageNumber));
         }
 
         public IActionResult Adventure(string id, int? page)
