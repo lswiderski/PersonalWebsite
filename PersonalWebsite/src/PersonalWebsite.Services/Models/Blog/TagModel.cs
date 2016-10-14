@@ -2,6 +2,7 @@
 using PersonalWebsite.Data.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace PersonalWebsite.Services.Models
 {
@@ -145,6 +146,18 @@ namespace PersonalWebsite.Services.Models
                 db.Tags.Remove(tag);
                 db.SaveChanges();
             }
+        }
+
+        public void RecalculateUses()
+        {
+            var tags = db.Tags.ToList();
+
+            foreach (var tag in tags)
+            {
+                tag.Uses = db.PostTags.Count(x => x.TagId == tag.TagId);
+            }
+
+            db.SaveChanges();
         }
     }
 }

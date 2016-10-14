@@ -19,5 +19,6 @@ namespace PersonalWebsite.Services.Models
         List<CategoryViewModel> GetCategoriesUsedByPost(int id);
         EditCategoryViewModel GetCategoryForEdit(int id);
         List<CheckBoxListItem> GetEmptyCategoriesCheckBoxList();
+        void RecalculateUses();
     }
 }

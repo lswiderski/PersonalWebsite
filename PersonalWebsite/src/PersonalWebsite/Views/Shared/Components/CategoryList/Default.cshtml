@@ -2,12 +2,13 @@
 @model List<CategoryViewModel>
 @{
 }
-        <h3>Categories</h3>
+        <h3>Blog Categories</h3>
 <ul class="list-group">
     @foreach (var category in Model)
     {
         <li class="list-group-item">
-            <a asp-controller="Home" asp-action="Category" asp-route-id="@category.Name">@category.Tittle</a>
+            <a asp-controller="Home" asp-action="Category" asp-route-id="@category.Name">@category.Tittle <span class="tag tag-pill tag-default pull-xs-right">@category.Uses</span></a>
+           
         </li>
 
     }

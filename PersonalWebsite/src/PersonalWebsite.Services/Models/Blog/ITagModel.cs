@@ -20,5 +20,6 @@ namespace PersonalWebsite.Services.Models
         void AddTag(string name);
         int GetTagId(string name);
         TagViewModel GetTag(string name);
+        void RecalculateUses();
     }
 }

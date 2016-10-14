@@ -13,14 +13,14 @@ namespace PersonalWebsite.Services.Models
     public class PostModel : IPostModel
     {
         private readonly DataContext db;
-        private readonly ICategoryModel categoryModel;
-        private readonly ITagModel tagModel;
+        private readonly ICategoryModel _categoryModel;
+        private readonly ITagModel _tagModel;
 
         public PostModel(DataContext db, ICategoryModel categoryModel, ITagModel tagModel)
         {
             this.db = db;
-            this.categoryModel = categoryModel;
-            this.tagModel = tagModel;
+            this._categoryModel = categoryModel;
+            this._tagModel = tagModel;
         }
 
         public IQueryable<SimplifiedPostViewModel> Search(string query)
@@ -255,7 +255,7 @@ namespace PersonalWebsite.Services.Models
                 var tags = model.Tags.Distinct();
                 foreach (var tag in tags)
                 {
-                    var tagFromDb = tagModel.GetTag(tag);
+                    var tagFromDb = _tagModel.GetTag(tag);
 
                     if (tagFromDb != null)
                     {
@@ -283,6 +283,8 @@ namespace PersonalWebsite.Services.Models
             }
 
             db.SaveChanges();
+            _tagModel.RecalculateUses();
+            _categoryModel.RecalculateUses();
         }
 
         public PostViewModel GetPublishedPost(int id)
@@ -349,7 +351,7 @@ namespace PersonalWebsite.Services.Models
 
         private IEnumerable<CheckBoxListItem> GetCategoriesCheckBoxListForPost(IEnumerable<int> categoryIds)
         {
-            var categories = categoryModel.GetCategories().Select(x => new CheckBoxListItem
+            var categories = _categoryModel.GetCategories().Select(x => new CheckBoxListItem
             {
                 Display = x.Tittle,
                 ID = x.CategoryId,
@@ -406,7 +408,7 @@ namespace PersonalWebsite.Services.Models
 
         public void UpdatePost(EditPostViewModel model)
         {
-            var post = db.Posts.Include(x => x.PostCategories).ThenInclude(x => x.Category).Include(x => x.PostTags).ThenInclude(x => x.Tag).Where(x => x.PostId == model.PostId).FirstOrDefault();
+            var post = db.Posts.Include(x => x.PostCategories).ThenInclude(x => x.Category).Include(x => x.PostTags).ThenInclude(x => x.Tag).FirstOrDefault(x => x.PostId == model.PostId);
 
             post.Name = model.Name;
             post.Title = model.Title;
@@ -426,7 +428,7 @@ namespace PersonalWebsite.Services.Models
                         {
                             post.PostCategories = new List<PostCategory>();
                         }
-                        if (!post.PostCategories.Any(x => x.CategoryId == category.ID))
+                        if (post.PostCategories.All(x => x.CategoryId != category.ID))
                         {
                             var postCategory = new PostCategory
                             {
@@ -438,7 +440,7 @@ namespace PersonalWebsite.Services.Models
                     }
                     else
                     {
-                        var categoryToDelete = post.PostCategories.Where(x => x.CategoryId == category.ID).FirstOrDefault();
+                        var categoryToDelete = post.PostCategories.FirstOrDefault(x => x.CategoryId == category.ID);
                         if (categoryToDelete != null)
                         {
                             db.PostCategories.Remove(categoryToDelete);
@@ -452,7 +454,7 @@ namespace PersonalWebsite.Services.Models
                 var tags = model.Tags.Distinct().ToList();
                 var tagsInPost = post.PostTags.Select(x => x.Tag.Name).ToList();
                 var tagsToRemove = (from t in tagsInPost
-                                    where !tags.Any(x => x == t)
+                                    where tags.All(x => x != t)
                                     select t);
                 var postTags = post.PostTags.Where(x => tagsToRemove.Any(y => y == x.Tag.Name));
 
@@ -461,7 +463,7 @@ namespace PersonalWebsite.Services.Models
                 var tagsToAdd = tags.Except(tagsInPost).Except(tagsToRemove);
                 foreach (var tag in tagsToAdd)
                 {
-                    var tagFromDb = tagModel.GetTag(tag);
+                    var tagFromDb = _tagModel.GetTag(tag);
 
                     if (tagFromDb != null)
                     {
@@ -489,15 +491,21 @@ namespace PersonalWebsite.Services.Models
             }
 
             db.SaveChanges();
+
+            _tagModel.RecalculateUses();
+            _categoryModel.RecalculateUses();
         }
 
         public void DeletePost(int id)
         {
-            var post = db.Posts.Where(x => x.PostId == id).FirstOrDefault();
+            var post = db.Posts.FirstOrDefault(x => x.PostId == id);
 
             post.Status = PostStatusType.PUBLISHED;
 
             db.SaveChanges();
+
+            _tagModel.RecalculateUses();
+            _categoryModel.RecalculateUses();
         }
 
         public List<SimplifiedPostViewModel> GetTopPublishedPosts(int number, List<string> categories = null)

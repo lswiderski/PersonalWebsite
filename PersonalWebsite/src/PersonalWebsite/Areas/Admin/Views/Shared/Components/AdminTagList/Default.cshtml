@@ -26,7 +26,7 @@
             <tr>
                 <th scope="row">@id</th>
                 <td><a class="tag-edit-button" href="#" onclick="AdminTag.EditTag('@Url.Action("GetEditTagComponent", "Tags", new { Area = "Admin" })',@tag.TagId)">@tag.Name</a></td>
-                <td><a asp-controller="Tag" asp-action="Index" asp-area="" asp-route-id="@tag.Name">@tag.Uses</a> </td>
+                <td><a asp-controller="Home" asp-action="Tag" asp-area="" asp-route-id="@tag.Name">@tag.Uses</a> </td>
                 <td><a href="#" onclick="AdminTag.Delete('@Url.Action("Delete", "Tags", new { Area = "Admin" })',@tag.TagId);" class="btn btn-outline-secondary btn-sm" role="button">X</a></td>
             </tr>
             id++;

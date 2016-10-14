@@ -3,6 +3,7 @@ using PersonalWebsite.Data;
 using PersonalWebsite.Data.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace PersonalWebsite.Services.Models
 {
@@ -138,6 +139,17 @@ namespace PersonalWebsite.Services.Models
                 };
             }
             return new EditCategoryViewModel();
+        }
+
+        public void RecalculateUses()
+        {
+            var categories = db.Categories.ToList();
+
+            foreach (var category in categories)
+            {
+                category.Uses = db.PostCategories.Count(x => x.CategoryId == category.CategoryId);
+            }
+            db.SaveChanges();
         }
     }
 }
