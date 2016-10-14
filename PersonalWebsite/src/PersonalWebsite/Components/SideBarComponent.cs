@@ -7,9 +7,9 @@ using PersonalWebsite.Services.Models;
 
 namespace PersonalWebsite.Components
 {
-    public class MapOfAdventuresComponent : ViewComponent
+    public class SidebarComponent : ViewComponent
     {
-        public MapOfAdventuresComponent()
+        public SidebarComponent()
         {
 
         }

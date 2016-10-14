@@ -60,32 +60,8 @@
             </nav>
 
         </div>
-        <div class="col-md-4 blog-sidebar">
-            <div class="row">
-                <div class="card card-block">
-                    @await Component.InvokeAsync("CategoryList")
-                </div>
-            </div>
-            <div class="row">
-                <div class="card card-block">
-                    @await Component.InvokeAsync("Tags")
-                </div>
-            </div>
-            <div class="row">
-                <div class="card">
-
-                    <div class="card-block">
-                        @await Component.InvokeAsync("InstagramComponent")
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="card">
-                    <div class="card-block">
-                        @await Component.InvokeAsync("TwitterComponent")
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-4">
+            @await Component.InvokeAsync("SidebarComponent")
         </div>
     </div>
 </div>
