@@ -8,9 +8,10 @@ using PersonalWebsite.Data;
 namespace PersonalWebsite.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20161015074052_Parent Post")]
+    partial class ParentPost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -247,7 +248,8 @@ namespace PersonalWebsite.Data.Migrations
 
                     b.Property<DateTime?>("ModifiedOn");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<int?>("ParentPostId");
 
@@ -259,10 +261,9 @@ namespace PersonalWebsite.Data.Migrations
 
                     b.HasKey("PostId");
 
-                    b.HasIndex("HeaderImageId");
+                    b.HasAlternateKey("Name");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("HeaderImageId");
 
                     b.HasIndex("ParentPostId");
 

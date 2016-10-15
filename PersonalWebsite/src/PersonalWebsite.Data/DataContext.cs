@@ -53,7 +53,7 @@ namespace PersonalWebsite.Data
                             .HasForeignKey(pt => pt.CategoryId);
 
             modelBuilder.Entity<Post>()
-                .HasAlternateKey(p => p.Name);
+                .HasIndex(u => u.Name).IsUnique();
 
             modelBuilder.Entity<Tag>()
                 .HasAlternateKey(p => p.Name);

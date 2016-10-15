@@ -77,6 +77,17 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        public IActionResult AddDraft(EditPostViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                postModel.AddNewDraft(model);
+                return RedirectToAction("Index", "Post", new { area = "Admin", id = "" });
+            }
+            return View(model);
+        }
+
+        [HttpPost]
         public IActionResult Delete(int id)
         {
             postModel.DeletePost(id);

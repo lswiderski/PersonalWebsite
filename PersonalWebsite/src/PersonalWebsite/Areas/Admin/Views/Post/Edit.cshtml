@@ -5,8 +5,9 @@
     Layout = "_AdminLayout";
 }
 <script src="~/lib/ckeditor/ckeditor.js"></script>
-<form asp-controller="Post" asp-action="Edit" method="post" role="form" id="post-form">
+<form role="form" id="post-form" action="">
     @Html.HiddenFor(x => x.PostId)
+    @Html.HiddenFor(x => x.ParentPostId)
 
     <div class="row">
         <div class="col-md-10">
@@ -32,12 +33,16 @@
         </div>
         <div class="col-md-2 post-edit-sidebar">
             <div class="card card-block">
-                <input type="button" value="Save post" class="btn btn-default" id="submit-button" />
-                <input type="button" value="Cancel" class="btn btn-default" />
+              @if (!Model.ParentPostId.HasValue)
+              {
+                <input type="submit" formaction="@Url.Action("AddDraft", "Post")" name="addDraft" formmethod="post" value="Save as new Draft" class="btn btn-default" id="submit-button-addDraft" />
+              }  
+                <input type="submit" formaction="@Url.Action("Edit", "Post")" name="edit" formmethod="post" value="Save post" class="btn btn-default" id="submit-button-edit"/>
+                <input type="button" value="Cancel" class="btn btn-default"/>
 
                 <div class="form-group">
                     <label asp-for="Status"></label>
-                    @Html.DropDownListFor(x => x.Status, Html.GetEnumSelectList(typeof(PostStatusType)), new { @class = "form-control" })
+                    @Html.DropDownListFor(x => x.Status, Html.GetEnumSelectList(typeof(PostStatusType)), new {@class = "form-control"})
                 </div>
             </div>
             <div class="card card-block">

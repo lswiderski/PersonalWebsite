@@ -40,5 +40,11 @@ namespace PersonalWebsite.Data.Entities
         public Image HeaderImage { get; set; }
 
         public virtual Adventure Adventure { get; set; }
+
+        public int? ParentPostId { get; set; }
+
+        [ForeignKey("ParentPostId")]
+        public Post ParentPost { get; set; }
+
     }
 }

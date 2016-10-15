@@ -33,5 +33,7 @@ namespace PersonalWebsite.Services.Models
 
         public List<string> Tags { get; set; }
 
+        public int? ParentPostId { get; set; }
+
     }
 }

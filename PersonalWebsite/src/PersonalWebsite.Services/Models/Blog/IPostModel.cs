@@ -20,5 +20,6 @@ namespace PersonalWebsite.Services.Models
         IQueryable<SimplifiedPostViewModel> Search(string query);
         List<SimplifiedPostViewModel> GetPublishedSimplifiedPostsForFeed(int count);
         List<SimplifiedPostViewModel> GetTopPublishedPosts(int number, List<string> categories);
+        void AddNewDraft(EditPostViewModel model);
     }
 }
