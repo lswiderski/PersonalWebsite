@@ -22,5 +22,7 @@ namespace PersonalWebsite.Services.Models
         public List<TagViewModel> Tags { get; set; }
 
         public DateTime? PublishedOn { get; set; }
+
+        public string Status { get; set; }
     }
 }

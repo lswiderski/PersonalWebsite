@@ -183,7 +183,8 @@ namespace PersonalWebsite.Services.Models
                              {
                                  TagId = y.TagId,
                                  Name = y.Tag.Name
-                             }).ToList()
+                             }).ToList(),
+                             Status = post.Status.ToString()
                          }).AsQueryable();
             return posts;
         }

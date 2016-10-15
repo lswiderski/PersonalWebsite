@@ -24,8 +24,10 @@
                 </div>
             </th>
             <th>Tittle</th>
+            <th>Name</th>
             <th>Categories</th>
             <th>Tags</th>
+            <th>Status</th>
 
         </tr>
         </thead>
@@ -33,8 +35,9 @@
         @foreach (var post in Model)
         {
             <tr>
-                <td><input type="checkbox" name="action" value="" /></td>
+                <td><input type="checkbox" name="action" value="" /></td>               
                 <td><a asp-area="Admin" asp-controller="Post" asp-action="Edit" asp-route-id="@post.PostId">@post.Title</a></td>
+                <td>@post.Name</td>
                 <td>
                     @foreach (var category in post.Categories)
                     {
@@ -47,6 +50,7 @@
                         <a href="@tag.Name">@tag.Name, </a>
                     }
                 </td>
+                <td>@post.Status</td>
             </tr>
         }
 

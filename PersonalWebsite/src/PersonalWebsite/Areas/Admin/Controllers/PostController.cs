@@ -20,7 +20,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
     {
         private readonly IPostModel postModel;
         private readonly ICategoryModel categoryModel;
-        private int pageSize = 10;
+        private int pageSize = 20;
 
         public PostController(IPostModel postModel, ICategoryModel categoryModel)
         {
