@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PersonalWebsite.Common.Enums;
 using PersonalWebsite.Controllers;
 using PersonalWebsite.Data;
 using PersonalWebsite.Data.Entities;
@@ -94,6 +95,30 @@ namespace PersonalWebsite.Areas.Admin.Controllers
 
             return RedirectToAction("Index", "Post", new { area = "Admin", id = "" });
             
+        }
+
+        [HttpPost]
+        public IActionResult SetStatusOnPublished(List<int> posts)
+        {        
+            postModel.SetStatus(posts, PostStatusType.PUBLISHED);
+            return RedirectToAction("Index", "Post", new { area = "Admin", id = "" });
+
+        }
+
+        [HttpPost]
+        public IActionResult SetStatusOnDraft(List<int> posts)
+        {
+            postModel.SetStatus(posts, PostStatusType.DRAFT);
+            return RedirectToAction("Index", "Post", new { area = "Admin", id = "" });
+
+        }
+
+        [HttpPost]
+        public IActionResult SetStatusOnTrashed(List<int> posts)
+        {
+            postModel.SetStatus(posts, PostStatusType.TRASHED);
+            return RedirectToAction("Index", "Post", new { area = "Admin", id = "" });
+
         }
     }
 }

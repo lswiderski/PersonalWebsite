@@ -412,11 +412,11 @@ namespace PersonalWebsite.Services.Models
         {
             var post = db.Posts.Where(x => x.PostId == model.PostId)
                 .Select(x => new
-            {
-                x.CreatedOn,
-                x.PostId,
-                x.Name
-            }).FirstOrDefault();
+                {
+                    x.CreatedOn,
+                    x.PostId,
+                    x.Name
+                }).FirstOrDefault();
 
             var newPost = new Post
             {
@@ -426,7 +426,7 @@ namespace PersonalWebsite.Services.Models
                 Excerpt = model.Excerpt,
                 Guid = Guid.NewGuid(),
                 Status = PostStatusType.DRAFT,
-                Name = model.Name == post.Name ? string.Format("{0}-{1}", model.Name,PostStatusType.DRAFT.ToString()) : model.Name,
+                Name = model.Name == post.Name ? string.Format("{0}-{1}", model.Name, PostStatusType.DRAFT.ToString()) : model.Name,
                 HeaderImageId = model.HeaderImageId,
                 ParentPostId = post.PostId,
             };
@@ -490,8 +490,6 @@ namespace PersonalWebsite.Services.Models
                 model.ParentPostId = null;
                 HardDeletePost(oldPostId);
                 this.UpdatePost(model);
-
-                
             }
         }
 
@@ -665,6 +663,14 @@ namespace PersonalWebsite.Services.Models
 
             _tagModel.RecalculateUses();
             _categoryModel.RecalculateUses();
+        }
+
+        public void SetStatus(List<int> ids, PostStatusType status)
+        {
+            db.Posts.Where(x => ids.Contains(x.PostId)).ToList()
+                .ForEach(x => x.Status = status);
+
+            db.SaveChanges();
         }
     }
 }

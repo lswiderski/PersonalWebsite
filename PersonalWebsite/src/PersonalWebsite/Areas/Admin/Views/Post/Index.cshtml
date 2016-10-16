@@ -17,12 +17,13 @@
                         Action
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownPostsMenuButton">
-                        <a class="dropdown-item" href="#">Publish</a>
-                        <a class="dropdown-item" href="#">Unpublish</a>
-                        <a class="dropdown-item" href="#">Move to trash</a>
+                        <a class="dropdown-item" href="#" id="GroupPublish">Publish</a>
+                        <a class="dropdown-item" href="#" id="GroupDraft">Unpublish</a>
+                        <a class="dropdown-item" href="#" id="GroupTrash">Move to trash</a>
                     </div>
                 </div>
             </th>
+            <th>Image</th>
             <th>Tittle</th>
             <th>Name</th>
             <th>Categories</th>
@@ -35,7 +36,14 @@
         @foreach (var post in Model)
         {
             <tr>
-                <td><input type="checkbox" name="action" value="" /></td>               
+               
+                <td><input type="checkbox" name="action" value="" data-id="@post.PostId"/></td>
+                <td>
+                    @if (!string.IsNullOrEmpty(post.ImgURL))
+                    {
+                        <img class=" img-fluid" src="@Url.Content("~/" + post.ImgURL)" alt="@post.Name" style="max-height: 100px;">
+                    }
+                </td>
                 <td><a asp-area="Admin" asp-controller="Post" asp-action="Edit" asp-route-id="@post.PostId">@post.Title</a></td>
                 <td>@post.Name</td>
                 <td>
@@ -61,3 +69,66 @@
 <nav aria-label="Page navigation">
     <pager setting-item-attr-class="page-item" setting-link-attr-class="page-link" />
 </nav>
+<script>
+    var PostAction;
+
+    $(document).ready(function () {
+        PostAction = new PostActionScope();
+        PostAction.Init();
+    });
+
+    function PostActionScope() {
+        var self = this;
+        var selectedItems =[];
+        this.Init = function () {
+            $(document).on('click', '#GroupPublish', self.SetStatusOnPublished);
+            $(document).on('click', '#GroupDraft', self.SetStatusOnDraft);
+            $(document).on('click', '#GroupTrash', self.SetStatusOnTrashed);
+        }
+
+        this.GetSelected = function () {
+            self.selectedItems = [];
+            $("input:checkbox[name=action]:checked").each(function () {
+                self.selectedItems.push($(this).data('id'));
+            });
+        }
+
+        this.SetStatusOnPublished = function()
+        {
+            self.GetSelected();
+            $.ajax({
+                url: '@Url.Action("SetStatusOnPublished", "Post")',
+                type: 'POST',
+                data: { posts: self.selectedItems },
+                success: function (_data) {
+                    location.reload();
+                },
+            });
+        }
+        this.SetStatusOnDraft = function ()
+        {
+            self.GetSelected();
+            $.ajax({
+                url: '@Url.Action("SetStatusOnDraft", "Post")',
+                type: 'POST',
+                data: { posts: self.selectedItems },
+                success: function (_data) {
+                    location.reload();
+                },
+            });
+        }
+        this.SetStatusOnTrashed = function ()
+        {
+            self.GetSelected();
+            $.ajax({
+                url: '@Url.Action("SetStatusOnTrashed", "Post")',
+                type: 'POST',
+                data: { posts: self.selectedItems },
+                success: function (_data) {
+                    location.reload();
+                },
+            });
+        }
+    }
+
+</script>

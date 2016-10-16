@@ -33,17 +33,21 @@
         </div>
         <div class="col-md-2 post-edit-sidebar">
             <div class="card card-block">
-              @if (!Model.ParentPostId.HasValue)
-              {
-                <input type="submit" formaction="@Url.Action("AddDraft", "Post")" name="addDraft" formmethod="post" value="Save as new Draft" class="btn btn-default" id="submit-button-addDraft" />
-              }  
-                <input type="submit" formaction="@Url.Action("Edit", "Post")" name="edit" formmethod="post" value="Save post" class="btn btn-default" id="submit-button-edit"/>
-                <input type="button" value="Cancel" class="btn btn-default"/>
-
                 <div class="form-group">
                     <label asp-for="Status"></label>
-                    @Html.DropDownListFor(x => x.Status, Html.GetEnumSelectList(typeof(PostStatusType)), new {@class = "form-control"})
+                    @Html.DropDownListFor(x => x.Status, Html.GetEnumSelectList(typeof(PostStatusType)), new { @class = "form-control" })
                 </div>
+                @if (!Model.ParentPostId.HasValue)
+                {
+                    <input type="submit" formaction="@Url.Action("AddDraft", "Post")" name="addDraft" formmethod="post" value="Save as new Draft" class="btn btn-default margin-1" id="submit-button-addDraft" />
+                    <br />
+                }
+
+                <input type="submit" formaction="@Url.Action("Edit", "Post")" name="edit" formmethod="post" value="Save post" class="btn btn-default margin-1" id="submit-button-edit" />
+                <br />
+                <input type="button" value="Cancel" class="btn btn-default margin-1" />
+
+
             </div>
             <div class="card card-block">
                 Category: <br />
@@ -63,8 +67,8 @@
             </div>
             <div class="card card-block" id="Header">
                 Header Img: <br />
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#selectHeaderImg" >Select Button</button><br />
-                <input asp-for="HeaderImageId" class="form-control" placeholder="Header Image Id"/>
+                <button type="button" class="btn btn-primary margin-1" data-toggle="modal" data-target="#selectHeaderImg">Select Button</button><br />
+                <input asp-for="HeaderImageId" class="form-control" placeholder="Header Image Id" />
             </div>
         </div>
     </div>
