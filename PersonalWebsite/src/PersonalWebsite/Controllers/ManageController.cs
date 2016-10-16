@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PersonalWebsite.Services.Models;
 using PersonalWebsite.IdentityModel;
+using PersonalWebsite.Services.Models;
+using System.Threading.Tasks;
 
 namespace PersonalWebsite.Controllers
 {
@@ -63,6 +60,7 @@ namespace PersonalWebsite.Controllers
             };
             return View(model);
         }
+
         //
         // GET: /Manage/ChangePassword
         [HttpGet]
@@ -129,8 +127,7 @@ namespace PersonalWebsite.Controllers
                 return View(model);
             }
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
-        }    
-
+        }
 
         #region Helpers
 
@@ -159,6 +156,6 @@ namespace PersonalWebsite.Controllers
             return _userManager.GetUserAsync(HttpContext.User);
         }
 
-        #endregion
+        #endregion Helpers
     }
 }

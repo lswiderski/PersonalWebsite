@@ -9,7 +9,7 @@ AmCharts.maps.eastTimorHigh={
 				"topLatitude":"-8.1268457",
 				"rightLongitude":"127.3430437",
 				"bottomLatitude":"-9.504195"
-			}  
+			}
 		},
 		"g":{
 			"path":[

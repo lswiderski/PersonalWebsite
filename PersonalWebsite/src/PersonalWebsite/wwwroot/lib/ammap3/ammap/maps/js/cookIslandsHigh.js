@@ -9,7 +9,7 @@ AmCharts.maps.cookIslandsHigh={
 				"topLatitude":"-8.916606",
 				"rightLongitude":"-157.3216064",
 				"bottomLatitude":"-21.9591364"
-			}   
+			}
 		},
 		"g":{
 			"path":[

@@ -9,7 +9,7 @@ AmCharts.maps.arubaLow={
 				"topLatitude":"12.623363",
 				"rightLongitude":"-69.865655",
 				"bottomLatitude":"12.411766"
-			} 
+			}
 		},
 		"g":{
 			"path":[

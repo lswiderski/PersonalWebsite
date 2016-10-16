@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using NLog;
-using PersonalWebsite.Common;
 using PersonalWebsite.Common.Models;
 using PersonalWebsite.Services;
 using PersonalWebsite.Services.Models;
@@ -20,12 +15,10 @@ namespace PersonalWebsite.Components
         public TwitterComponent(ISettingModel settingModel, ICacheService cacheService)
         {
             this.settingModel = settingModel;
-
         }
 
         public IViewComponentResult Invoke()
         {
-
             var twitter = new TwitterDTO
             {
                 TwitterUserName = settingModel.GetString("Twitter.UserName"),

@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using NLog;
 using PersonalWebsite.Common;
+using PersonalWebsite.Services;
 using PersonalWebsite.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Threading;
-using NLog;
-using PersonalWebsite.Services;
 
 namespace PersonalWebsite.Components
 {

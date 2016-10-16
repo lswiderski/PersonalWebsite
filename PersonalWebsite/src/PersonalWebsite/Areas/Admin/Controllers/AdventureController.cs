@@ -65,7 +65,5 @@ namespace PersonalWebsite.Areas.Admin.Controllers
             _adventureModel.Remove(id);
             return RedirectToAction("Index");
         }
-
-
     }
 }

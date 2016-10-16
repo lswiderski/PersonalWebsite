@@ -9,7 +9,7 @@ AmCharts.maps.frenchPolynesiaHigh={
 				"topLatitude":"-7.8955619",
 				"rightLongitude":"-138.6091323",
 				"bottomLatitude":"-27.652409"
-			}  		
+			}
 		},
 		"g":{
 			"path":[

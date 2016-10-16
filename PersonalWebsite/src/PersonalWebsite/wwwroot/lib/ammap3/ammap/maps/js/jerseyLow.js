@@ -9,7 +9,7 @@ AmCharts.maps.jerseyLow={
 				"topLatitude":"49.2621314",
 				"rightLongitude":"-2.0104646",
 				"bottomLatitude":"49.1601217"
-			}  
+			}
 		},
 		"g":{
 			"path":[

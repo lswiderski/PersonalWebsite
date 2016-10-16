@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using PersonalWebsite.Services.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
-using ImageProcessorCore;
+﻿using ImageProcessorCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using PersonalWebsite.Controllers;
+using PersonalWebsite.Services.Models;
 using Sakura.AspNetCore;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace PersonalWebsite.Areas.Admin.Controllers
 {
@@ -27,6 +26,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
             this.imageService = imageService;
             this.environment = environment;
         }
+
         // GET: /<controller>/
         public IActionResult Index(int? page)
         {
@@ -45,7 +45,6 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(ICollection<IFormFile> files)
         {
-            
             var uploads = Path.Combine(Directory.GetCurrentDirectory(), string.Format(@"Content/Uploads/{0}/", DateTime.Now.ToString("yyyy_MM")));
             Directory.CreateDirectory(uploads);
             var addedIds = new List<int>();
@@ -62,7 +61,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
                         Image image = new Image(fileStream);
                         var width = image.Bounds.Width;
                         var height = image.Bounds.Height;
-                        
+
                         UploadImageDto img = new UploadImageDto
                         {
                             Width = width,
@@ -91,7 +90,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
 
         public IActionResult UploadedList(List<int> ids)
         {
-            var viewModel = imageService.GetImageViewModels(ids,string.Format("{0}://{1}", HttpContext.Request.Scheme, HttpContext.Request.Host.Value));
+            var viewModel = imageService.GetImageViewModels(ids, string.Format("{0}://{1}", HttpContext.Request.Scheme, HttpContext.Request.Host.Value));
 
             return PartialView(viewModel);
         }

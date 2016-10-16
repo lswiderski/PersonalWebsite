@@ -9,7 +9,7 @@ AmCharts.maps.americanSamoaHigh={
 				"topLatitude":"-10.845",
 				"rightLongitude":"-167.9323",
 				"bottomLatitude":"-14.558"
-			}   
+			}
 		},
 		"g":{
 			"path":[

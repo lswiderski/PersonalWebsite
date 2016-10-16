@@ -9,7 +9,7 @@ AmCharts.maps.greenlandHigh={
 				"topLatitude":"83.609581",
 				"rightLongitude":"-11.3123192",
 				"bottomLatitude":"59.7774011"
-			}   
+			}
 		},
 		"g":{
 			"path":[

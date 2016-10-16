@@ -26,7 +26,7 @@
         <link rel="stylesheet" href="~/lib/prism/themes/prism-okaidia.css" />
 
         <link rel="stylesheet" href="~/css/main.min.css" asp-append-version="true" />
-       
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery">
@@ -37,7 +37,7 @@
 </head>
 <body>
     @Html.Partial("Menu-navbar")
-    
+
         <div class="container-fluid body-content">
             <div class="row">
                 <div> @RenderBody()</div>
@@ -45,7 +45,7 @@
         </div>
     @Html.Partial("Footer")
     <environment names="Development">
-       
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
         <script src="~/lib/lightbox2/dist/js/lightbox.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -58,7 +58,7 @@
         <script id="dsq-count-scr" src="//lukaszswiderski.disqus.com/count.js" async></script>
     </environment>
     <environment names="Staging,Production">
-      
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"
                 asp-fallback-src="~/lib/tether/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery">

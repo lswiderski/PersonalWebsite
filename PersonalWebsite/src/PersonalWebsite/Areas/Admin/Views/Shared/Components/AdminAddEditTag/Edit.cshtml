@@ -5,7 +5,6 @@
 <h4>Edit</h4>
 @Html.HiddenFor(x=>x.TagId)
 
-
 <form class="form">
     <div class="form-group">
         <label asp-for="Name" class="sr-only"></label>
@@ -17,7 +16,4 @@
     <button type="button" class="btn btn-primary" onclick="AdminTag.SaveTag('@Url.Action("Edit", "Tags", new { Area = "Admin" })', @Model.TagId, $('#Name').val())">Save</button>
     <button type="button" class="btn btn-warning" onclick="AdminTag.Cancel('@Url.Action("GetAddForm", "Tags", new { Area = "Admin" })')">Cancel</button>
     <button type="button" class="btn btn-danger" onclick="AdminTag.Delete('@Url.Action("Delete", "Tags", new { Area = "Admin" })',@Model.TagId)">Delete</button>
-
 </form>
-
-

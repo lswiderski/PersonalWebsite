@@ -9,7 +9,7 @@ AmCharts.maps.mauritaniaLow={
 				"topLatitude":"27.3158916",
 				"rightLongitude":"-4.8336008",
 				"bottomLatitude":"14.721273"
-			}   
+			}
 		},
 		"g":{
 			"path":[

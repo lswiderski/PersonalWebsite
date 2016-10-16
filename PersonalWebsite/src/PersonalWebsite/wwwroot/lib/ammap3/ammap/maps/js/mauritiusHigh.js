@@ -9,7 +9,7 @@ AmCharts.maps.mauritiusHigh={
 				"topLatitude":"-19.9736714582",
 				"rightLongitude":"57.8155517578",
 				"bottomLatitude":"-20.5344343112"
-			} 
+			}
 		},
 		"g":{
 			"path":[

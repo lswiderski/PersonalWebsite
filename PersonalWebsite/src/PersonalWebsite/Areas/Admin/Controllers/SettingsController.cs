@@ -1,17 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PersonalWebsite.Services.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using PersonalWebsite.Controllers;
 using PersonalWebsite.Services;
+using PersonalWebsite.Services.Models;
 using Sakura.AspNetCore;
 
 namespace PersonalWebsite.Areas.Admin.Controllers
 {
-
     [Area("Admin")]
     [Authorize(Roles = "Administrator")]
     public class SettingsController : PersonalController

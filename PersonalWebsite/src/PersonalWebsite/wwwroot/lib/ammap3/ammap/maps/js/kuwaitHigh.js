@@ -9,7 +9,7 @@ AmCharts.maps.kuwaitHigh={
 				"topLatitude":"30.1036993",
 				"rightLongitude":"48.4304579",
 				"bottomLatitude":"28.5244463"
-			} 
+			}
 		},
 		"g":{
 			"path":[

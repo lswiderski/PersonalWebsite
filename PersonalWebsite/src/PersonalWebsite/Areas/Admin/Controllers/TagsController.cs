@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonalWebsite.Controllers;
 using PersonalWebsite.Services.Models;
@@ -19,6 +15,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         {
             this.tagModel = tagModel;
         }
+
         // GET: /<controller>/
         public IActionResult Index()
         {
@@ -29,10 +26,11 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         {
             return PartialView();
         }
+
         [HttpPost]
         public IActionResult Add(AddTagViewModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return ViewComponent("AdminAddEditTag");
             }
@@ -53,7 +51,6 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         public IActionResult GetAll()
         {
             return ViewComponent("AdminTagList");
-
         }
 
         public IActionResult Edit(int id)
@@ -88,7 +85,5 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         {
             return ViewComponent("AdminAddEditTag");
         }
-
-
     }
 }

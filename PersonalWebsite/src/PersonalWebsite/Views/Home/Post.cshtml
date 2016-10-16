@@ -20,8 +20,8 @@
             </h6>
             <h6 class="text-xs-right">@Model.CreatedOn.ToString("dd MMM yyyy")</h6>
         </div>
-        @if (!string.IsNullOrEmpty(Model.HeaderPath)) { 
-            <img src="@Url.Content("~/" + Model.HeaderPath)" class="img-fluid card-img"/>
+        @if (!string.IsNullOrEmpty(Model.HeaderPath)) {
+            <img src="@Url.Content("~/" + Model.HeaderPath)" class="img-fluid card-img" />
         }
         <div class="card-block">
             <div class="post-content">@Model.Content</div>
@@ -42,7 +42,6 @@
         </div>
     </div>
 </div>
-
 
 <script>
     var disqus_developer = 1;

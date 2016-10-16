@@ -9,7 +9,7 @@ AmCharts.maps.lesothoLow={
 				"topLatitude":"-28.5708011",
 				"rightLongitude":"29.4557087",
 				"bottomLatitude":"-30.6755788"
-			}  
+			}
 		},
 		"g":{
 			"path":[

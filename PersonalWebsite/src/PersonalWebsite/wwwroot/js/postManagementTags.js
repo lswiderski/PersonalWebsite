@@ -47,7 +47,6 @@
             var customTag = '<input type="hidden" name="Tags[' + i + ']" value="' + value + '">'
             modelTags.append(customTag);
         }
-
     }
     this.RemoveTag = function (id) {
         $('#' + id).closest('.tag').remove();

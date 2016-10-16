@@ -9,7 +9,7 @@ AmCharts.maps.lebanonLow={
 				"topLatitude":"34.69209",
 				"rightLongitude":"36.62372",
 				"bottomLatitude":"33.0550256"
-			} 
+			}
 		},
 		"g":{
 			"path":[

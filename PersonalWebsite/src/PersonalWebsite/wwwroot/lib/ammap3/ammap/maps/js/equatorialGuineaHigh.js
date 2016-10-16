@@ -9,7 +9,7 @@ AmCharts.maps.equatorialGuineaHigh={
 				"topLatitude":"3.989000082",
 				"rightLongitude":"11.3598632812",
 				"bottomLatitude":"-1.6619999409"
-			}   
+			}
 		},
 		"g":{
 			"path":[

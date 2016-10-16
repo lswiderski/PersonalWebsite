@@ -7,15 +7,14 @@ namespace PersonalWebsite.Areas.Admin.Components
     {
         public IViewComponentResult Invoke(EditTagViewModel tag)
         {
-            if(tag != null)
+            if (tag != null)
             {
-                return View("Edit",tag);
+                return View("Edit", tag);
             }
             else
             {
                 return View("Add");
             }
-            
         }
     }
 }

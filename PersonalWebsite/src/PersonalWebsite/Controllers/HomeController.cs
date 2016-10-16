@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Xml;
-using System.Xml.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PersonalWebsite.Services;
 using PersonalWebsite.Services.Models;
 using Sakura.AspNetCore;
@@ -12,7 +7,6 @@ namespace PersonalWebsite.Controllers
 {
     public class HomeController : PersonalController
     {
-        
         private readonly IPostModel _postModel;
         private readonly ISettingModel _settingModel;
         private readonly ICacheService _cacheService;
@@ -53,7 +47,7 @@ namespace PersonalWebsite.Controllers
             if (string.IsNullOrEmpty(id))
             {
                 var model = _postModel.GetPublishedSimplifiedPosts();
-                
+
                 int pageNumber = (page ?? 1);
                 var viewModel = model.ToPagedList(pageSize, pageNumber);
                 ViewData["SiteHeader"] = "Blog";
@@ -164,7 +158,7 @@ namespace PersonalWebsite.Controllers
 
             foreach (var adventure in viewModel)
             {
-                var url = Url.Action("Adventure", "Home", new {id = adventure.Url});
+                var url = Url.Action("Adventure", "Home", new { id = adventure.Url });
                 var imgUrl = string.Format("{0}://{1}/{2}", HttpContext.Request.Scheme,
                     HttpContext.Request.Host.Value, adventure.CustomData);
 
@@ -180,11 +174,11 @@ namespace PersonalWebsite.Controllers
             var feed = _xmlFeedService.BuildXmlFeed(this.ControllerContext);
             return Content(feed, "application/rss+xml");
         }
+
         public IActionResult Feed()
         {
             var feed = _xmlFeedService.BuildXmlFeed(this.ControllerContext);
             return Content(feed, "application/rss+xml");
         }
-        
     }
 }

@@ -5,9 +5,6 @@
 <h4>Edit Category</h4>
 @Html.HiddenFor(x => x.CategoryId)
 
-
-
-
 <form class="form">
     <div class="form-group">
         <label asp-for="Name" class="sr-only"></label>
@@ -24,6 +21,4 @@
     <button type="button" class="btn btn-primary" onclick="AdminCategory.SaveCategory('@Url.Action("Edit", "Category", new { Area = "Admin" })', @Model.CategoryId, $('#Name').val(), $('#Tittle').val())">Save</button>
     <button type="button" class="btn btn-warning" onclick="AdminCategory.Cancel('@Url.Action("GetAddForm", "Category", new { Area = "Admin" })')">Cancel</button>
     <button type="button" class="btn btn-danger" onclick="AdminCategory.Delete('@Url.Action("Delete", "Category", new { Area = "Admin" })',@Model.CategoryId)">Delete</button>
-
-
 </form>

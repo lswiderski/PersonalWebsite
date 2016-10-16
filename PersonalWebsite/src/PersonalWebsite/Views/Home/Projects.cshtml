@@ -26,7 +26,6 @@
 
                                     }
                                 </div>
-
                                 </div>
                             <div class="col-xs-9" style="padding-left: 0">
                                 <div class="card-block">
@@ -40,17 +39,14 @@
                                                 <i class="fa fa-clock-o" aria-hidden="true"></i>
 
                                                 @post.PublishedOn.Value.ToString("dd MMM yyyy")
-
                                             </span>
                                         }
                                     </h6>
 
                                     <p class="card-text ">@post.Excerpt</p>
-
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 }
             </div>
@@ -58,7 +54,6 @@
             <nav aria-label="Page navigation">
                 <pager setting-item-attr-class="page-item" setting-link-attr-class="page-link" />
             </nav>
-
         </div>
         <div class="col-md-4">
             @await Component.InvokeAsync("SidebarComponent")

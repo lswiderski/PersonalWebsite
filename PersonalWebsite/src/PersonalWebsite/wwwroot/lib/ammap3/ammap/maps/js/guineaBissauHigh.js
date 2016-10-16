@@ -9,7 +9,7 @@ AmCharts.maps.guineaBissauHigh={
 				"topLatitude":"12.6869468",
 				"rightLongitude":"-13.6265235",
 				"bottomLatitude":"10.8599702"
-			} 
+			}
 		},
 		"g":{
 			"path":[

@@ -9,7 +9,7 @@ AmCharts.maps.comorosHigh={
 				"topLatitude":"-11.3646",
 				"rightLongitude":"44.5417",
 				"bottomLatitude":"-12.4138"
-			} 
+			}
 		},
 		"g":{
 			"path":[

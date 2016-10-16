@@ -9,7 +9,7 @@ AmCharts.maps.jordanLow={
 				"topLatitude":"33.3746878",
 				"rightLongitude":"39.301154",
 				"bottomLatitude":"29.1850361"
-			}   
+			}
 		},
 		"g":{
 			"path":[

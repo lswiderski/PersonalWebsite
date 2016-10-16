@@ -32,17 +32,15 @@
                 <div class="tab-content">
                     <div class="tab-pane" id="AddNewImagePane" role="tabpanel">
                         <form id="upload-form" method="post" asp-action="Add" asp-controller="Media" asp-area="Admin" enctype="multipart/form-data">
-                            
 
                                 <h4>Upload Images</h4>
-                           
-                           
+
                                 <div id="upload-result"></div>
                                 <div id="upload-form-div">
 
                                     <input id="selected-files-upload" type="file" name="files" multiple />
                                 </div>
-                            
+
                             <div class="modal-footer">
                                 <button type="button" id="upload-button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Upload</button>
@@ -69,7 +67,6 @@
                                                 </div>
                                                 <div class="card-block">
                                                     <h4 class="card-title">@img.Title</h4>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -88,10 +85,7 @@
                         </div>
                     </div>
                 </div>
-                
-
             </div>
-           
         </div>
     </div>
 </div>
@@ -143,7 +137,6 @@
                     self.bind();
                 },
             });
-
 
         }
     }

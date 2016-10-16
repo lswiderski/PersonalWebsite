@@ -9,7 +9,7 @@ AmCharts.maps.beninHigh={
 				"topLatitude":"12.4086",
 				"rightLongitude":"3.8433  ",
 				"bottomLatitude":"6.2346"
-			} 
+			}
 		},
 		"g":{
 			"path":[

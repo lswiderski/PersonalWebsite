@@ -2,7 +2,6 @@
 @using PersonalWebsite.Services.Models
 @model List<SimplifiedPostViewModel>
 
-
 @foreach (var post in Model)
 {
      <div class="card  text-xs-center">
@@ -22,7 +21,6 @@
 
                      }
                  </p>
-
              </h6>
          </div>
          @if (!string.IsNullOrEmpty(post.ImgURL))
@@ -34,8 +32,6 @@
          }
              <div class="card-block text-xs-left">
                  <p class="=card-text">@post.Excerpt</p>
-
              </div>
          </div>
 }
-

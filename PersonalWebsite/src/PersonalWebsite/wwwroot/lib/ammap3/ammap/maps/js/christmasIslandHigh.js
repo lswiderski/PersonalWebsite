@@ -9,7 +9,7 @@ AmCharts.maps.christmasIslandHigh={
 				"topLatitude":"-10.412374",
 				"rightLongitude":"105.739975",
 				"bottomLatitude":"-10.570362"
-			} 
+			}
 		},
 		"g":{
 			"path":[

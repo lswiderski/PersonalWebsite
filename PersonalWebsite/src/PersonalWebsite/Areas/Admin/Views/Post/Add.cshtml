@@ -12,11 +12,11 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Title"></label>
-                    <input  asp-for="Title" class="form-control"/>
+                    <input  asp-for="Title" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label asp-for="Name"></label>
-                    <input asp-for="Name" class="form-control"/>
+                    <input asp-for="Name" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label asp-for="Excerpt"></label>
@@ -25,7 +25,6 @@
                 <div class="form-group">
                     <label asp-for="Content"></label>
                     <textarea asp-for="Content" class="ckeditor"></textarea>
-                    
                 </div>
             </div>
         </div>
@@ -35,11 +34,9 @@
                     <label asp-for="Status"></label>
                     @Html.DropDownListFor(x => x.Status, Html.GetEnumSelectList(typeof(PostStatusType)), new { @class = "form-control" })
                 </div>
-                <input type="button" value="Add post" class="btn btn-default margin-1" id="submit-button"/>
+                <input type="button" value="Add post" class="btn btn-default margin-1" id="submit-button" />
                 <br />
-                <input type="button" value="Cancel" class="btn btn-default margin-1"/>
-
-
+                <input type="button" value="Cancel" class="btn btn-default margin-1" />
             </div>
             <div class="card card-block">
                 Category: <br />
@@ -47,8 +44,8 @@
             </div>
             <div class="card card-block" id="Tags">
                 Tags:
-                <br/>
-                <input type="text" id="tag-input" class="form-control"/>
+                <br />
+                <input type="text" id="tag-input" class="form-control" />
                 <br />
                 <div id="tag-list">
                     @foreach (var tag in Model.Tags)
@@ -59,7 +56,7 @@
             </div>
             <div class="card card-block" id="Header">
                 Header Img: <br />
-                
+
                 <button type="button" class="btn btn-primary margin-1" data-toggle="modal" data-target="#selectHeaderImg">Select Button</button><br />
                 <input asp-for="HeaderImageId" class="form-control" placeholder="Header Image Id" />
             </div>

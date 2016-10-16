@@ -9,7 +9,7 @@ AmCharts.maps.maldivesLow={
 				"topLatitude":"7.1063772",
 				"rightLongitude":"73.5996537",
 				"bottomLatitude":"-0.7035846"
-			}   
+			}
 		},
 		"g":{
 			"path":[

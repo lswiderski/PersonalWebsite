@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PersonalWebsite.Services.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PersonalWebsite.Areas.Admin.Components
-{ 
+{
     public class AdminAddEditCategory : ViewComponent
     {
         public IViewComponentResult Invoke(EditCategoryViewModel category)
@@ -19,7 +15,6 @@ namespace PersonalWebsite.Areas.Admin.Components
             {
                 return View("Add");
             }
-
         }
     }
 }

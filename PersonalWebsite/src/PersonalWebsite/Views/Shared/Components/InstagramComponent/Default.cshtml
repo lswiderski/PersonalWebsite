@@ -8,18 +8,17 @@
 <h3>Instagram: </h3>
 <div class="container">
     <div class="row">
-        
+
         @foreach (var image in Model.Take(3))
         {
-            
+
             <div class="col-md-4 ig-img">
                 <a href="@image.Link" target="_blank">
-                    <img src="@image.ImgURL" class="img-fluid"/>
+                    <img src="@image.ImgURL" class="img-fluid" />
                 </a>
             </div>
 
         }
-
     </div>
     <div class="row">
 
@@ -33,7 +32,6 @@
             </div>
 
         }
-
     </div>
 
     <div class="row">
@@ -48,11 +46,5 @@
             </div>
 
         }
-
     </div>
-
 </div>
-
-
-
-

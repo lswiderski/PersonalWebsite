@@ -9,7 +9,7 @@ AmCharts.maps.cocosIslandsHigh={
 				"topLatitude":"-12.0723080568",
 				"rightLongitude":"96.9294919",
 				"bottomLatitude":"-12.2088703"
-			}  
+			}
 		},
 		"g":{
 			"path":[

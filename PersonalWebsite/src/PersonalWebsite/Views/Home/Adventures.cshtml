@@ -43,7 +43,6 @@
                                         <i class="fa fa-clock-o" aria-hidden="true"></i>
 
                                         @post.PublishedOn.Value.ToString("dd MMM yyyy")
-
                                     </span>
                                 }
                             </h6>
@@ -54,8 +53,6 @@
                                     <a href='@Url.Action("Blog","Home", new {id = @post.Name })'>Show more...</a>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 }
@@ -64,7 +61,6 @@
             <nav aria-label="Page navigation">
                 <pager setting-item-attr-class="page-item" setting-link-attr-class="page-link" />
             </nav>
-
         </div>
         <div class="col-md-4">
             @await Component.InvokeAsync("SidebarComponent")

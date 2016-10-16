@@ -29,15 +29,14 @@
             <th>Categories</th>
             <th>Tags</th>
             <th>Status</th>
-
         </tr>
         </thead>
         <tbody>
         @foreach (var post in Model)
         {
             <tr>
-               
-                <td><input type="checkbox" name="action" value="" data-id="@post.PostId"/></td>
+
+                <td><input type="checkbox" name="action" value="" data-id="@post.PostId" /></td>
                 <td>
                     @if (!string.IsNullOrEmpty(post.ImgURL))
                     {
@@ -61,11 +60,10 @@
                 <td>@post.Status</td>
             </tr>
         }
-
         </tbody>
     </table>
 </div>
-    
+
 <nav aria-label="Page navigation">
     <pager setting-item-attr-class="page-item" setting-link-attr-class="page-link" />
 </nav>
@@ -130,5 +128,4 @@
             });
         }
     }
-
 </script>

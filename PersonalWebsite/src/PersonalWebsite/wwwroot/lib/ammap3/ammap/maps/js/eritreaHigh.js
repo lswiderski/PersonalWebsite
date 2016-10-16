@@ -9,7 +9,7 @@ AmCharts.maps.eritreaHigh={
 				"topLatitude":"18.0204137",
 				"rightLongitude":"43.1429694",
 				"bottomLatitude":"12.354723"
-			}  
+			}
         },
 		"g":{
 			"path":[

@@ -9,7 +9,7 @@ AmCharts.maps.liberiaLow={
 				"topLatitude":"8.551986",
 				"rightLongitude":"-7.3692549",
 				"bottomLatitude":"4.3154139"
-			}   
+			}
 		},
 		"g":{
 			"path":[

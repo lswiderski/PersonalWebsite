@@ -1,4 +1,3 @@
-
 // (c) ammap.com | SVG (in JSON format) map of Isle of Man - High
 // areas: {id:"IM"}
 AmCharts.maps.isleOfManHigh={

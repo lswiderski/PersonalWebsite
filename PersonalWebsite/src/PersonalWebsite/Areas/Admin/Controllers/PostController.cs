@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonalWebsite.Common.Enums;
 using PersonalWebsite.Controllers;
-using PersonalWebsite.Data;
 using PersonalWebsite.Data.Entities;
 using PersonalWebsite.Services.Models;
 using Sakura.AspNetCore;
+using System.Collections.Generic;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -29,6 +25,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
             this.categoryModel = categoryModel;
             var x = new Post();
         }
+
         // GET: /<controller>/
         public IActionResult Index(int? page)
         {
@@ -37,7 +34,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
             int pageNumber = (page ?? 1);
             var viewModel = model.ToPagedList(pageSize, pageNumber);
             ViewData["SiteHeader"] = "Blog";
-            return View(viewModel);;
+            return View(viewModel); ;
         }
 
         public IActionResult Add()
@@ -52,7 +49,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Add(AddPostViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 postModel.AddPost(model);
                 return RedirectToAction("Index");
@@ -69,7 +66,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(EditPostViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 postModel.UpdatePost(model);
                 return RedirectToAction("Index", "Post", new { area = "Admin", id = "" });
@@ -94,15 +91,13 @@ namespace PersonalWebsite.Areas.Admin.Controllers
             postModel.DeletePost(id);
 
             return RedirectToAction("Index", "Post", new { area = "Admin", id = "" });
-            
         }
 
         [HttpPost]
         public IActionResult SetStatusOnPublished(List<int> posts)
-        {        
+        {
             postModel.SetStatus(posts, PostStatusType.PUBLISHED);
             return RedirectToAction("Index", "Post", new { area = "Admin", id = "" });
-
         }
 
         [HttpPost]
@@ -110,7 +105,6 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         {
             postModel.SetStatus(posts, PostStatusType.DRAFT);
             return RedirectToAction("Index", "Post", new { area = "Admin", id = "" });
-
         }
 
         [HttpPost]
@@ -118,7 +112,6 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         {
             postModel.SetStatus(posts, PostStatusType.TRASHED);
             return RedirectToAction("Index", "Post", new { area = "Admin", id = "" });
-
         }
     }
 }

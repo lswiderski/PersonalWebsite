@@ -9,7 +9,7 @@ AmCharts.maps.malawiLow={
 				"topLatitude":"-9.3672274",
 				"rightLongitude":"35.918573",
 				"bottomLatitude":"-17.1295216"
-			}  
+			}
 		},
 		"g":{
 			"path":[

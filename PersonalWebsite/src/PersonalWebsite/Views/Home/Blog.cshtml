@@ -20,7 +20,7 @@
                         {<a href='@Url.Action("Blog","Home", new {id = @post.Name })'>
                              <img class="card-img-top img-fluid" src="@Url.Content("~/"+post.ImgURL)" alt="@post.Name ">
                          </a>
-                        }                      
+                        }
                         <div class="card-block">
                             <span><h4 class="card-title post-item-box-tittle"><a href='@Url.Action("Blog","Home", new {id = @post.Name })'>@post.Title</a></h4></span>
                             <h6 class="card-subtitle post-item-subtitle">
@@ -40,9 +40,8 @@
 {
                                 <span class="post-item-data">
                                     <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                  
+
                                      @post.PublishedOn.Value.ToString("dd MMM yyyy")
-                                  
                                 </span>
 }
                             </h6>
@@ -53,17 +52,14 @@
                                     <a href='@Url.Action("Blog","Home", new {id = @post.Name })'>Show more...</a>
                                 </div>
                             </div>
-                            
-
                         </div>
                     </div>
                 }
             </div>
-            
+
             <nav aria-label="Page navigation">
                 <pager setting-item-attr-class="page-item" setting-link-attr-class="page-link" />
             </nav>
-
         </div>
         <div class="col-md-4">
             @await Component.InvokeAsync("SidebarComponent")

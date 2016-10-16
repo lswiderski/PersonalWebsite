@@ -10,8 +10,7 @@
 
     @foreach (var tag in Model)
     {
-       
+
             <a asp-controller="Home" asp-action="Tag" asp-route-id="@tag.Name" class="btn btn-outline-primary btn-sm tag-button">#@tag.Name</a>
-        
 
     }

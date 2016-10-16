@@ -9,7 +9,7 @@ AmCharts.maps.isleOfManLow={
 				"topLatitude":"54.4179031",
 				"rightLongitude":"-4.3088273",
 				"bottomLatitude":"54.04464"
-			}   
+			}
 		},
 		"g":{
 			"path":[
