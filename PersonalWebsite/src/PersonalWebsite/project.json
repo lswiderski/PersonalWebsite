@@ -66,7 +66,9 @@
   "publishOptions": {
     "include": [
       "wwwroot",
+      "Content/Uploads",
       "Views",
+      "Areas/Admin/Views",
       "Areas/**/Views",
       "appsettings.json",
       "web.config",

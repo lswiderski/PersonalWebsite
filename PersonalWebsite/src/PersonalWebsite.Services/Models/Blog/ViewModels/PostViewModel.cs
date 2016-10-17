@@ -20,7 +20,7 @@ namespace PersonalWebsite.Services.Models
         public int? HeaderImageId { get; set; }
 
         [DisplayFormat(DataFormatString = "{MM-dd-yy}")]
-        public DateTime CreatedOn { get; set; }
+        public DateTime? PublishedOn { get; set; }
 
         public HtmlString Content { get; set; }
 

@@ -22,8 +22,10 @@ namespace PersonalWebsite.Data
         }
         public void ConfigureServices(IServiceCollection services, IConfigurationRoot configuration)
         {
-            string connection = configuration.GetConnectionString("DefaultConnection");
+            string connection = configuration.GetConnectionString("WebioConnection");
             services.AddDbContext<DataContext>(options => options.UseSqlServer(connection, b =>b.MigrationsAssembly("PersonalWebsite.Data")), ServiceLifetime.Scoped);
+
+
 
         }
         public void Configure(IServiceProvider serviceProvider)

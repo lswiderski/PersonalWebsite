@@ -299,7 +299,7 @@ namespace PersonalWebsite.Services.Models
                               Excerpt = post.Excerpt,
                               PostId = post.PostId,
                               Content = new HtmlString(post.Content),
-                              CreatedOn = post.CreatedOn,
+                              PublishedOn = post.PublishedOn,
                               HeaderImageId = post.HeaderImageId,
                               Categories = post.PostCategories.Select(y => new CategoryViewModel
                               {
@@ -329,7 +329,7 @@ namespace PersonalWebsite.Services.Models
                               Excerpt = post.Excerpt,
                               PostId = post.PostId,
                               Content = new HtmlString(post.Content),
-                              CreatedOn = post.CreatedOn,
+                              PublishedOn = post.PublishedOn,
                               HeaderImageId = post.HeaderImageId,
                               HeaderPath = post.HeaderImage.File.Path,
                               GUID = post.Guid.ToString(),
