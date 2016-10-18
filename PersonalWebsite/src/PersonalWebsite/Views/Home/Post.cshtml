@@ -24,7 +24,7 @@
                                       }</h6>
         </div>
         @if (!string.IsNullOrEmpty(Model.HeaderPath)) {
-            <img src="@Url.Content("~/" + Model.HeaderPath)" class="img-fluid card-img" />
+            <img src="@Url.Content("~/" + Model.HeaderPath)" class="img-fluid card-img img-card-header" />
         }
         <div class="card-block">
             <div class="post-content">@Model.Content</div>

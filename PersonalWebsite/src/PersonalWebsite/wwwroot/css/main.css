@@ -374,3 +374,7 @@ footer {
 .tag-remove-button:hover {
   color: #000;
 }
+
+.img-card-header {
+  margin: auto;
+}

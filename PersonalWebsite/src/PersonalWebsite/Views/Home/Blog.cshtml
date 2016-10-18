@@ -18,7 +18,7 @@
                     <div class="post-item-box card">
                         @if (!string.IsNullOrEmpty(post.ImgURL))
                         {<a href='@Url.Action("Blog","Home", new {id = @post.Name })'>
-                             <img class="card-img-top img-fluid" src="@Url.Content("~/"+post.ImgURL)" alt="@post.Name ">
+                             <img class="card-img-top img-fluid img-card-header" src="@Url.Content("~/"+post.ImgURL)" alt="@post.Name ">
                          </a>
                         }
                         <div class="card-block">
