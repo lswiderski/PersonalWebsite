@@ -234,6 +234,10 @@ namespace PersonalWebsite.Services.Models
                 Name = model.Name,
                 HeaderImageId = model.HeaderImageId,
             };
+            if (model.Status == PostStatusType.PUBLISHED)
+            {
+                post.PublishedOn = DateTime.Now;
+            }
 
             db.Posts.Add(post);
             if (model.Categories != null)
@@ -510,6 +514,11 @@ namespace PersonalWebsite.Services.Models
                 post.Status = model.Status;
                 post.HeaderImageId = model.HeaderImageId;
                 post.ModifiedOn = DateTime.Now;
+
+                if (model.Status == PostStatusType.PUBLISHED && post.Status != PostStatusType.PUBLISHED)
+                {
+                    post.PublishedOn = DateTime.Now;
+                }
 
                 if (model.Categories != null)
                 {
