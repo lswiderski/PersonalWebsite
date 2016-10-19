@@ -33,15 +33,19 @@
                                     <h6 class="card-subtitle post-item-subtitle">
                                         <i class="fa fa-user" aria-hidden="true"></i>
                                         Łukasz Świderski
+                                        <i class="fa fa-tags" aria-hidden="true"></i>
+                                        @foreach (var tag in post.Tags)
+                                        {
+                                            <a asp-controller="Home" asp-action="Tag" asp-route-id="@tag.Name">#@tag.Name </a>
+                                        }
                                         @if (post.PublishedOn.HasValue)
                                         {
                                             <span class="post-item-data">
                                                 <i class="fa fa-clock-o" aria-hidden="true"></i>
 
-                                                @if (post.PublishedOn.HasValue)
-                                                {
-                                                    post.PublishedOn.Value.ToString("dd MMM yyyy");
-                                                }
+                                                
+                                                    @post.PublishedOn.Value.ToString("dd MMM yyyy");
+                                                
                                             </span>
                                         }
                                     </h6>
