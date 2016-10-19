@@ -39,11 +39,11 @@
                 </div>
                 @if (!Model.ParentPostId.HasValue)
                 {
-                    <input type="submit" formaction="@Url.Action("AddDraft", "Post")" name="addDraft" formmethod="post" value="Save as new Draft" class="btn btn-default margin-1" id="submit-button-addDraft" />
+                    <input type="submit" formaction="@Url.Action("AddDraft", "Post")" name="addDraft" formmethod="post" value="Save as new Draft" class="btn btn-default margin-1 submit-button" id="submit-button-addDraft" />
                     <br />
                 }
 
-                <input type="submit" formaction="@Url.Action("Edit", "Post")" name="edit" formmethod="post" value="Save post" class="btn btn-default margin-1" id="submit-button-edit" />
+                <input type="submit" formaction="@Url.Action("Edit", "Post")" name="edit" formmethod="post" value="Save post" class="btn btn-default margin-1 submit-button" id="submit-button-edit" />
                 <br />
                 <input type="button" value="Cancel" class="btn btn-default margin-1" />
             </div>

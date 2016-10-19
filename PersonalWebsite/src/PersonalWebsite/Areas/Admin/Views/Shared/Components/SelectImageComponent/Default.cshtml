@@ -50,33 +50,6 @@
                     <div class="tab-pane active" id="SelectImagePane" role="tabpanel">
                         <div id="MediaPageOuter-@ViewData["name"]">
                             <div id="MediaPageInner">
-                                <div class="row">
-                                    <nav aria-label="Page navigation">
-                                        <pager setting-item-attr-class="page-item" setting-link-attr-class="page-link" setting-item-default-link='PagerItemLinkGenerators.Format("Admin/Media/MediaPage/page={0:d}")' />
-                                    </nav>
-                                </div>
-                                <div class="row">
-                                    @foreach (var img in Model)
-                                    {
-                                        <div class="col-xs-4 col-lg-3" style="word-break: break-all">
-                                            <div class="card img-card img-card text-xs-centerd" id="img-@img.Id" data-id="@img.Id" data-img="@img.Path" data-thumbnail="@img.ThumbnailPath" tabindex="-1">
-                                                <div style="height: 150px;">
-                                                    <a data-lightbox="2" data-lightbox-saved="@img.Id" data-title="@img.Title | @img.Width x @img.Height | @img.Name" href="@img.Path" title="avatar2">
-                                                        <img class="card-img-top img-fluid m-x-auto" src="@Url.Content(img.Path)" alt="@img.Title" title="@img.Title" style="height: 100%;" />
-                                                    </a>
-                                                </div>
-                                                <div class="card-block">
-                                                    <h4 class="card-title">@img.Title</h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
-                                <div class="row">
-                                    <nav aria-label="Page navigation">
-                                        <pager setting-item-attr-class="page-item" setting-link-attr-class="page-link" />
-                                    </nav>
-                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -105,6 +78,7 @@
             self.inputURL = inputUrl;
             self.inputThumbnail = inputThumbnailUrl;
             self.bind();
+            self.callPage(1);
         }
         this.bind = function () {
             $(self.outerName).find(".img-card").focus(self.setSelectedItem);

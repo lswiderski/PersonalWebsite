@@ -1,7 +1,7 @@
 ﻿function PostTagScope() {
     var self = this;
     this.Init = function () {
-        $('#submit-button').click(function () {
+        $('.submit-button').click(function () {
             self.PassTags();
 
             $('#post-form').submit();
