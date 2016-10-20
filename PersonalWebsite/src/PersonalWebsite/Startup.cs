@@ -15,6 +15,7 @@ using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using NLog.Extensions.Logging;
+using PersonalWebsite.Common.Utilities;
 using PersonalWebsite.Data.SeedData;
 
 namespace PersonalWebsite
@@ -40,6 +41,9 @@ namespace PersonalWebsite
             }
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            //ping IIS to prevent recycle
+            Pinger.StartPinging("http://neufrin.hostingasp.pl/",10);
         }
 
         public IConfigurationRoot Configuration { get; }

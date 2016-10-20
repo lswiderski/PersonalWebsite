@@ -4,6 +4,8 @@ using PersonalWebsite.Services.Models;
 using Sakura.AspNetCore;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using NLog;
 
 namespace PersonalWebsite.Controllers
 {
@@ -246,6 +248,14 @@ namespace PersonalWebsite.Controllers
         {
             var feed = _xmlFeedService.BuildXmlFeed(this.ControllerContext);
             return Content(feed, "application/rss+xml");
+        }
+
+        [HttpGet]
+        public IActionResult Ping()
+        {
+            Logger.Log(LogLevel.Info, "Ping");
+            return View();
+
         }
     }
 }
