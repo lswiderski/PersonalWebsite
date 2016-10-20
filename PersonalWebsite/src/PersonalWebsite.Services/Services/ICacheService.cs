@@ -13,6 +13,8 @@ namespace PersonalWebsite.Services
 
         T Get<T>(string key) where T : class;
 
+        bool Get<T>(string key, out T output) where T : class;
+
         bool IsCached(string key);
 
         void Clear();

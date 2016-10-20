@@ -57,7 +57,7 @@ namespace PersonalWebsite.Services.Models
             return posts;
         }
 
-        public IQueryable<SimplifiedPostViewModel> GetPublishedSimplifiedPosts()
+        public IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPosts()
         {
             var posts = (from post in db.Posts.Include(x => x.PostCategories)
                          .Include(x => x.PostTags)
@@ -85,7 +85,7 @@ namespace PersonalWebsite.Services.Models
             return posts;
         }
 
-        public IQueryable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByTag(string tagName)
+        public IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByTag(string tagName)
         {
             var posts = (from post in db.Posts.Include(x => x.PostCategories)
                          .Include(x => x.PostTags)
@@ -116,7 +116,7 @@ namespace PersonalWebsite.Services.Models
             return posts;
         }
 
-        public IQueryable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByCategory(string categoryName)
+        public IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByCategory(string categoryName)
         {
             var posts = (from post in db.Posts.Include(x => x.PostCategories)
                          .Include(x => x.PostTags)

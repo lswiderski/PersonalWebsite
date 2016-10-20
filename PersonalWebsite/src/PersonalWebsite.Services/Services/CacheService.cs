@@ -55,6 +55,16 @@ namespace PersonalWebsite.Services
             return fromCache;
         }
 
+        public bool Get<T>(string key, out T output) where T : class
+        {
+            output = _memoryCache.Get(key) as T;
+            if (output != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public bool IsCached(string key)
         {
             var fromCache = _memoryCache.Get(key);

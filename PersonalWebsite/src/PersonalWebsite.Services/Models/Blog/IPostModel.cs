@@ -6,7 +6,7 @@ namespace PersonalWebsite.Services.Models
 {
     public interface IPostModel
     {
-        IQueryable<SimplifiedPostViewModel> GetPublishedSimplifiedPosts();
+        IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPosts();
 
         void AddPost(AddPostViewModel model);
 
@@ -22,9 +22,9 @@ namespace PersonalWebsite.Services.Models
 
         IQueryable<SimplifiedPostViewModel> GetSimplifiedPosts();
 
-        IQueryable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByTag(string tagName);
+        IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByTag(string tagName);
 
-        IQueryable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByCategory(string categoryName);
+        IEnumerable<SimplifiedPostViewModel> GetPublishedSimplifiedPostsByCategory(string categoryName);
 
         IQueryable<SimplifiedPostViewModel> Search(string query);
 
