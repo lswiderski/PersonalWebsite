@@ -23,7 +23,7 @@ namespace PersonalWebsite.Services
         }
 
         // object life time in cache in minutes
-        public static int LifeTime = 5;
+        public static int LifeTime = 24;
 
         public CacheService(IMemoryCache memoryCache)
         {
@@ -34,7 +34,7 @@ namespace PersonalWebsite.Services
         {
             _memoryCache.Set(key, obj,
                   new MemoryCacheEntryOptions()
-                  .SetAbsoluteExpiration(TimeSpan.FromMinutes(LifeTime)));
+                  .SetAbsoluteExpiration(TimeSpan.FromHours(LifeTime)));
             AddKey(key);
         }
 
@@ -43,7 +43,7 @@ namespace PersonalWebsite.Services
             var key = new Guid().ToString();
             _memoryCache.Set(key, obj,
                   new MemoryCacheEntryOptions()
-                  .SetAbsoluteExpiration(TimeSpan.FromMinutes(LifeTime)));
+                  .SetAbsoluteExpiration(TimeSpan.FromHours(LifeTime)));
             AddKey(key);
             return key;
         }
