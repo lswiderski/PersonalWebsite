@@ -14,7 +14,6 @@
                        type: 'text',
                        id: 'ImgTittleField',
                        label: 'Title',
-                       validate: CKEDITOR.dialog.validate.notEmpty("Title field cannot be empty."),
 
                        setup: function (element) {
                            this.setValue(element.getAttribute("data-title"));
@@ -59,6 +58,7 @@
                         id: 'LightboxGroupField',
                         className: 'LightboxGroup',
                         label: 'LightboxGroup',
+                        'default': 'gallery',
                         validate: CKEDITOR.dialog.validate.notEmpty("Lightbox Group field cannot be empty."),
                         setup: function (element) {
                             this.setValue(element.getAttribute("data-lightbox"));
@@ -74,8 +74,9 @@
                         id: 'ClassField',
                         className: 'Classes',
                         label: 'Class',
-                        setup: function (element) {
-                            this.setValue(element.getChild(0).getAttribute("class"));
+                        'default': 'img-fluid',
+                        setup: function (element) {                           
+                                this.setValue(element.getChild(0).getAttribute("class"));
                         },
 
                         commit: function (element) {
@@ -87,6 +88,7 @@
                         id: 'StyleField',
                         className: 'Styles',
                         label: 'Custom CSS Styles',
+                        'default': 'width: 100%;',
                         setup: function (element) {
                             this.setValue(element.getChild(0).getAttribute("style"));
                         },
