@@ -125,6 +125,10 @@ h2.index-header-text {
   padding-top: 10px;
 }
 
+.search-nav {
+  margin-top: 5px;
+}
+
 @media screen and (max-width: 768px) {
   .nav-side-menu {
     min-height: 50px;
@@ -338,12 +342,44 @@ footer {
   background-color: #323232;
 }
 
-.socials {
-  list-style: none;
-  text-align: center;
-  font-size: 21px;
-  margin-top: 25px;
-  padding-left: 0px;
+@media screen and (min-width: 768px) {
+  .socials {
+    list-style: none;
+    text-align: center;
+    font-size: 21px;
+    margin-top: 25px;
+    padding-left: 0px;
+  }
+  .socials li a {
+    color: #f0f0f0;
+    margin: 0 15px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .socials {
+    list-style: none;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 25px;
+    padding-left: 0px;
+  }
+  .socials li a {
+    color: #f0f0f0;
+    margin: 0 10px;
+  }
+}
+
+@media screen and (max-width: 543px) {
+  .container {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .post p {
+    font-size: 16px;
+    line-height: 1.75;
+    padding: 0 0px;
+  }
 }
 
 .socials li {
@@ -354,17 +390,31 @@ footer {
   display: inline-block;
 }
 
-.socials li a {
-  color: #f0f0f0;
-  margin: 0 15px;
-}
-
 .post-item-box-tittle a {
   color: #000;
 }
 
 .blog-post-tag a {
   color: #fff;
+}
+
+.post .card {
+  border-radius: 0;
+  border: none;
+}
+
+.post .card-img {
+  border-radius: 0;
+}
+
+.post .img-card.card-block {
+  padding: 0.25em;
+}
+
+.post .img-card.card-block p.card-text {
+  font-size: 16px;
+  line-height: 1.50;
+  padding: 0.25em;
 }
 
 .tag-remove-button {

@@ -65,6 +65,7 @@
 
   "publishOptions": {
     "include": [
+      "logs",
       "wwwroot",
       "Content/Uploads",
       "Views",

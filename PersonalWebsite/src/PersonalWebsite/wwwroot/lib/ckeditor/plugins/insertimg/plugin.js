@@ -8,7 +8,7 @@
 
             editor.addCommand(pluginName, new CKEDITOR.dialogCommand(pluginName + 'Dialog'));
             editor.ui.addButton(pluginName, {
-                label: 'Insert Image',
+                label: 'Insert Image Lighbox',
                 command: pluginName,
                 toolbar: 'insert'
             });
@@ -23,7 +23,7 @@
                 });
 
                 editor.contextMenu.addListener(function (element) {
-                    if (element.getAscendant('a', true).hasClass('neufrin-img')) {
+                    if (element.getAscendant('div', true).hasClass('neufrin-img')) {
                         return { insertimgItem: CKEDITOR.TRISTATE_OFF };
                     }
                 });
