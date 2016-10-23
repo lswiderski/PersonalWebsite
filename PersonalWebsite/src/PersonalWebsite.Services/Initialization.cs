@@ -32,7 +32,7 @@ namespace PersonalWebsite.Services
 
             services.AddMemoryCache();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(1))
                 .AddEntityFrameworkStores<DataContext>()
                 .AddDefaultTokenProviders();
 

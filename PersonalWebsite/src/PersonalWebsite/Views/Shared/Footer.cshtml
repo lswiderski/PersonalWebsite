@@ -1,14 +1,17 @@
 ﻿@{
     <footer>
-        <div class="container text-xs-center">
-            <div class="row">
+        
+        <div class="container text-xs-center" style="margin-right: 15px;">
+            <div class="row" >
 
                 <div class="col-md-12">
                     @await Component.InvokeAsync("SocialComponent")
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12"><p>&copy; 2016 - PersonalWebsite</p></div>
+                <div class="col-md-12">
+                    <p>&copy; 2016 - <a href="https://github.com/neufrin/PersonalWebsite" title="PersonalWebsite repository" style="text-decoration: none; color: #fff;">Łukasz Świderski</a></p>
+                </div>
             </div>
         </div>
     </footer>

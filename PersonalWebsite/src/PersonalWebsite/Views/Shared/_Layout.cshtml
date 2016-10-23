@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PersonalWebsite</title>
+    <title>@ViewData["Title"] - Łukasz Świderski</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
     <environment names="Development">
@@ -38,12 +38,13 @@
 <body>
     @Html.Partial("Menu-navbar")
 
-        <div class="container-fluid body-content">
-            <div class="row">
-                <div> @RenderBody()</div>
-            </div>
+    <div class="container-fluid body-content">
+        <div class="row">
+            <div> @RenderBody()</div>
         </div>
-    @Html.Partial("Footer")
+    </div>
+        @Html.Partial("Footer")
+   
     <environment names="Development">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>

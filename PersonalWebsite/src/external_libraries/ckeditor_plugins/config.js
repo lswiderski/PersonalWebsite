@@ -74,6 +74,8 @@ CKEDITOR.stylesSet.add('default2', [
     { name: 'Borderless Table', element: 'table', styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
     { name: 'Square Bulleted List', element: 'ul', styles: { 'list-style-type': 'square' } }
 ]);
+CKEDITOR.dtd.a.div = 1;
+CKEDITOR.dtd.a.p = 1;
 
 CKEDITOR.editorConfig = function (config) {
     config.toolbarGroups = [
@@ -96,7 +98,7 @@ CKEDITOR.editorConfig = function (config) {
 
     config.extraPlugins = 'codesnippet,lineutils,widget,prism,justify,insertimg,codemirror';
 
-    config.extraAllowedContent = 'a[data-lightbox,data-title,data-lightbox-saved]';
+    config.extraAllowedContent = 'a[data-lightbox,data-title,data-lightbox-saved]; a div; a div div; a p';
     config.stylesSet = 'default2'
     config.allowedContent = true;
     config.tabSpaces = 4;
@@ -167,7 +169,11 @@ CKEDITOR.editorConfig = function (config) {
 
         // Whether or not to show the showAutoCompleteButton button on the toolbar
         showAutoCompleteButton: true,
+
         // Whether or not to highlight the currently active line
         styleActiveLine: true
     };
 };
+CKEDITOR.replace(textarea_id, {
+    allowedContent: true
+});

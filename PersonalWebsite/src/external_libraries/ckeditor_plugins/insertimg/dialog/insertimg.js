@@ -16,13 +16,14 @@
                        label: 'Title',
 
                        setup: function (element) {
-                           this.setValue(element.getAttribute("data-title"));
+                           this.setValue(element.getChild(0).getAttribute("data-title"));
                        },
 
                        commit: function (element) {
-                           element.setAttribute("title", this.getValue());
-                           element.setAttribute("data-title", this.getValue());
-                           element.getChild(0).setAttribute("alt", this.getValue());
+                           element.getChild(0).setAttribute("title", this.getValue());
+                           element.getChild(0).setAttribute("data-title", this.getValue());
+                           element.getChild(0).getChild(0).setAttribute("alt", this.getValue());
+                           element.getChild(2).getChild(0).setText(this.getValue());
                        }
                    },
                     {
@@ -32,11 +33,11 @@
                         label: 'ImgUrl',
                         validate: CKEDITOR.dialog.validate.notEmpty("Img Url field cannot be empty."),
                         setup: function (element) {
-                            this.setValue(element.getAttribute("href"));
+                            this.setValue(element.getChild(0).getAttribute("href"));
                         },
 
                         commit: function (element) {
-                            element.setAttribute("href", this.getValue());
+                            element.getChild(0).setAttribute("href", this.getValue());
                         }
                     },
                     {
@@ -46,11 +47,11 @@
                         label: 'ImgThumbnailUrl',
                         validate: CKEDITOR.dialog.validate.notEmpty("Img Thumbnail Url field cannot be empty."),
                         setup: function (element) {
-                            this.setValue(element.getChild(0).getAttribute("src"));
+                            this.setValue(element.getChild(0).getChild(0).getAttribute("src"));
                         },
 
                         commit: function (element) {
-                            element.getChild(0).setAttribute("src", this.getValue());
+                            element.getChild(0).getChild(0).setAttribute("src", this.getValue());
                         }
                     },
                     {
@@ -61,12 +62,12 @@
                         'default': 'gallery',
                         validate: CKEDITOR.dialog.validate.notEmpty("Lightbox Group field cannot be empty."),
                         setup: function (element) {
-                            this.setValue(element.getAttribute("data-lightbox"));
+                            this.setValue(element.getChild(0).getAttribute("data-lightbox"));
                         },
 
                         commit: function (element) {
-                            element.setAttribute("data-lightbox", this.getValue());
-                            element.setAttribute("data-lightbox-saved", this.getValue());
+                            element.getChild(0).setAttribute("data-lightbox", this.getValue());
+                            element.getChild(0).setAttribute("data-lightbox-saved", this.getValue());
                         }
                     },
                     {
@@ -76,11 +77,11 @@
                         label: 'Class',
                         'default': 'img-fluid',
                         setup: function (element) {                           
-                                this.setValue(element.getChild(0).getAttribute("class"));
+                            this.setValue(element.getChild(0).getChild(0).getAttribute("class"));
                         },
 
                         commit: function (element) {
-                            element.getChild(0).setAttribute("class", this.getValue());
+                            element.getChild(0).getChild(0).setAttribute("class", this.getValue());
                         }
                     },
                     {
@@ -134,17 +135,37 @@
                 var element = selection.getStartElement();
 
                 if (element)
-                    element = element.getAscendant('a', true);
+                    element = element.getAscendant('div', true);
 
-                if (!element || element.getName() != 'a') {
-                    var html = '<a class="neufrin-img" data-lightbox="' + dialog.getValueOf('tab-basic', 'LightboxGroupField') +
-                   '" data-lightbox-saved="' + dialog.getValueOf('tab-basic', 'LightboxGroupField') +
-                   '" data-title="' + dialog.getValueOf('tab-basic', 'ImgTittleField') + '" ' +
-                   'href="' + dialog.getValueOf('tab-basic', 'ImgUrlField') + '" ' +
-                   'title="' + dialog.getValueOf('tab-basic', 'ImgTittleField') +
-                   '"><img alt="' + dialog.getValueOf('tab-basic', 'ImgTittleField') + '" ' +
-                   'class="' + dialog.getValueOf('tab-basic', 'ClassField') + '" ' +
-                   'src="' + dialog.getValueOf('tab-basic', 'ImgThumbnailUrlField') + '" style="' + dialog.getValueOf('tab-basic', 'StyleField') + '" /></a>';
+                if (!element || element.getName() != 'div') {
+                    var html = '<div class="neufrin-img card" ' +
+                        'style="' +
+                        dialog.getValueOf('tab-basic', 'StyleField') +
+                        '"><a  data-lightbox="' +
+                        dialog.getValueOf('tab-basic', 'LightboxGroupField') +
+                        '" data-lightbox-saved="' +
+                        dialog.getValueOf('tab-basic', 'LightboxGroupField') +
+                        '" data-title="' +
+                        dialog.getValueOf('tab-basic', 'ImgTittleField') +
+                        '" ' +
+                        'href="' +
+                        dialog.getValueOf('tab-basic', 'ImgUrlField') +
+                        '" ' +
+                        'title="' +
+                        dialog.getValueOf('tab-basic', 'ImgTittleField') +
+                        '"><img alt="' +
+                        dialog.getValueOf('tab-basic', 'ImgTittleField') +
+                        '" ' +
+                        'class="' +
+                        dialog.getValueOf('tab-basic', 'ClassField') +
+                        '" ' +
+                        'src="' +
+                        dialog.getValueOf('tab-basic', 'ImgThumbnailUrlField') +
+                        '" style="width:100%;" /></a>' +
+                        ' <div class="img-card card-block">' +
+                        '<p class="card-text">' +
+                        dialog.getValueOf('tab-basic', 'ImgTittleField') +
+                        '</p></div></div>';
                     element = CKEDITOR.dom.element.createFromHtml(html);
                     this.insertMode = true;
                 }
@@ -161,10 +182,8 @@
                 var dialog = this;
                 var insertimg = this.element;
                 this.commitContent(insertimg);
-                debugger;
                 if (this.insertMode)
                     editor.insertElement(insertimg);
-
             }
     };
     });
