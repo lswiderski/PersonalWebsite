@@ -43,7 +43,7 @@ namespace PersonalWebsite
             Configuration = builder.Build();
 
             //ping IIS to prevent recycle
-            Pinger.StartPinging("http://neufrin.hostingasp.pl/Ping", 10);
+            Pinger.StartPinging("http://swiderski.xyz/Ping", 10);
         }
 
         public IConfigurationRoot Configuration { get; }

@@ -380,6 +380,9 @@ footer {
     line-height: 1.75;
     padding: 0 0px;
   }
+  .footer-div {
+    margin-right: 15px !important;
+  }
 }
 
 .socials li {

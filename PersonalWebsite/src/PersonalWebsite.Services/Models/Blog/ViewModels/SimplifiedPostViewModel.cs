@@ -23,6 +23,8 @@ namespace PersonalWebsite.Services.Models
 
         public DateTime? PublishedOn { get; set; }
 
+        public DateTime? CreatedOn { get; set; }
+
         public string Status { get; set; }
     }
 }

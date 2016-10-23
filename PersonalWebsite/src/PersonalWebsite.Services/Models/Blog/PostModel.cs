@@ -52,7 +52,7 @@ namespace PersonalWebsite.Services.Models
                                  TagId = y.TagId,
                                  Name = y.Tag.Name
                              }).ToList()
-                         }).AsQueryable();
+                         }).OrderByDescending(x => x.PublishedOn).AsQueryable();
 
             return posts;
         }
@@ -81,7 +81,7 @@ namespace PersonalWebsite.Services.Models
                                  TagId = y.TagId,
                                  Name = y.Tag.Name
                              }).ToList()
-                         }).AsQueryable();
+                         }).OrderByDescending(x => x.PublishedOn).AsEnumerable();
             return posts;
         }
 
@@ -112,7 +112,7 @@ namespace PersonalWebsite.Services.Models
                                  TagId = y.TagId,
                                  Name = y.Tag.Name
                              }).ToList()
-                         }).AsQueryable();
+                         }).OrderByDescending(x => x.PublishedOn).AsEnumerable();
             return posts;
         }
 
@@ -155,7 +155,7 @@ namespace PersonalWebsite.Services.Models
                 Tags = x.Tags,
                 ImgURL = x.HeaderImg,
                 PublishedOn = x.PublishedOn,
-            }).AsQueryable();
+            }).OrderByDescending(x => x.PublishedOn).AsEnumerable();
 
             return selectedposts;
         }
@@ -172,6 +172,7 @@ namespace PersonalWebsite.Services.Models
                              Excerpt = post.Excerpt,
                              PostId = post.PostId,
                              PublishedOn = post.PublishedOn,
+                             CreatedOn = post.CreatedOn,
                              ImgURL = db.Set<Image>().Where(x => x.ImageId == post.HeaderImageId).Select(x => x.Thumbnail.Path).FirstOrDefault(),
                              Categories = post.PostCategories.Select(y => new CategoryViewModel
                              {
@@ -185,7 +186,7 @@ namespace PersonalWebsite.Services.Models
                                  Name = y.Tag.Name
                              }).ToList(),
                              Status = post.Status.ToString()
-                         }).AsQueryable();
+                         }).OrderByDescending(x => x.CreatedOn).AsQueryable();
             return posts;
         }
 
@@ -217,7 +218,7 @@ namespace PersonalWebsite.Services.Models
                                  TagId = y.TagId,
                                  Name = y.Tag.Name
                              }).ToList()
-                         }).Take(count).ToList();
+                         }).OrderByDescending(x => x.PublishedOn).Take(count).ToList();
             return posts;
         }
 
@@ -639,7 +640,7 @@ namespace PersonalWebsite.Services.Models
                                  TagId = y.TagId,
                                  Name = y.Tag.Name
                              }).ToList(),
-                         }).Take(number).ToList();
+                         }).OrderByDescending(x => x.PublishedOn).Take(number).ToList();
 
             var selectedposts = posts.Select(x => new SimplifiedPostViewModel
             {
